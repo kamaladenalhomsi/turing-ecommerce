@@ -1,0 +1,2 @@
+// Buefy
+import './buefy'
