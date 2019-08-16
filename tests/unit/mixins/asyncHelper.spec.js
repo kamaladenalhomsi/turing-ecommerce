@@ -25,7 +25,7 @@ describe('AsyncHelpers', () => {
       axiosInstance.get.mockResolvedValue({});
       let res = await wrapper.vm.$_async_query({
         query:{
-          path: 'departments'
+          path: 'demo'
         }
       })
       expect(typeof res).toBe('object');
@@ -38,7 +38,7 @@ describe('AsyncHelpers', () => {
       const mockDone = jest.fn(() => "done")
       await wrapper.vm.$_async_query({
         query: {
-          path: 'departments'
+          path: 'demo'
         },
         done: mockDone
       });
@@ -53,35 +53,21 @@ describe('AsyncHelpers', () => {
       const mockNullResult = jest.fn(() => "nullResult")
       await wrapper.vm.$_async_query({
         query: {
-          path: 'departments'
+          path: 'demo'
         },
         nullResult: mockNullResult
       });
       expect(mockNullResult).toHaveBeenCalled();
     });
 
-    it('should invoke badRequest callback if status equal 400', async () => {
+    it('should invoke unauthorized callback if status equal 401', async () => {
       axiosInstance.get.mockResolvedValue({
-        status: 400
-      });
-      const mockBadRequest = jest.fn(() => "BadRequest")
-      await wrapper.vm.$_async_query({
-        query: {
-          path: 'departments',
-        },
-        badRequest: mockBadRequest
-      });
-      expect(mockBadRequest).toHaveBeenCalled();
-    });
-
-    it('should invoke unauthorized callback if status equal 500', async () => {
-      axiosInstance.get.mockResolvedValue({
-        status: 500
+        status: 401
       });
       const mockUnauthorized = jest.fn(() => "unauthorized")
       await wrapper.vm.$_async_query({
         query: {
-          path: 'departments',
+          path: 'demo',
         },
         unauthorized: mockUnauthorized
       });
@@ -89,5 +75,65 @@ describe('AsyncHelpers', () => {
     });
 
   });
+    // $_async_query
+    describe('$_async_mutation', () => {
+
+      it('should fetch and receive data', async () => {
+        axiosInstance.mockReturnValue({});
+        let res = await wrapper.vm.$_async_mutation({
+          mutation: {
+            path: '/demo',
+            method: 'post',
+          }
+        })
+        expect(typeof res).toBe('object');
+      });
+  
+      it('should invoke done callback if status equal 200', async () => {
+        axiosInstance.mockResolvedValue({
+          status: 200
+        });
+        const mockDone = jest.fn(() => "done")
+         await wrapper.vm.$_async_mutation({
+          mutation: {
+            path: '/demo',
+            method: 'post',
+          },
+          done: mockDone
+        })
+        expect(mockDone).toHaveBeenCalled();
+      });
+  
+      it('should invoke badRequest callback if status equal 400', async () => {
+        axiosInstance.mockResolvedValue({
+          status: 400
+        });
+        const mockBadRequest = jest.fn(() => "done")
+         await wrapper.vm.$_async_mutation({
+          mutation: {
+            path: '/demo',
+            method: 'post',
+          },
+          badRequest: mockBadRequest
+        })
+        expect(mockBadRequest).toHaveBeenCalled();
+      });
+
+      it('should invoke unauthorized callback if status equal 401', async () => {
+        axiosInstance.mockResolvedValue({
+          status: 401
+        });
+        const mockUnauthorized = jest.fn(() => "done")
+         await wrapper.vm.$_async_mutation({
+          mutation: {
+            path: '/demo',
+            method: 'post',
+          },
+          unauthorized: mockUnauthorized
+        })
+        expect(mockUnauthorized).toHaveBeenCalled();
+      });
+      
+    });
 });
 

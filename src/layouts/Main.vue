@@ -6,19 +6,27 @@
 </template>
 
 <script>
-import axios from 'axios';
 export default {
-  created () {
+  async created () {
     // console.log(axios, "axios")
-    this.$_async_query({
-      query: {
-        path: 'categories',
-        params: {
-          page: 1,
-          limit: 5
-        }
+    // this.$_async_query({
+    //   query: {
+    //     path: 'categories',
+    //     params: {
+    //       page: 1,
+    //       limit: 5
+    //     }
+    //   },
+    //   done: res => {
+    //   }
+    // })
+    let data = await this.$_async_mutation({
+      mutation: {
+        path: '/orders',
+        method: 'post',
       },
-      done: res => {
+      unauthorized: res => {
+        console.log(res, "rwe")
       }
     })
   }

@@ -41,6 +41,49 @@ export default {
           }
         }
       }
+      // Unauthorized
+      if (response.status === 401) {
+        if (payload.unauthorized && typeof payload.unauthorized !== 'undefined') {
+          payload.unauthorized(response)
+        }
+      }
+      return response
+    }
+  },
+  async $_async_mutation (payload) {
+    let response
+    // if action exist, dispatch
+    if (payload.mutation.action) {
+      response = await this.$store.dispatch(
+        payload.mutation.action, // action to dispatch
+        payload.mutation.variables ? payload.mutation.variables : {} // variables (optional)
+      )
+    // if path exist
+    } else if (payload.mutation.path) {
+      try {
+        response = await axiosInstance({
+          method: payload.mutation.method,
+          url: payload.mutation.path,
+          data: payload.mutation.variables
+        })
+      } catch (e) {
+        response = e.response
+      }
+    }
+    // if response does not null or undefiend
+    if (response) {
+      // Success
+      if (response.status === 200) {
+        // the if condition above each callback check if callback exist
+        if (payload.done && typeof payload.done !== 'undefined') {
+          payload.done(response.data)
+        }
+        if (response.data && response.data.length === 0) {
+          if (payload.nullResult && typeof payload.nullResult !== 'undefined') {
+            payload.nullResult(response)
+          }
+        }
+      }
       // Bad Request
       if (response.status === 400) {
         if (payload.badRequest && typeof payload.badRequest !== 'undefined') {
@@ -48,7 +91,7 @@ export default {
         }
       }
       // Unauthorized
-      if (response.status === 500) {
+      if (response.status === 401) {
         if (payload.unauthorized && typeof payload.unauthorized !== 'undefined') {
           payload.unauthorized(response)
         }
