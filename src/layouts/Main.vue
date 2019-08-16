@@ -6,14 +6,19 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   created () {
+    // console.log(axios, "axios")
     this.$_async_query({
       query: {
-        action: 'department/getAllDepartments'
+        path: 'categories',
+        params: {
+          page: 1,
+          limit: 5
+        }
       },
       done: res => {
-        console.log(res, 'res')
       }
     })
   }

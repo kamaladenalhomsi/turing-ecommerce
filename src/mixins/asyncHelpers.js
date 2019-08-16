@@ -10,17 +10,23 @@
  * --- @unauthorized if user has not permission
  * --- @nullResult if response data length === 0
  */
+import axiosInstance from '@/plugins/axios'
 
 export default {
-  async $_async_query (payload, testStore) {
-    let store = this.$store
-    if (testStore) {
-      store = testStore
+  async $_async_query (payload) {
+    let response
+    // if action exist, dispatch
+    if (payload.query.action) {
+      response = await this.$store.dispatch(
+        payload.query.action, // action to dispatch
+        payload.query.variables ? payload.query.variables : {} // variables (optional)
+      )
+    // if path exist
+    } else if (payload.query.path) {
+      response = await axiosInstance.get(payload.query.path, {
+        params: payload.query.params
+      })
     }
-    const response = await store.dispatch(
-      payload.query.action, // action to dispatch
-      payload.query.variables ? payload.query.variables : {} // variables (optional)
-    )
     // if response does not null or undefiend
     if (response) {
       // Success
@@ -29,8 +35,8 @@ export default {
         if (payload.done && typeof payload.done !== 'undefined') {
           payload.done(response.data)
         }
-        if (response.data.length === 0) {
-          if (payload.done && typeof payload.nullResult !== 'undefined') {
+        if (response.data && response.data.length === 0) {
+          if (payload.nullResult && typeof payload.nullResult !== 'undefined') {
             payload.nullResult(response)
           }
         }
@@ -43,7 +49,7 @@ export default {
       }
       // Unauthorized
       if (response.status === 500) {
-        if (payload.done && typeof payload.unauthorized !== 'undefined') {
+        if (payload.unauthorized && typeof payload.unauthorized !== 'undefined') {
           payload.unauthorized(response)
         }
       }
