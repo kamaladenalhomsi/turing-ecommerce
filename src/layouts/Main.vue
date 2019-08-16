@@ -7,8 +7,15 @@
 
 <script>
 export default {
-  created() {
-    this.$store.dispatch('department/getAllDepartments')
+  created () {
+    this.$_async_query({
+      query: {
+        action: 'department/getAllDepartments'
+      },
+      done: res => {
+        console.log(res, 'res')
+      }
+    })
   }
 }
 </script>

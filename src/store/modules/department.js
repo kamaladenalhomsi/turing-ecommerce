@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 // State
 const state = () => ({
 
@@ -19,7 +17,7 @@ const mutations = {
 const actions = {
   async getAllDepartments () {
     try {
-      const departments = await axios.get(process.env.VUE_APP_BASE_API_URL + '/departments')
+      const departments = await this.$axios.get('/departments')
       if (departments) {
         return departments
       }
