@@ -5,6 +5,11 @@
 import asyncHelpers from './asyncHelpers'
 
 export default {
+  data () {
+    return {
+      $_server_errors: {}
+    }
+  },
   methods: {
     ...asyncHelpers
   }

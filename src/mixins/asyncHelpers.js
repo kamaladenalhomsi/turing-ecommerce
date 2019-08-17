@@ -5,12 +5,34 @@
  * @function $_async_query is a wrapper for queries (Get) @params
  * - payload
  * -- inside payload, there is four callbacks:
- * --- @done when request handled successfully
- * --- @badRequest when there is validation errors or input error (User mistake)
- * --- @unauthorized if user has not permission
  * --- @nullResult if response data length === 0
+ * @function $_async_mutation is a wrapper for post, put, delete operations
+ * - payload
+ * -- inside payload, there is four callbacks:
+ * --- @badRequest when there is validation errors or input error (User mistake)
+ * - in case there is errors returned from server, it will automatically injected in $_server_errors
+ * both function have:
+ * -- @done when request handled successfully
+ * -- @unauthorized if user has not permission
+ * callbacks inisde there payload
  */
 import axiosInstance from '@/plugins/axios'
+
+const constructNotification = (type, defaultMessage, override) => {
+  let notification = {
+    message: defaultMessage,
+    type: type,
+    duration: 5000,
+    position: 'is-bottom-right',
+    hasIcon: true
+  }
+  if (override) {
+    for (let key in override) {
+      notification[key] = override[key]
+    }
+  }
+  return notification
+}
 
 export default {
   async $_async_query (payload) {
@@ -74,6 +96,7 @@ export default {
     if (response) {
       // Success
       if (response.status === 200) {
+        this.$buefy.notification.open(constructNotification('is-success', 'Operation has done successfully', payload.doneNtf))
         // the if condition above each callback check if callback exist
         if (payload.done && typeof payload.done !== 'undefined') {
           payload.done(response.data)
@@ -86,12 +109,18 @@ export default {
       }
       // Bad Request
       if (response.status === 400) {
+        if (payload.badRequestNtf) {
+          this.$buefy.notification.open(constructNotification('is-danger', 'Ops! Something went wrong, Check you inputs and try again', payload.badRequestNtf))
+        }
+        // Inject error returned from server in $_server_errors
+        this.$data.$_server_errors[response.data.error.field] = response.data.error.message
         if (payload.badRequest && typeof payload.badRequest !== 'undefined') {
           payload.badRequest(response)
         }
       }
       // Unauthorized
       if (response.status === 401) {
+        this.$buefy.notification.open(constructNotification('is-danger', 'You do not have permission to perform this operation!', payload.unauthorizedNtf))
         if (payload.unauthorized && typeof payload.unauthorized !== 'undefined') {
           payload.unauthorized(response)
         }
