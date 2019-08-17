@@ -119,6 +119,27 @@ describe('AsyncHelpers', () => {
         expect(mockBadRequest).toHaveBeenCalled();
       });
 
+      it('should inject errors in $_server_errors if status 400', async () => {
+        axiosInstance.mockResolvedValue({
+          status: 400,
+          data: {
+            error: {
+              field: "email",
+              message: "this email is already exist!"
+            }
+          }
+        });
+        await wrapper.vm.$_async_mutation({
+          mutation: {
+            path: '/demo',
+            method: 'post',
+          }
+        })
+        expect(wrapper.vm.$data.$_server_errors).toEqual(expect.objectContaining({
+          email: 'this email is already exist!'
+        }))
+      });
+
       it('should invoke unauthorized callback if status equal 401', async () => {
         axiosInstance.mockResolvedValue({
           status: 401
