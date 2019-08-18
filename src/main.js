@@ -9,6 +9,9 @@ import './plugins/index'
 // Global Mixin
 import globalMixin from './mixins/globals.js'
 
+// Global Scss Style
+import '@/assets/scss/main.scss'
+
 // Inject the axios instance in the vue prototype
 
 Vue.mixin({

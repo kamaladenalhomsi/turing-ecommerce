@@ -20,13 +20,25 @@ export default {
     //   done: res => {
     //   }
     // })
-    let data = await this.$_async_mutation({
+    await this.$_async_mutation({
       mutation: {
-        path: '/orders',
+        path: '/customers/login',
         method: 'post',
+        variables: {
+          email: 'Arabyd@alhumsi.com',
+          password: '12345s6'
+        }
+      },
+      doneNtf: {
+        message: 'user has Logged in sucessfully!'
+      },
+      badRequestNtf: {
+      },
+      badRequest: res => {
+        console.log(res)
       },
       unauthorized: res => {
-        console.log(res, "rwe")
+        console.log(res, 'rwe')
       }
     })
   }
