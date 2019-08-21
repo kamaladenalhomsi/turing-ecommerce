@@ -1,20 +1,34 @@
 // Typography Colors
-$typoColorBlack: #2E2E2E;
-$typeColorGray: #6C6C6C;
-$typeColorLightGray: #B4B4B4;
-$typoColorFuchsia: #F62F5E;
-$typeColorWhite: #FFFFFF;
+$typoColorBlack: #2e2e2e;
+$typeColorGray: #6c6c6c;
+$typeColorLightGray: #b4b4b4;
+$typoColorFuchsia: #f62f5e;
+$typeColorWhite: #ffffff;
 
 // Document Colors
-$docColorBlack: #2E2E2E;
-$docColorFuchsia: #F62F5E;
-$docColorLightBlue: #6EB2FB;
-$docColorYellow: #F1AD3D;
-$docColorLightGray: #F7F7F7;
-$docColorTeal: #00D3CA;
-$docColorLemon: #EFFC90;
+$docColorBlack: #2e2e2e;
+$docColorFuchsia: #f62f5e;
+$docColorLightBlue: #6eb2fb;
+$docColorYellow: #f1ad3d;
+$docColorLightGray: #f7f7f7;
+$docColorTeal: #00d3ca;
+$docColorLemon: #effc90;
 
 // Fonts
 $playFair: 'Playfair Display', serif;
 $montserrat: 'Montserrat', sans-serif;
 $openSans: 'Open Sans', sans-serif;
+$fa-font-path: '../fonts/webfonts';
+
+// Footer
+$footerIconRatio: 40px;
+
+// Ovveride Bulma
+$dropdown-item-hover-background-color: transparent;
+$button-hover-border-color: inital;
+$button-text-hover-color: inital;
+$button-focus-color: inital;
+$button-focus-border-color: inital;
+$button-focus-box-shadow-size: inital;
+$button-focus-box-shadow-color: inital;
+$dropdown-item-active-color: inital;

@@ -1,13 +1,18 @@
-@import "variables";
-@import "globals";
-@import "bulma/bulma.sass";
-
+// Fontawesome
+@import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '@fortawesome/fontawesome-free/scss/regular.scss';
+@import '@fortawesome/fontawesome-free/scss/brands.scss';
+// Bulma Sass
+@import 'bulma/bulma.sass';
 // Tailwindcss
 @tailwind base;
 
 @tailwind components;
 
 @tailwind utilities;
+
+@import 'variables';
+@import 'globals';
 
 body {
   outline: none !important;
@@ -36,12 +41,6 @@ h6 {
   font-weight: bold;
 }
 
-a {
-  &:hover {
-    background-color: initial !important;
-  }
-}
-
 .custom-filled-button {
   background-color: $docColorFuchsia;
   border: 0;
@@ -53,14 +52,6 @@ a {
   span {
     font-size: 14px !important;
   }
-}
-
-.flex {
-  display: flex;
-}
-
-.flex-wrap {
-  flex-wrap: wrap;
 }
 
 .w-32 {
@@ -75,21 +66,29 @@ a {
 .m-is-filled-fuchsia {
   border-radius: 20px;
   padding: 10px 25px;
+  font-weight: bold;
+  transition: 0.3s;
 }
 
 .m-is-filled-white {
-  font-weight: bold;
-  color: #f62f5e;
-  transition: 0.3s;
+  color: $typoColorFuchsia;
   border: 2px solid $typeColorWhite;
   &:hover {
+    background-color: $typoColorFuchsia;
     color: $typeColorWhite;
   }
 }
 
-.button {
+.m-is-filled-fuchsia {
+  color: $typeColorWhite;
+  border: 2px solid $typoColorFuchsia;
+  background-color: $typoColorFuchsia;
+  padding: 0 25px;
   &:hover {
-    border: 2px solid $typeColorWhite;
+    background-color: transparent;
+    span {
+      color: $typoColorFuchsia;
+    }
   }
 }
 
@@ -103,4 +102,9 @@ a {
     color: $typoColorFuchsia;
     border-color: $typeColorWhite;
   }
+}
+
+.container-90 {
+  width: 90% !important;
+  max-width: 100%;
 }
