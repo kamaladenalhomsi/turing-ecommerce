@@ -1,6 +1,106 @@
-@import 'variables.scss';
+@import "variables";
+@import "globals";
+@import "bulma/bulma.sass";
 
+// Tailwindcss
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
 
 body {
-  font-family: $playFair;
+  outline: none !important;
+}
+
+h1 {
+  font-size: 2em;
+}
+h2 {
+  font-size: 1.5em;
+}
+h3 {
+  font-size: 1.17em;
+}
+h4 {
+  font-size: 1.12em;
+}
+h5 {
+  font-size: 0.83em;
+}
+h6 {
+  font-size: 0.75em;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+a {
+  &:hover {
+    background-color: initial !important;
+  }
+}
+
+.custom-filled-button {
+  background-color: $docColorFuchsia;
+  border: 0;
+  border-radius: 50px;
+  color: $typeColorWhite;
+  font-family: $montserrat;
+  height: 45px;
+  padding: 0px 18px;
+  span {
+    font-size: 14px !important;
+  }
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.w-32 {
+  width: 30%;
+}
+:focus {
+  outline: none;
+}
+
+.m-is-outlined,
+.m-is-filled-white,
+.m-is-filled-fuchsia {
+  border-radius: 20px;
+  padding: 10px 25px;
+}
+
+.m-is-filled-white {
+  font-weight: bold;
+  color: #f62f5e;
+  transition: 0.3s;
+  border: 2px solid $typeColorWhite;
+  &:hover {
+    color: $typeColorWhite;
+  }
+}
+
+.button {
+  &:hover {
+    border: 2px solid $typeColorWhite;
+  }
+}
+
+.m-is-outlined {
+  background-color: transparent;
+  border: 2px solid $typeColorWhite;
+  color: $typeColorWhite;
+  transition: 0.3s;
+  &:hover {
+    background-color: $typeColorWhite !important;
+    color: $typoColorFuchsia;
+    border-color: $typeColorWhite;
+  }
 }

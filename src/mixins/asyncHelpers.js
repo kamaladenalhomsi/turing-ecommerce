@@ -52,7 +52,7 @@ export default {
     // if response does not null or undefiend
     if (response) {
       // Success
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         // the if condition above each callback check if callback exist
         if (payload.done && typeof payload.done !== 'undefined') {
           payload.done(response.data)
