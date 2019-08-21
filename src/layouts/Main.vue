@@ -143,6 +143,8 @@
 
 <style lang="scss">
 
+// Main Footer
+
 .main-footer {
   background-color: $docColorBlack;
   width: 100%;
@@ -167,14 +169,19 @@
   }
 }
 
+// Navbar Header
+
 .navbar-header {
+  // Sign up button
   &__signup {
     margin-right: 30px !important;
   }
   background-color: $docColorFuchsia;
+  // Logo
   &__logo {
     letter-spacing: 9px;
   }
+  // Dropdown
   &__dropdown {
     position: static;
     .dropdown-menu {
@@ -266,6 +273,8 @@
   }
 }
 
+// Navbar Item
+
 .navbar-item {
   height: 100%;
   color: $typeColorWhite;
@@ -301,6 +310,7 @@
   margin-left: 20px;
   margin-bottom: 20px
 }
+
 // Media Query
 @media screen and (min-width: 1000px) {
   .navbar-header {
@@ -321,7 +331,6 @@
 <script>
 import { ContentLoader } from 'vue-content-loader'
 import FooterSocialLink from '@/components/Home/FooterSocialLink.vue'
-// import FullWidthDropDown from '@/components/custom/FullWidthDropDown.vue';
 export default {
   name: 'main-layout',
   components: {
@@ -329,6 +338,7 @@ export default {
     FooterSocialLink
   },
   async created () {
+    // Fetch All departments
     this.$_async_query({
       query: {
         path: '/departments',
@@ -342,6 +352,7 @@ export default {
   mounted () {},
   methods: {
     itemHover (id, index) {
+    // Fetch dpartment query
       if (!this.departments[index].categories) {
         this.$_async_query({
           query: {
