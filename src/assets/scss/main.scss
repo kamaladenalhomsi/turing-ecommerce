@@ -1,6 +1,7 @@
 // Fontawesome
 @import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '@fortawesome/fontawesome-free/scss/regular.scss';
+@import '@fortawesome/fontawesome-free/scss/solid.scss';
 @import '@fortawesome/fontawesome-free/scss/brands.scss';
 // Bulma Sass
 @import 'bulma/bulma.sass';
@@ -16,6 +17,8 @@
 
 body {
   outline: none !important;
+  position: relative;
+  background-color: $docColorLightGray;
 }
 
 h1 {
@@ -35,10 +38,6 @@ h5 {
 }
 h6 {
   font-size: 0.75em;
-}
-
-.bold {
-  font-weight: bold;
 }
 
 .custom-filled-button {
@@ -65,7 +64,7 @@ h6 {
 .m-is-filled-white,
 .m-is-filled-fuchsia {
   border-radius: 20px;
-  padding: 10px 25px;
+  padding: 0 25px;
   font-weight: bold;
   transition: 0.3s;
 }
@@ -83,12 +82,18 @@ h6 {
   color: $typeColorWhite;
   border: 2px solid $typoColorFuchsia;
   background-color: $typoColorFuchsia;
-  padding: 0 25px;
   &:hover {
     background-color: transparent;
     span {
       color: $typoColorFuchsia;
     }
+  }
+}
+
+.m-is-large {
+  border-radius: 50px;
+  span {
+    font-size: 20px;
   }
 }
 

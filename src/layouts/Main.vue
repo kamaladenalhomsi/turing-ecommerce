@@ -4,12 +4,12 @@
       <b-navbar class="navbar-header md:px-20">
         <template slot="brand">
           <b-navbar-item href="/">
-            <h2 class="bold navbar-header__logo">SHOPMATE</h2>
+            <h2 class="font-bold navbar-header__logo">SHOPMATE</h2>
           </b-navbar-item>
         </template>
         <template slot="start">
           <b-navbar-item
-            v-for="(department, index) in departments"
+            v-for="(department) in departments"
             :key="department.id"
             class="navbar-header__dropdown_wrapper"
           >
@@ -19,8 +19,8 @@
               class="navbar-header__dropdown"
               :class="`navbar-header__dropdown__${department.name}`"
             >
-              <div v-on:mouseover="itemHover(department.department_id, index)" slot="trigger">
-                <span>{{ department.name }}</span>
+              <div slot="trigger">
+                <span class="font-bold">{{ department.name }}</span>
               </div>
               <div class="container navbar-header__dropdown_container flex flex-wrap">
                 <b-dropdown-item
@@ -31,10 +31,7 @@
                   <span class="block w-11/12">{{ department.description }}</span>
                   <b-button class="m-is-filled-fuchsia">Call to action</b-button>
                 </b-dropdown-item>
-                <div
-                  class="flex flex-wrap w-full mx-10 md:mx-0 md:w-1/3"
-                  v-if="department.categories"
-                >
+                <div class="flex flex-wrap w-full mx-10 md:mx-0 md:w-1/3">
                   <b-dropdown-item
                     v-for="category in department.categories"
                     :key="category.category_id"
@@ -43,13 +40,6 @@
                   >
                     {{ category.name }}
                     <span class="navbar-header__dropdown_item_hover"></span>
-                  </b-dropdown-item>
-                </div>
-                <div v-else class="flex flex-wrap w-32 navbar-header__loader__wrapper">
-                  <b-dropdown-item class="navbar-header__loader" v-for="i in 4" :key="i">
-                    <ContentLoader secondaryColor="#bbbbbb" :width="140" :height="15">
-                      <rect x="0" y="0" rx="3" ry="3" width="140" height="10" />
-                    </ContentLoader>
                   </b-dropdown-item>
                 </div>
               </div>
@@ -70,7 +60,7 @@
     </template>
     <router-view></router-view>
     <template>
-      <div class="main-footer md:bottom-0">
+      <div class="main-footer">
         <div class="container container-90">
           <div class="flex flex-wrap py-12">
             <div
@@ -149,6 +139,7 @@
   background-color: $docColorBlack;
   width: 100%;
   position: absolute;
+  // bottom: -256px;
   padding: 20px 0px;
   .footer-social-link {
     margin-left: 20px;
@@ -331,6 +322,8 @@
 <script>
 import { ContentLoader } from 'vue-content-loader'
 import FooterSocialLink from '@/components/Home/FooterSocialLink.vue'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'main-layout',
   components: {
@@ -341,35 +334,39 @@ export default {
     // Fetch All departments
     this.$_async_query({
       query: {
-        path: '/departments',
-        g: ''
+        action: 'department/getAllDepartments'
       },
       done: res => {
-        this.departments = res
+        res.forEach(department => {
+          this.$_async_query({
+            query: {
+              action: 'department/getDepartmentCategories',
+              variables: {
+                params: {
+                  id: department.department_id
+                }
+              }
+            },
+            done: res => {
+              this.$forceUpdate()
+            }
+          })
+        })
       }
     })
   },
   mounted () {},
   methods: {
-    itemHover (id, index) {
-    // Fetch dpartment query
-      if (!this.departments[index].categories) {
-        this.$_async_query({
-          query: {
-            path: `/categories/inDepartment/${id}`
-          },
-          done: res => {
-            this.departments[index].categories = res
-            this.$forceUpdate()
-          }
-        })
-      }
-    }
+
   },
   data () {
     return {
-      departments: []
     }
+  },
+  computed: {
+    ...mapGetters({
+      departments: 'department/GET_ALL_DEPARTMENTS'
+    })
   }
 }
 </script>

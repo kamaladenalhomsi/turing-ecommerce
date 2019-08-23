@@ -4,10 +4,23 @@
   color: $typeColorWhite;
 }
 
+.c-fushia {
+  color: $typoColorFuchsia;
+}
+
 .f-opensans {
   font-family: $openSans;
 }
 
 .f-montserrat {
   font-family: $montserrat;
+}
+
+.f-playFair {
+  font-family: $playFair;
+}
+
+.btn-size-large {
+  height: 45px;
+  border-radius: 30px;
 }

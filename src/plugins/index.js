@@ -1,2 +1,2 @@
 // Buefy
-import "./buefy";
+import './buefy'

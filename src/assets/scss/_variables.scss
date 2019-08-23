@@ -13,7 +13,8 @@ $docColorYellow: #f1ad3d;
 $docColorLightGray: #f7f7f7;
 $docColorTeal: #00d3ca;
 $docColorLemon: #effc90;
-
+$docColorWhite: #ffffff;
+$paginationNavColor: #efefef;
 // Fonts
 $playFair: 'Playfair Display', serif;
 $montserrat: 'Montserrat', sans-serif;
@@ -32,3 +33,10 @@ $button-focus-border-color: inital;
 $button-focus-box-shadow-size: inital;
 $button-focus-box-shadow-color: inital;
 $dropdown-item-active-color: inital;
+$pagination-current-background-color: $docColorFuchsia;
+$pagination-current-border-color: $docColorFuchsia;
+$pagination-border-color: inital;
+$pagination-active-border-color: inital;
+$pagination-focus-border-color: intial;
+$input-icon-active-color: $typoColorFuchsia;
+$input-focus-border-color: inital;
