@@ -1,41 +1,17 @@
 <template>
   <div class="home">
     <div class="container">
-      <div class="md:flex md:justify-between mt-10">
-        <div
-          @click="decrementPage"
-          class="flex w-full justify-center my-8 md:my-0 md:w-auto items-center f-opensans"
-        >
-          <div class="home__pagination_nav_style mr-4 flex justify-center items-center">
-            <i class="fas fa-chevron-left"></i>
-          </div>Back
+      <!-- Pagination -->
+      <pagination-bar></pagination-bar>
+      <div class="flex flex-wrap md:flex-no-wrap mt-10">
+        <!-- Attrubites Sidebar -->
+        <div class="w-full md:w-1/3">
+          <attrs-sidebar></attrs-sidebar>
         </div>
-        <div class="w-full md:w-auto my-8 md:my-0 justify-center">
-          <b-pagination
-            :total="pagination.total"
-            :current.sync="pagination.current"
-            :range-before="2"
-            :range-after="2"
-            :simple="false"
-            :rounded="true"
-            :per-page="5"
-          ></b-pagination>
-        </div>
-        <div
-          @click="incrementPage"
-          class="flex w-full justify-center my-8 md:my-0 md:w-auto items-center f-opensans"
-        >
-          Forward
-          <div class="home__pagination_nav_style ml-4 flex justify-center items-center">
-            <i class="fas fa-chevron-right"></i>
-          </div>
-        </div>
-      </div>
-      <div class="flex mt-20">
-        <div class="w-1/3"></div>
-        <div class="w-3/4">
+        <!-- Cards -->
+        <div class="w-full mt-8 md:mt-0 md:w-3/4">
           <div class="flex flex-wrap">
-            <div class="w-1/2 lg:w-1/3 px-2 mb-10" v-for="i in 9" :key="i">
+            <div class="w-full md:w-1/2 lg:w-1/3 px-2 mb-4" v-for="i in 9" :key="i">
               <shop-card :item="shopCardData"></shop-card>
             </div>
           </div>
@@ -145,30 +121,22 @@
 <script>
 
 import ShopCard from '@/components/Home/ShopCard.vue'
+import AttrsSidebar from '@/components/Home/AttrsSidebar.vue'
+import PaginationBar from '@/components/Home/PaginationBar.vue'
 export default {
   name: 'home',
   components: {
-    ShopCard
+    ShopCard,
+    AttrsSidebar,
+    PaginationBar
   },
   data() {
     return {
-      pagination: {
-        total: 300,
-        current: 1
-      },
       shopCardData: {
         name: 'Pull & Bear Jumper In Textured Knit In Blue',
         price: '£14.99',
         thumbnail: require('../assets/images/images-shirt13.png')
       }
-    }
-  },
-  methods: {
-    incrementPage () {
-      this.pagination.current++
-    },
-    decrementPage () {
-      this.pagination.current--
     }
   }
 }

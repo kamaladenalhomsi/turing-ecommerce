@@ -3,8 +3,9 @@
 @import '@fortawesome/fontawesome-free/scss/regular.scss';
 @import '@fortawesome/fontawesome-free/scss/solid.scss';
 @import '@fortawesome/fontawesome-free/scss/brands.scss';
-// Bulma Sass
+// Buefy and Bulma Sass
 @import 'bulma/bulma.sass';
+@import 'buefy/src/scss/buefy.scss';
 // Tailwindcss
 @tailwind base;
 
@@ -21,25 +22,6 @@ body {
   background-color: $docColorLightGray;
 }
 
-h1 {
-  font-size: 2em;
-}
-h2 {
-  font-size: 1.5em;
-}
-h3 {
-  font-size: 1.17em;
-}
-h4 {
-  font-size: 1.12em;
-}
-h5 {
-  font-size: 0.83em;
-}
-h6 {
-  font-size: 0.75em;
-}
-
 .custom-filled-button {
   background-color: $docColorFuchsia;
   border: 0;
@@ -51,13 +33,6 @@ h6 {
   span {
     font-size: 14px !important;
   }
-}
-
-.w-32 {
-  width: 30%;
-}
-:focus {
-  outline: none;
 }
 
 .m-is-outlined,
@@ -107,9 +82,4 @@ h6 {
     color: $typoColorFuchsia;
     border-color: $typeColorWhite;
   }
-}
-
-.container-90 {
-  width: 90% !important;
-  max-width: 100%;
 }

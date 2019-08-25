@@ -1,5 +1,33 @@
 // Globals
 
+h1 {
+  font-size: 2em;
+}
+h2 {
+  font-size: 1.5em;
+}
+h3 {
+  font-size: 1.17em;
+}
+h4 {
+  font-size: 1.12em;
+}
+h5 {
+  font-size: 0.83em;
+}
+h6 {
+  font-size: 0.75em;
+}
+
+:focus {
+  outline: none;
+}
+
+.container-90 {
+  width: 90% !important;
+  max-width: 100%;
+}
+
 .c-white {
   color: $typeColorWhite;
 }
@@ -23,4 +51,63 @@
 .btn-size-large {
   height: 45px;
   border-radius: 30px;
+}
+
+.button.is-primary:hover,
+.button.is-primary.is-hovered {
+  background-color: $docColorFuchsia;
+}
+
+.b-radio.radio input[type='radio'] + .check.is-info {
+  border-color: #209cee;
+}
+
+.b-radio.radio input[type='radio'] + .check.is-default {
+  border-color: #00d1b2;
+}
+
+.b-radio.radio input[type='radio'] + .check.is-success {
+  border-color: #23d160;
+}
+
+.b-radio.radio input[type='radio'] + .check.is-danger {
+  border-color: #ff3860;
+}
+
+.b-radio.radio input[type='radio'] + .check.is-warning {
+  border-color: #ffdd57;
+}
+
+.b-radio.radio input[type='radio'] + .check:before {
+  content: '';
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  -webkit-transition: -webkit-transform 150ms ease-out;
+  transition: -webkit-transform 150ms ease-out;
+  transition: transform 150ms ease-out;
+  transition: transform 150ms ease-out, -webkit-transform 150ms ease-out;
+  border-radius: 50%;
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  background-color: #00d1b2;
+  margin-bottom: calc(-40px / 2);
+  margin-left: calc(-40px / 2);
+  width: 40px;
+  height: 40px;
+}
+
+.b-radio.radio input[type='radio']:checked + .check:before {
+  transform: scale(0.2);
+}
+
+.button.is-primary {
+  background-color: $typoColorFuchsia !important;
+}
+
+.button.is-focused {
+  background-color: $typoColorFuchsia;
 }
