@@ -111,3 +111,7 @@ h6 {
 .button.is-focused {
   background-color: $typoColorFuchsia;
 }
+
+.pagination.is-rounded .pagination-link {
+  justify-content: center;
+}

@@ -1,3 +1,4 @@
+import Vue from 'vue'
 // State
 const state = () => ({
   departments: []
@@ -11,12 +12,12 @@ const getters = {
 // Mutations
 const mutations = {
   SET_DEPARTMENTS(state, departments) {
-    state.departments = departments
+    Vue.set(state, 'departments', departments)
   },
   SET_DEPARTMENT_CATEGORIES(state, { id, categories }) {
     state.departments.forEach(dep => {
       if (dep.department_id === id) {
-        dep.categories = categories
+        Vue.set(dep, 'categories', categories)
       }
     })
   }

@@ -1,3 +1,4 @@
+@import 'bulma/sass/utilities/_all.sass';
 // Typography Colors
 $typoColorBlack: #2e2e2e;
 $typeColorGray: #6c6c6c;
@@ -24,6 +25,11 @@ $fa-font-path: '../fonts/webfonts';
 // Footer
 $footerIconRatio: 40px;
 
+// Colors
+$orange: #ff9800;
+$indigo: #3f51b5;
+$purple: #673ab7;
+
 // Ovveride Bulma
 $dropdown-item-hover-background-color: transparent;
 $button-hover-border-color: inital;
@@ -41,3 +47,60 @@ $pagination-focus-border-color: intial;
 $input-icon-active-color: $typoColorFuchsia;
 $input-focus-border-color: inital;
 $button-text-hover-background-color: $docColorFuchsia;
+$custom-colors: (
+  'Yellow': $warning,
+  'White': #f7f7f7,
+  'Black': $black,
+  'Red': $danger,
+  'Orange': $orange,
+  'Green': $green,
+  'Blue': $info,
+  'Indigo': $indigo,
+  'Purple': $purple
+);
+
+$colors: mergeColorMaps(
+  (
+    'white': (
+      $white,
+      $black
+    ),
+    'black': (
+      $black,
+      $white
+    ),
+    'light': (
+      $light,
+      $light-invert
+    ),
+    'dark': (
+      $dark,
+      $dark-invert
+    ),
+    'primary': (
+      $primary,
+      $primary-invert
+    ),
+    'link': (
+      $link,
+      $link-invert
+    ),
+    'info': (
+      $info,
+      $info-invert
+    ),
+    'success': (
+      $success,
+      $success-invert
+    ),
+    'warning': (
+      $warning,
+      $warning-invert
+    ),
+    'danger': (
+      $danger,
+      $danger-invert
+    )
+  ),
+  $custom-colors
+);

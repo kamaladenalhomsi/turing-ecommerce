@@ -6,7 +6,7 @@
       <div class="flex flex-wrap md:flex-no-wrap mt-10">
         <!-- Attrubites Sidebar -->
         <div class="w-full md:w-1/3">
-          <attrs-sidebar></attrs-sidebar>
+          <attrs-sidebar :attributes="attributes"></attrs-sidebar>
         </div>
         <!-- Cards -->
         <div class="w-full mt-8 md:mt-0 md:w-3/4">
@@ -132,11 +132,37 @@ export default {
   },
   data() {
     return {
+      attributes: [],
       shopCardData: {
         name: 'Pull & Bear Jumper In Textured Knit In Blue',
         price: '£14.99',
         thumbnail: require('../assets/images/images-shirt13.png')
       }
+    }
+  },
+  created() {
+    this.getAllAttributes()
+  },
+  methods: {
+    getAllAttributes() {
+      this.$_async_query({
+        query: {
+          path: '/attributes'
+        },
+        done: res => {
+          this.$set(this, 'attributes', res)
+          this.attributes.forEach(attr => {
+            this.$_async_query({
+              query: {
+                path: `/attributes/values/${attr.attribute_id}`
+              },
+              done: res => {
+                this.$set(attr, 'items', res)
+              }
+            })
+          })
+        }
+      })
     }
   }
 }

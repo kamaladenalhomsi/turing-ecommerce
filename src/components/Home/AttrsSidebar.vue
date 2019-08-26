@@ -16,30 +16,14 @@
       </div>
       <div>
         <div class="attrs-sidebar__attrs">
-          <div class="attrs-sidebar__attrs__section">
-            <h4 class="f-montserrat font-bold attrs-sidebar__attrs__section__title">Color</h4>
-            <div class="flex mt-4">
-              <div class="field ml-4" v-for="type in coloresRadio" :key="type">
-                <b-radio v-model="radio" :native-value="type" :type="'is-' + type"></b-radio>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="attrs-sidebar__attrs">
-          <div class="attrs-sidebar__attrs__section">
-            <h4 class="f-montserrat font-bold attrs-sidebar__attrs__section__title">Sizes</h4>
-            <div class="flex mt-4">
-              <b-field class="flex-wrap">
-                <b-radio-button
-                  v-for="size in sizes"
-                  :key="size"
-                  class="radio-button md:ml-2 mt-2 w-full md:w-auto"
-                  v-model="radioButton"
-                  :native-value="size"
-                >{{ size }}</b-radio-button>
-              </b-field>
-            </div>
-          </div>
+          <size-attributes
+            :title="attributes[0] ? attributes[0].name: ''"
+            :items="attributes[0] ? attributes[0].items : []"
+          ></size-attributes>
+          <color-attributes
+            :title="attributes[1] ? attributes[1].name: ''"
+            :items="attributes[1] ? attributes[1].items : []"
+          ></color-attributes>
         </div>
         <div class="attrs-sidebar__attrs">
           <div class="attrs-sidebar__attrs__section">
@@ -110,6 +94,9 @@
     border: 0px;
     width: 100%
   }
+  &__placeholder {
+    width: 97px;
+  }
 }
 
 .b-slider-thumb {
@@ -142,10 +129,10 @@
       border: 0px;
       width: auto
     }
-    &:nth-child(3n+1) {
+    &__placeholder:nth-child(3n+1), &:nth-child(3n+1) {
       margin-left: 0px
     }
-    &:nth-child(-n+3) {
+    &__placeholder:nth-child(-n+3), &:nth-child(-n+3) {
       margin-top: 0px
     }
   }
@@ -154,9 +141,26 @@
 </style>
 
 <script>
-
+import SizeAttributes from './Sidebar/SizeAttributes'
+import ColorAttributes from './Sidebar/ColorAttributes'
 export default {
   name: 'attrs-sidebar',
+  props: {
+    attributes: {
+      type: Array
+    }
+  },
+  components: {
+    SizeAttributes,
+    ColorAttributes
+  },
+  watch: {
+    attributes: {
+      handler(vals) {
+        console.log(vals, 'vals')
+      }
+    }
+  },
   data() {
     return {
       numbers: [12, 20],
