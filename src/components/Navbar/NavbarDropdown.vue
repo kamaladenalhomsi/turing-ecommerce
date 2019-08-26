@@ -21,7 +21,7 @@
             aria-role="listitem"
           >
             <span class="block w-11/12">{{ department.description }}</span>
-            <b-button class="m-is-filled-fuchsia">Call to action</b-button>
+            <custom-button type="filled-fuchsia">Call to action</custom-button>
           </b-dropdown-item>
           <div class="flex flex-wrap w-full mx-10 md:mx-0 md:w-1/3">
             <b-dropdown-item

@@ -35,6 +35,7 @@ body {
   }
 }
 
+// Buttons Types Style
 .m-is-outlined,
 .m-is-filled-white,
 .m-is-filled-fuchsia {
@@ -42,6 +43,13 @@ body {
   padding: 0 25px;
   font-weight: bold;
   transition: 0.3s;
+}
+
+.m-is-pure {
+  background-color: transparent !important;
+  border: 0px !important;
+  width: 100px;
+  color: $typoColorFuchsia !important;
 }
 
 .m-is-filled-white {

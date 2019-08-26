@@ -39,11 +39,8 @@
         </div>
       </div>
       <div class="attrs-sidebar__buttons mt-2 flex justify-between items-center">
-        <b-button class="m-is-filled-fuchsia btn-size-large">Apply</b-button>
-        <b-button class="pure-btn">
-          <i class="fas fa-times pr-2"></i>
-          Clear
-        </b-button>
+        <custom-button type="filled-fuchsia" size="large">Apply</custom-button>
+        <custom-button type="pure" size="large" icon="fas fa-times">Clear</custom-button>
       </div>
     </div>
   </div>

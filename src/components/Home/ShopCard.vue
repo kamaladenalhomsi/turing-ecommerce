@@ -11,7 +11,7 @@
     </div>
     <div class="shopCard__hover flex-wrap flex justify-center">
       <i class="far fa-heart w-full text-center text-3xl c-fushia"></i>
-      <b-button class="shopCard__hover_btn btn-size-large m-is-filled-fuchsia">Quick View</b-button>
+      <custom-button class="shopCard__hover_btn" type="filled-fuchsia" size="large">Quick View</custom-button>
     </div>
   </div>
 </template>

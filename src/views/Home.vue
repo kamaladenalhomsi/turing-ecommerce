@@ -17,18 +17,20 @@
           </div>
         </div>
       </div>
+      <!-- Arrival Block -->
       <div class="mt-10">
         <div class="welcome-sction flex justify-center items-center c-white">
           <div>
             <h1 class="w-full text-center h-full text-5xl f-playFair">New Arrival</h1>
             <h2 class="font-bold w-full h-full text-center f-playFair">Be the first</h2>
             <div class="flex justify-center mt-8">
-              <b-button class="welcome-sction__btn m-is-filled-white btn-size-large">View All</b-button>
+              <custom-button class="welcome-sction__btn" type="filled-white" size="large">View All</custom-button>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- NewsLetter -->
     <div class="newsletter mt-20">
       <div class="container w-11/12 md:w-auto">
         <div class="flex flex-wrap items-center newsletter__wrapper">
@@ -46,7 +48,7 @@
                 rounded
               ></b-input>
             </b-field>
-            <b-button class="newsletter__btn m-is-filled-white">Subscribe</b-button>
+            <custom-button class="newsletter__btn" type="filled-white">Subscribe</custom-button>
           </div>
         </div>
       </div>
@@ -144,6 +146,7 @@ export default {
     this.getAllAttributes()
   },
   methods: {
+    // Fetch All Attributes
     getAllAttributes() {
       this.$_async_query({
         query: {
@@ -151,6 +154,7 @@ export default {
         },
         done: res => {
           this.$set(this, 'attributes', res)
+          // Fetch All Attributes values
           this.attributes.forEach(attr => {
             this.$_async_query({
               query: {
