@@ -40,6 +40,21 @@ export default {
     },
     items: {
       type: Array
+    },
+    value: {
+      type: String
+    }
+  },
+  watch: {
+    radioButton: {
+      handler(value) {
+        this.$emit('input', value)
+      }
+    },
+    value: {
+      handler(val) {
+        this.radioButton = val
+      }
     }
   },
   data () {

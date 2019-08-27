@@ -6,7 +6,14 @@ const state = () => ({
 
 // Getters
 const getters = {
-  GET_ALL_DEPARTMENTS: state => state.departments
+  GET_ALL_DEPARTMENTS: state => state.departments,
+  GET_DEPARTMENT_BY_ID: state => id => {
+    console.log(id, 'id')
+    return state.departments.filter(dep => {
+      console.log(dep.department_id, id, 'DD')
+      if (dep.department_id === id) return dep
+    })[0]
+  }
 }
 
 // Mutations

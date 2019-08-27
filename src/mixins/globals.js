@@ -5,12 +5,15 @@
 import asyncHelpers from './asyncHelpers'
 
 export default {
-  data () {
+  data() {
     return {
       $_server_errors: {}
     }
   },
   methods: {
-    ...asyncHelpers
+    ...asyncHelpers,
+    $_compose_img_url(name) {
+      return process.env.VUE_APP_BASE_IMAGES_DIR + name
+    }
   }
 }

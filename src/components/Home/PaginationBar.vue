@@ -10,13 +10,13 @@
     </div>
     <div class="w-full md:w-auto my-8 md:my-0 justify-center">
       <b-pagination
-        :total="pagination.total"
+        :total="total"
         :current.sync="pagination.current"
         :range-before="2"
         :range-after="2"
         :simple="false"
         :rounded="true"
-        :per-page="5"
+        :per-page="9"
       ></b-pagination>
     </div>
     <div
@@ -34,11 +34,25 @@
 <script>
 export default {
   name: 'pagination-bar',
+  props: {
+    total: {
+      type: Number
+    },
+    value: {
+      type: Number
+    }
+  },
   data() {
     return {
       pagination: {
-        total: 300,
         current: 1
+      }
+    }
+  },
+  watch: {
+    'pagination.current': {
+      handler(page) {
+        this.$emit('input', page)
       }
     }
   },

@@ -37,6 +37,21 @@ export default {
     },
     items: {
       type: Array
+    },
+    value: {
+      type: String
+    }
+  },
+  watch: {
+    radio: {
+      handler(value) {
+        this.$emit('input', value)
+      }
+    },
+    value: {
+      handler(val) {
+        this.radio = val
+      }
     }
   },
   data() {

@@ -2,7 +2,7 @@
   <div class="home">
     <div class="container">
       <!-- Pagination -->
-      <pagination-bar></pagination-bar>
+      <pagination-bar :total="products.total" v-model="products.pagination.currentPage"></pagination-bar>
       <div class="flex flex-wrap md:flex-no-wrap mt-10">
         <!-- Attrubites Sidebar -->
         <div class="w-full md:w-1/3">
@@ -11,9 +11,33 @@
         <!-- Cards -->
         <div class="w-full mt-8 md:mt-0 md:w-3/4">
           <div class="flex flex-wrap">
-            <div class="w-full md:w-1/2 lg:w-1/3 px-2 mb-4" v-for="i in 9" :key="i">
-              <shop-card :item="shopCardData"></shop-card>
-            </div>
+            <template v-if="products.rows.length > 0">
+              <div
+                class="w-full md:w-1/2 lg:w-1/3 px-2 mb-4"
+                v-for="(product, index) in products.rows"
+                :key="product.product_id"
+              >
+                <shop-card @imgLoaded="setProductImgStatus(index)" :item="product"></shop-card>
+              </div>
+            </template>
+            <template v-if="products.rows.length === 0">
+              <div
+                v-for="i in products.pagination.limit"
+                :key="i"
+                class="w-full md:w-1/2 lg:w-1/3 px-2 mb-4"
+              >
+                <ContentLoader
+                  primaryColor="#e4e4e4"
+                  secondaryColor="#ecebeb"
+                  :width="250"
+                  :height="300"
+                >
+                  <rect x="70.69" y="247.67" rx="3" ry="3" width="114" height="13.82" />
+                  <rect x="25.69" y="218.67" rx="3" ry="3" width="205.2" height="13.82" />
+                  <rect x="19.69" y="12.67" rx="0" ry="0" width="209.09" height="182.04" />
+                </ContentLoader>
+              </div>
+            </template>
           </div>
         </div>
       </div>
@@ -57,7 +81,11 @@
 </template>
 
 <style lang="scss">
-
+.list-leave-to {
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: center top;
+}
 .newsletter {
   width: 100%;
   background-color: $docColorFuchsia;
@@ -125,15 +153,26 @@
 import ShopCard from '@/components/Home/ShopCard.vue'
 import AttrsSidebar from '@/components/Home/AttrsSidebar.vue'
 import PaginationBar from '@/components/Home/PaginationBar.vue'
+import { ContentLoader } from 'vue-content-loader'
+import { mapGetters } from 'vuex'
 export default {
   name: 'home',
   components: {
     ShopCard,
     AttrsSidebar,
-    PaginationBar
+    PaginationBar,
+    ContentLoader
   },
   data() {
     return {
+      products: {
+        rows: [],
+        total: 0,
+        pagination: {
+          currentPage: 1,
+          limit: 9
+        }
+      },
       attributes: [],
       shopCardData: {
         name: 'Pull & Bear Jumper In Textured Knit In Blue',
@@ -142,10 +181,46 @@ export default {
       }
     }
   },
+  watch: {
+    'products.pagination.currentPage': {
+      handler() {
+        this.fetchProducts()
+      }
+    },
+    choosedCategory: {
+      handler() {
+        this.fetchProducts()
+      }
+    },
+    choosedDepartment: {
+      handler() {
+        this.fetchProducts()
+      }
+    }
+  },
   created() {
     this.getAllAttributes()
+    this.fetchProducts()
+  },
+  computed: {
+    ...mapGetters({
+      choosedCategory: 'product/GET_CHOOSED_CATEGROY',
+      choosedDepartment: 'product/GET_CHOOSED_DEPARTMENT'
+    }),
+    fetchUrl() {
+      let url = `/products`
+      const { choosedCategory, choosedDepartment } = this
+      if (Object.keys(choosedCategory).length > 0)
+        url = `/products/inCategory/${choosedCategory.category_id}`
+      if (Object.keys(choosedDepartment).length > 0)
+        url = `products/inDepartment/${choosedDepartment.department_id}`
+      return url
+    }
   },
   methods: {
+    setProductImgStatus(i) {
+      this.$set(this.products.rows[i], 'loaded', true)
+    },
     // Fetch All Attributes
     getAllAttributes() {
       this.$_async_query({
@@ -165,6 +240,22 @@ export default {
               }
             })
           })
+        }
+      })
+    },
+    fetchProducts() {
+      this.products.rows = []
+      this.$_async_query({
+        query: {
+          path: this.fetchUrl,
+          params: {
+            page: this.products.pagination.currentPage,
+            limit: this.products.pagination.limit
+          }
+        },
+        done: res => {
+          this.$set(this.products, 'rows', res.rows)
+          this.$set(this.products, 'total', res.count)
         }
       })
     }

@@ -4,14 +4,22 @@
       <div class="attrs-sidebar__main_wrapper">
         <span>Filter 486 items</span>
         <div class="attrs-sidebar__cat flex items-center mt-4 f-opensans">
-          <i class="fas fa-times mr-2 text-sm"></i>
-          <span class="mr-2 attrs-sidebar__cat__key">Gender:</span>
-          <span>Woman</span>
+          <i
+            class="fas fa-times mr-2 text-sm cursor-pointer"
+            v-if="Object.keys(choosedDepartment).length > 0"
+            @click="cancelDepartment"
+          ></i>
+          <span class="mr-2 attrs-sidebar__cat__key">Department:</span>
+          <span v-if="department">{{ department.name }}</span>
         </div>
         <div class="attrs-sidebar__cat flex items-center mt-4 f-opensans">
-          <i class="fas fa-times mr-2 text-sm"></i>
+          <i
+            class="fas fa-times mr-2 text-sm cursor-pointer"
+            v-if="Object.keys(choosedCategory).length > 0"
+            @click="cancelCategory"
+          ></i>
           <span class="mr-2 attrs-sidebar__cat__key">Category:</span>
-          <span>Dresses</span>
+          <span v-if="category">{{ category.name }}</span>
         </div>
       </div>
       <div>
@@ -19,10 +27,12 @@
           <size-attributes
             :title="attributes[0] ? attributes[0].name: ''"
             :items="attributes[0] ? attributes[0].items : []"
+            v-model="filters.size"
           ></size-attributes>
           <color-attributes
             :title="attributes[1] ? attributes[1].name: ''"
             :items="attributes[1] ? attributes[1].items : []"
+            v-model="filters.color"
           ></color-attributes>
         </div>
         <div class="attrs-sidebar__attrs">
@@ -40,7 +50,12 @@
       </div>
       <div class="attrs-sidebar__buttons mt-2 flex justify-between items-center">
         <custom-button type="filled-fuchsia" size="large">Apply</custom-button>
-        <custom-button type="pure" size="large" icon="fas fa-times">Clear</custom-button>
+        <custom-button
+          type="pure"
+          size="large"
+          icon="fas fa-times"
+          @click.native="clearAllSelection"
+        >Clear</custom-button>
       </div>
     </div>
   </div>
@@ -140,6 +155,7 @@
 <script>
 import SizeAttributes from './Sidebar/SizeAttributes'
 import ColorAttributes from './Sidebar/ColorAttributes'
+import { mapGetters } from 'vuex'
 export default {
   name: 'attrs-sidebar',
   props: {
@@ -151,36 +167,48 @@ export default {
     SizeAttributes,
     ColorAttributes
   },
-  watch: {
-    attributes: {
-      handler(vals) {
-        console.log(vals, 'vals')
-      }
+  computed: {
+    ...mapGetters({
+      choosedCategory: 'product/GET_CHOOSED_CATEGROY',
+      choosedDepartment: 'product/GET_CHOOSED_DEPARTMENT'
+    }),
+    category() {
+      return this.choosedCategory
+    },
+    department() {
+      const { choosedCategory, choosedDepartment } = this
+      if (Object.keys(choosedCategory).length > 0)
+        return this.$store.getters['department/GET_DEPARTMENT_BY_ID'](this.choosedCategory.department_id)
+      else
+        return choosedDepartment
+    }
+  },
+  methods: {
+    cancelDepartment() {
+      if (Object.keys(this.choosedDepartment).length > 0)
+        this.$store.commit('product/DELETE_DEPARTMENT')
+      if (Object.keys(this.choosedCategory).length > 0)
+        this.$store.commit('product/DELETE_CATEGORY')
+    },
+    cancelCategory() {
+      if (Object.keys(this.choosedCategory).length > 0)
+        this.$store.commit('product/DELETE_CATEGORY')
+    },
+    clearAllSelection() {
+      this.cancelDepartment()
+      this.cancelCategory()
+      this.filters = {}
+      this.numbers = [12, 20]
     }
   },
   data() {
     return {
       numbers: [12, 20],
-      radio: '',
-      radioButton: '',
-      coloresRadio: [
-        'default',
-        'info',
-        'success',
-        'danger',
-        'warning'
-      ],
-      sizes: [
-        'XS',
-        'S',
-        'M',
-        'L',
-        'XL'
-      ]
+      filters: {
+        size: '',
+        color: ''
+      }
     }
-  },
-  methods: {
-
   }
 }
 </script>
