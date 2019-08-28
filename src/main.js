@@ -22,7 +22,7 @@ Vue.mixin({
 })
 
 Vue.config.productionTip = false
-
+console.log(store, 'store')
 new Vue({
   router,
   store,

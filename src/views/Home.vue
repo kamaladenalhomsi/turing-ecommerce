@@ -213,7 +213,7 @@ export default {
       if (Object.keys(choosedCategory).length > 0)
         url = `/products/inCategory/${choosedCategory.category_id}`
       if (Object.keys(choosedDepartment).length > 0)
-        url = `products/inDepartment/${choosedDepartment.department_id}`
+        url = `/products/inDepartment/${choosedDepartment.department_id}`
       return url
     }
   },
@@ -221,17 +221,17 @@ export default {
     setProductImgStatus(i) {
       this.$set(this.products.rows[i], 'loaded', true)
     },
-    // Fetch All Attributes
-    getAllAttributes() {
-      this.$_async_query({
+    // Fetch All Attributes*
+    async getAllAttributes() {
+      await this.$_async_query({
         query: {
           path: '/attributes'
         },
         done: res => {
           this.$set(this, 'attributes', res)
           // Fetch All Attributes values
-          this.attributes.forEach(attr => {
-            this.$_async_query({
+          this.attributes.forEach(async attr => {
+            await this.$_async_query({
               query: {
                 path: `/attributes/values/${attr.attribute_id}`
               },
@@ -243,9 +243,9 @@ export default {
         }
       })
     },
-    fetchProducts() {
+    async fetchProducts() {
       this.products.rows = []
-      this.$_async_query({
+      await this.$_async_query({
         query: {
           path: this.fetchUrl,
           params: {
