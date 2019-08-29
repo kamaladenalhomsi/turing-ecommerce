@@ -177,7 +177,6 @@ export default {
       shopCardData: {
         name: 'Pull & Bear Jumper In Textured Knit In Blue',
         price: '£14.99',
-        thumbnail: require('../assets/images/images-shirt13.png')
       }
     }
   },
