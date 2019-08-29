@@ -39,6 +39,7 @@
               class="navbar-header__dropdown_item navbar-header__dropdown_single_item"
               :class="[{'navbar-header__dropdown_item__active': childActive === category.category_id}]"
               aria-role="listitem"
+              :nm="category.category_id"
             >
               {{ category.name }}
               <span class="navbar-header__dropdown_item_hover"></span>

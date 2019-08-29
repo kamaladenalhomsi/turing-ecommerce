@@ -9,7 +9,7 @@
           <attrs-sidebar :attributes="attributes"></attrs-sidebar>
         </div>
         <!-- Cards -->
-        <div class="w-full mt-8 md:mt-0 md:w-3/4">
+        <div class="w-full mt-8 md:mt-0 md:w-3/4" nm="cardsWrapper">
           <div class="flex flex-wrap">
             <template v-if="products.rows.length > 0">
               <div
