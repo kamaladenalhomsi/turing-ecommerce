@@ -1,5 +1,6 @@
 <template>
   <div>
+    <top-level-header></top-level-header>
     <nav class="navbar is-fixed-top navbar-header" role="navigation" aria-label="main navigation">
       <div class="container">
         <div class="navbar-brand">
@@ -77,6 +78,10 @@
   }
 }
 
+.navbar-header {
+  top: 40px !important;
+}
+
 // Media Query
 @media screen and (min-width: 1000px) {
   .navbar-header {
@@ -99,6 +104,7 @@ import { ContentLoader } from 'vue-content-loader'
 import NavbarDropdown from '@/components/Navbar/NavbarDropdown.vue'
 import Footer from '@/components/Footer/Footer.vue'
 import AuthTemp from '@/components/Authentication/AuthTemp.vue'
+import TopLevelHeader from '@/components/Navbar/TopLevelHeader.vue'
 
 export default {
   name: 'main-layout',
@@ -106,7 +112,8 @@ export default {
     ContentLoader,
     NavbarDropdown,
     Footer,
-    AuthTemp
+    AuthTemp,
+    TopLevelHeader
   },
   async created () {
     // Fetch All departments
