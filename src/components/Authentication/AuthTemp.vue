@@ -13,7 +13,11 @@
         </div>
       </div>
     </b-modal>
-    <button @click="isImageModalActive = true">{{ openBtnText }}</button>
+    <custom-button
+      @click.native="isImageModalActive = true"
+      type="filled-fuchsia"
+      :size="openBtnSize"
+    >{{ openBtnText }}</custom-button>
   </div>
 </template>
 
@@ -63,15 +67,21 @@
 export default {
   props: {
     title: {
-      type: String
+      type: String,
+      default: () => "Dialog"
     },
     openBtnText: {
-      type: String
+      type: String,
+      default: () => "Open Dialog"
+    },
+    openBtnSize: {
+      type: String,
+      default: () => ""
     }
   },
   data() {
     return {
-      isImageModalActive: true
+      isImageModalActive: false
     }
   }
 }
