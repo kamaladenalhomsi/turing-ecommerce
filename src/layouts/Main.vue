@@ -16,12 +16,31 @@
               <a class="button m-is-outlined navbar-header__signup">
                 <strong>Sign up</strong>
               </a>
-              <a class="button m-is-filled-white">Log in</a>
             </div>
           </b-navbar-item>
         </template>
       </b-navbar>
     </template>
+    <auth-temp title="Sign up" openBtnText="Dialog">
+      <b-field>
+        <b-input placeholder="Email"></b-input>
+      </b-field>
+      <b-field>
+        <b-input placeholder="Password"></b-input>
+      </b-field>
+      <b-field>
+        <b-input placeholder="Re-type password"></b-input>
+      </b-field>
+      <custom-button
+        class="auth-modal__submit mt-8 mx-auto"
+        size="large"
+        type="filled-fuchsia"
+      >Sign Up</custom-button>
+      <div class="mt-4 flex justify-center f-opensans">
+        Already a member?
+        <a class="ml-3 c-fushia">Sign In</a>
+      </div>
+    </auth-temp>
     <router-view></router-view>
     <template>
       <Footer></Footer>
@@ -79,13 +98,15 @@
 import { ContentLoader } from 'vue-content-loader'
 import NavbarDropdown from '@/components/Navbar/NavbarDropdown.vue'
 import Footer from '@/components/Footer/Footer.vue'
+import AuthTemp from '@/components/Authentication/AuthTemp.vue'
 
 export default {
   name: 'main-layout',
   components: {
     ContentLoader,
     NavbarDropdown,
-    Footer
+    Footer,
+    AuthTemp
   },
   async created () {
     // Fetch All departments
