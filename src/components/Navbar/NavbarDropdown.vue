@@ -15,7 +15,7 @@
         <div
           @click="chooseDepartment(department), active = department.department_id"
           slot="trigger"
-          class="h-full px-10 py-5 flex items-center"
+          class="h-full px-5 py-5 flex items-center"
         >
           <span class="font-bold">{{ department.name }}</span>
         </div>
@@ -173,7 +173,7 @@
   display: flex;
   height: 100%;
   align-items: center;
-  margin-left: 20px;
+  margin-left: 60px;
 }
 
 // Navbar Item

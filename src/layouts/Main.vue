@@ -1,28 +1,43 @@
 <template>
   <div>
-    <template>
-      <b-navbar class="navbar-header md:px-20">
-        <template slot="brand">
-          <b-navbar-item href="/">
+    <nav class="navbar is-fixed-top navbar-header" role="navigation" aria-label="main navigation">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://bulma.io">
             <h2 class="font-bold navbar-header__logo">SHOPMATE</h2>
-          </b-navbar-item>
-        </template>
-        <template slot="start">
-          <navbar-dropdown></navbar-dropdown>
-        </template>
-        <template slot="end">
-          <b-navbar-item tag="div">
+          </a>
+          <a
+            role="button"
+            class="navbar-burger burger"
+            aria-label="menu"
+            aria-expanded="false"
+            data-target="navbarBasicExample"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <navbar-dropdown></navbar-dropdown>
+          </div>
+
+          <div class="navbar-end">
             <div class="buttons">
               <a class="button m-is-outlined navbar-header__signup">
                 <strong>Sign up</strong>
               </a>
               <a class="button m-is-filled-white">Log in</a>
             </div>
-          </b-navbar-item>
-        </template>
-      </b-navbar>
-    </template>
-    <router-view></router-view>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="wrapper">
+      <router-view></router-view>
+    </div>
     <template>
       <Footer></Footer>
     </template>
@@ -30,6 +45,11 @@
 </template>
 
 <style lang="scss">
+
+// Wrapper
+.wrapper {
+  padding-top: 80px
+}
 
 // Main Footer
 
