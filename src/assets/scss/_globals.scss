@@ -115,3 +115,24 @@ h6 {
 .pagination.is-rounded .pagination-link {
   justify-content: center;
 }
+
+.auth-modal {
+  &__submit {
+    display: block !important;
+    width: 175px;
+    height: 55px;
+    border-radius: 40px !important;
+  }
+  .field {
+    position: relative;
+    width: 100%;
+    .input {
+      border: 2px solid #e1e1e1;
+      padding: 25px;
+    }
+  }
+}
+
+.modal-close {
+  display: none;
+}

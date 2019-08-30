@@ -29,7 +29,6 @@
               <a class="button m-is-outlined navbar-header__signup">
                 <strong>Sign up</strong>
               </a>
-              <a class="button m-is-filled-white">Log in</a>
             </div>
           </div>
         </div>
@@ -99,13 +98,15 @@
 import { ContentLoader } from 'vue-content-loader'
 import NavbarDropdown from '@/components/Navbar/NavbarDropdown.vue'
 import Footer from '@/components/Footer/Footer.vue'
+import AuthTemp from '@/components/Authentication/AuthTemp.vue'
 
 export default {
   name: 'main-layout',
   components: {
     ContentLoader,
     NavbarDropdown,
-    Footer
+    Footer,
+    AuthTemp
   },
   async created () {
     // Fetch All departments

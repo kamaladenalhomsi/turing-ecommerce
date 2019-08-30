@@ -91,3 +91,11 @@ body {
     border-color: $typeColorWhite;
   }
 }
+
+.modal {
+  position: fixed;
+}
+
+.modal .modal-content {
+  padding: 50px 0px;
+}
