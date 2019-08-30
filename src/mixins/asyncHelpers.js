@@ -1,4 +1,3 @@
-
 /**
  * @module AsyncHelper
  * this module is responsible for all asynchronous operations, it has only two functions
@@ -10,21 +9,22 @@
  * - payload
  * -- inside payload, there is four callbacks:
  * --- @badRequest when there is validation errors or input error (User mistake)
- * - in case there is errors returned from server, it will automatically injected in $_server_errors
+ * - in case there is errors returned from server, it will automatically injected in server_errors
  * both function have:
  * -- @done when request handled successfully
  * -- @unauthorized if user has not permission
  * callbacks inisde there payload
  */
 import axiosInstance from '@/plugins/axios'
-
+import Vue from 'vue'
 const constructNotification = (type, defaultMessage, override) => {
   let notification = {
     message: defaultMessage,
     type: type,
     duration: 5000,
     position: 'is-bottom-right',
-    hasIcon: true
+    hasIcon: true,
+    iconPack: 'fas'
   }
   if (override) {
     for (let key in override) {
@@ -35,7 +35,7 @@ const constructNotification = (type, defaultMessage, override) => {
 }
 
 export default {
-  async $_async_query (payload) {
+  async $_async_query(payload) {
     let response
     // if action exist, dispatch
     if (payload.query.action) {
@@ -43,7 +43,7 @@ export default {
         payload.query.action, // action to dispatch
         payload.query.variables ? payload.query.variables : {} // variables (optional)
       )
-    // if path exist
+      // if path exist
     } else if (payload.query.path) {
       response = await axiosInstance.get(payload.query.path, {
         params: payload.query.params
@@ -65,14 +65,17 @@ export default {
       }
       // Unauthorized
       if (response.status === 401) {
-        if (payload.unauthorized && typeof payload.unauthorized !== 'undefined') {
+        if (
+          payload.unauthorized &&
+          typeof payload.unauthorized !== 'undefined'
+        ) {
           payload.unauthorized(response)
         }
       }
       return response
     }
   },
-  async $_async_mutation (payload) {
+  async $_async_mutation(payload) {
     let response
     // if action exist, dispatch
     if (payload.mutation.action) {
@@ -80,7 +83,7 @@ export default {
         payload.mutation.action, // action to dispatch
         payload.mutation.variables ? payload.mutation.variables : {} // variables (optional)
       )
-    // if path exist
+      // if path exist
     } else if (payload.mutation.path) {
       try {
         response = await axiosInstance({
@@ -96,7 +99,13 @@ export default {
     if (response) {
       // Success
       if (response.status === 200) {
-        this.$buefy.notification.open(constructNotification('is-success', 'Operation has done successfully', payload.doneNtf))
+        this.$buefy.notification.open(
+          constructNotification(
+            'is-success',
+            'Operation has done successfully',
+            payload.doneNtf
+          )
+        )
         // the if condition above each callback check if callback exist
         if (payload.done && typeof payload.done !== 'undefined') {
           payload.done(response.data)
@@ -110,18 +119,37 @@ export default {
       // Bad Request
       if (response.status === 400) {
         if (payload.badRequestNtf) {
-          this.$buefy.notification.open(constructNotification('is-danger', 'Ops! Something went wrong, Check you inputs and try again', payload.badRequestNtf))
+          this.$buefy.notification.open(
+            constructNotification(
+              'is-danger',
+              'Ops! Something went wrong, Check you inputs and try again',
+              payload.badRequestNtf
+            )
+          )
         }
-        // Inject error returned from server in $_server_errors
-        this.$data.$_server_errors[response.data.error.field] = response.data.error.message
+        // Inject error returned from server in server_errors
+        Vue.set(
+          this.$data.server_errors,
+          response.data.error.field,
+          response.data.error.message
+        )
         if (payload.badRequest && typeof payload.badRequest !== 'undefined') {
           payload.badRequest(response)
         }
       }
       // Unauthorized
       if (response.status === 401) {
-        this.$buefy.notification.open(constructNotification('is-danger', 'You do not have permission to perform this operation!', payload.unauthorizedNtf))
-        if (payload.unauthorized && typeof payload.unauthorized !== 'undefined') {
+        this.$buefy.notification.open(
+          constructNotification(
+            'is-danger',
+            'You do not have permission to perform this operation!',
+            payload.unauthorizedNtf
+          )
+        )
+        if (
+          payload.unauthorized &&
+          typeof payload.unauthorized !== 'undefined'
+        ) {
           payload.unauthorized(response)
         }
       }

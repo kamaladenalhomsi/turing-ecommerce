@@ -1,5 +1,5 @@
 <template>
-  <b-button :class="['m-is-' + type, 'btn-size-' + size]">
+  <b-button :class="['m-is-' + type, 'btn-size-' + size]" :loading="loading">
     <i v-if="icon" :class="[icon, 'pr-2']"></i>
     <slot></slot>
   </b-button>
@@ -16,6 +16,9 @@ export default {
     },
     icon: {
       type: String
+    },
+    loading: {
+      type: Boolean
     }
   }
 }

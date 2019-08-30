@@ -1,24 +1,73 @@
 <template>
-  <div class="top-level-header py-8 lg:py-0" top-level-header-min-h>
+  <div class="top-level-header py-8 lg:py-0 top-level-header-min-h">
     <div class="container flex flex-wrap top-level-header-min-h">
       <div
         class="w-full top-level-header-min-h justify-center lg:justify-start lg:w-1/3 flex flex items-center py-4 lg:py-0"
       >
         <h4 class="mr-4 f-Montserrat font-bold c-white">Hi!</h4>
-        <auth-temp title="Sign up" openBtnText="SignUp">
-          <b-field>
-            <b-input placeholder="Email"></b-input>
+        <auth-temp
+          :active.sync="signup.active"
+          @open="signup.active = true"
+          @close="signup.active = false"
+          title="Sign up"
+          openBtnText="SignUp"
+        >
+          <b-field
+            :message="server_errors.name || errors.first('signup.name')"
+            :type="server_errors.name || errors.first('signup.name') ? 'is-danger' : ''"
+          >
+            <b-input
+              v-model="signup.user.name"
+              placeholder="Full Name"
+              data-vv-name="name"
+              data-vv-scope="signup"
+              v-validate="'required'"
+            ></b-input>
           </b-field>
-          <b-field>
-            <b-input placeholder="Password"></b-input>
+          <b-field
+            :message="server_errors.email || errors.first('signup.email')"
+            :type="server_errors.email || errors.first('signup.email') ? 'is-danger' : ''"
+          >
+            <b-input
+              v-model="signup.user.email"
+              data-vv-name="email"
+              data-vv-scope="signup"
+              placeholder="Email"
+              v-validate="'required|email'"
+            ></b-input>
           </b-field>
-          <b-field>
-            <b-input placeholder="Re-type password"></b-input>
+          <b-field
+            :message="server_errors.password || errors.first('signup.password')"
+            :type="server_errors.password || errors.first('signup.password') ? 'is-danger' : ''"
+          >
+            <b-input
+              v-model="signup.user.password"
+              ref="password"
+              data-vv-name="password"
+              data-vv-scope="signup"
+              type="password"
+              placeholder="Password"
+              v-validate="'required'"
+            ></b-input>
+          </b-field>
+          <b-field
+            :message="errors.first('signup.password_confirmation')"
+            :type="errors.first('signup.password_confirmation') ? 'is-danger' : ''"
+          >
+            <b-input
+              v-validate="'required|confirmed:password'"
+              data-vv-name="password_confirmation"
+              type="password"
+              placeholder="Re-type password"
+              data-vv-as="password"
+            ></b-input>
           </b-field>
           <custom-button
             class="auth-modal__submit mt-8 mx-auto"
             size="large"
             type="filled-fuchsia"
+            @click.native="createUser"
+            :loading.sync="signup.loading"
           >Sign Up</custom-button>
           <div class="mt-4 flex justify-center f-opensans">
             Already a member?
@@ -26,24 +75,48 @@
           </div>
         </auth-temp>
         <h4 class="ml-4 mr-4 f-Montserrat font-bold c-white">or</h4>
-        <auth-temp title="Login" openBtnText="Login">
-          <b-field>
-            <b-input placeholder="Email"></b-input>
+        <auth-temp
+          @open="login.active = true"
+          @close="login.active = false"
+          :active.sync="login.active"
+          title="Login"
+          openBtnText="Login"
+        >
+          <b-field
+            :message="server_errors.email || errors.first('login.email')"
+            :type="server_errors.email || errors.first('login.email') ? 'is-danger' : ''"
+          >
+            <b-input
+              v-model="login.user.email"
+              data-vv-name="email"
+              data-vv-scope="login"
+              placeholder="Email"
+              v-validate="'required|email'"
+            ></b-input>
           </b-field>
-          <b-field>
-            <b-input placeholder="Password"></b-input>
-          </b-field>
-          <b-field>
-            <b-input placeholder="Re-type password"></b-input>
+          <b-field
+            :message="server_errors.password || errors.first('login.password')"
+            :type="server_errors.password || errors.first('login.password') ? 'is-danger' : ''"
+          >
+            <b-input
+              v-model="login.user.password"
+              ref="password"
+              data-vv-name="password"
+              data-vv-scope="login"
+              type="password"
+              placeholder="Password"
+              v-validate="'required'"
+            ></b-input>
           </b-field>
           <custom-button
             class="auth-modal__submit mt-8 mx-auto"
             size="large"
             type="filled-fuchsia"
-          >Sign Up</custom-button>
-          <div class="mt-4 flex justify-center f-opensans">
-            Already a member?
-            <a class="ml-3 c-fushia">Sign In</a>
+            @click.native="loginUser"
+          >Login</custom-button>
+          <div class="mt-8 flex justify-center f-opensans">
+            Don't have an account?
+            <a class="ml-3 c-fushia">Create one now</a>
           </div>
         </auth-temp>
       </div>
@@ -112,7 +185,6 @@
 </style>
 
 <script>
-
 import AuthTemp from '@/components/Authentication/AuthTemp.vue'
 export default {
   components: {
@@ -124,23 +196,59 @@ export default {
         'Daily Deals',
         'Sell',
         'Help & Contact'
-      ]
+      ],
+      signup: {
+        user: {},
+        loading: false,
+        active: false
+      },
+      login: {
+        user: {},
+        active: false,
+        loading: false
+      }
     }
   },
-  mounted() {
-    window.onscroll = () => {
-      let mq = window.matchMedia('(max-width: 1025px)')
-      if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-        if (mq.matches)
-          document.querySelector('.navbar-header').style.transform = 'translate(0px, -50px)'
-        else
-          document.querySelector('.navbar-header').style.transform = 'translate(0px, -50px)'
-      } else {
-        if (mq.matches)
-          document.querySelector('.navbar-header').style.transform = 'translate(0px, 193px)'
-        else
-          document.querySelector('.navbar-header').style.transform = 'translate(0px, 0px)'
-      }
+  $_veeValidate: {
+    validator: 'new'
+  },
+  methods: {
+    async createUser() {
+      this.signup.loading = true
+      await this.$_async_mutation({
+        mutation: {
+          path: '/customers',
+          method: 'post',
+          variables: this.signup.user
+        },
+        done: res => {
+          this.signup.active = false
+        },
+        doneNtf: {
+          message: 'User Signed up Successfully!'
+        },
+        badRequestNtf: {}
+      })
+      this.signup.loading = false
+    },
+    async loginUser() {
+      this.login.loading = true
+      await this.$_async_mutation({
+        mutation: {
+          path: '/customers/login',
+          method: 'post',
+          variables: this.login.user
+        },
+        done: res => {
+          localStorage.setItem('token', res.accessToken)
+          localStorage.setItem('customer', JSON.stringify(res.customer))
+          localStorage.setItem('token_expire', res.expires_in)
+          this.login.active = false
+        },
+        doneNtf: {
+          // message: `Welcome back ${res.customer.name}`
+        }
+      })
     }
   }
 }

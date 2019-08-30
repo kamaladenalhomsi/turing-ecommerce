@@ -1,10 +1,10 @@
 <template>
   <div>
-    <b-modal :active.sync="isImageModalActive">
+    <b-modal :active.sync="active">
       <div class="auth-modal flex justify-center">
         <div class="auth-modal__wrapper">
           <div class="w-10/12 mx-auto">
-            <i class="fa fa-times auth-modal__close" @click="isImageModalActive = false"></i>
+            <i class="fa fa-times auth-modal__close" @click="$emit('close')"></i>
             <h1 class="auth-modal__title text-center font-bold f-Montserrat">{{ title }}</h1>
             <div class="mt-8">
               <slot></slot>
@@ -14,7 +14,7 @@
       </div>
     </b-modal>
     <custom-button
-      @click.native="isImageModalActive = true"
+      @click.native="$emit('open')"
       type="filled-fuchsia"
       :size="openBtnSize"
     >{{ openBtnText }}</custom-button>
@@ -77,11 +77,10 @@ export default {
     openBtnSize: {
       type: String,
       default: () => ''
-    }
-  },
-  data() {
-    return {
-      isImageModalActive: false
+    },
+    active: {
+      type: Boolean,
+      required: true
     }
   }
 }

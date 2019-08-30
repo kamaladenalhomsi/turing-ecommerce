@@ -170,6 +170,22 @@ export default {
       document.querySelector('.navbar-menu').classList.toggle('is-active')
     }
   },
+  mounted() {
+    window.onscroll = () => {
+      let mq = window.matchMedia('(max-width: 1025px)')
+      if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        if (mq.matches)
+          document.querySelector('.navbar-header').style.transform = 'translate(0px, -50px)'
+        else
+          document.querySelector('.navbar-header').style.transform = 'translate(0px, -50px)'
+      } else {
+        if (mq.matches)
+          document.querySelector('.navbar-header').style.transform = 'translate(0px, 193px)'
+        else
+          document.querySelector('.navbar-header').style.transform = 'translate(0px, 0px)'
+      }
+    }
+  },
   async created () {
     // Fetch All departments
     this.$_async_query({

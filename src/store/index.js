@@ -4,6 +4,7 @@ import axiosInstance from '@/plugins/axios'
 // Department Store
 import departmentStore from './modules/department'
 import productStore from './modules/product'
+import customerStore from './modules/customer'
 
 Vuex.Store.prototype.$axios = axiosInstance
 Vue.use(Vuex)
@@ -16,6 +17,7 @@ export default new Vuex.Store({
   modules: {
     // Modules
     department: departmentStore,
-    product: productStore
+    product: productStore,
+    customer: customerStore
   }
 })
