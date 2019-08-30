@@ -68,15 +68,15 @@ export default {
   props: {
     title: {
       type: String,
-      default: () => "Dialog"
+      default: () => 'Dialog'
     },
     openBtnText: {
       type: String,
-      default: () => "Open Dialog"
+      default: () => 'Open Dialog'
     },
     openBtnSize: {
       type: String,
-      default: () => ""
+      default: () => ''
     }
   },
   data() {

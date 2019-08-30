@@ -136,3 +136,10 @@ h6 {
 .modal-close {
   display: none;
 }
+
+.navbar-burger {
+  color: $typeColorWhite;
+  span {
+    height: 2px;
+  }
+}

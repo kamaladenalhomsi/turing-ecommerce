@@ -1,16 +1,16 @@
 <template>
-  <div class="flex w-full h-full">
+  <div class="dropdown-component flex w-full h-full justify-center lg:justify-start">
     <b-navbar-item
       v-for="(department) in departments"
       :key="department.department_id"
-      class="navbar-header__dropdown_wrapper"
+      class="dropdown-component__dropdown_wrapper"
       :class="[{ 'navbar-item__active': active === department.department_id}]"
     >
       <b-dropdown
         hoverable
         aria-role="list"
-        class="navbar-header__dropdown h-full"
-        :class="`navbar-header__dropdown__${department.name}`"
+        class="dropdown-component__dropdown h-full"
+        :class="`dropdown-component__dropdown__${department.name}`"
       >
         <div
           @click="chooseDepartment(department), active = department.department_id"
@@ -19,10 +19,10 @@
         >
           <span class="font-bold">{{ department.name }}</span>
         </div>
-        <div class="container navbar-header__dropdown_container flex flex-wrap">
+        <div class="container dropdown-component__dropdown_container flex flex-wrap">
           <b-dropdown-item
             :custom="true"
-            class="navbar-header__dropdown_group w-full md:w-1/2"
+            class="dropdown-component__dropdown_group w-full md:w-1/2"
             aria-role="listitem"
           >
             <span class="block w-11/12">{{ department.description }}</span>
@@ -31,18 +31,18 @@
               @click.native="chooseDepartment(department), active = department.department_id"
             >Call to action</custom-button>
           </b-dropdown-item>
-          <div class="flex flex-wrap w-full mx-10 md:mx-0 md:w-1/3">
+          <div class="flex flex-wrap w-full mx-10 md:mx-0 md:w-1/2">
             <b-dropdown-item
               @click="chooseCategory(category), active = department.department_id, childActive = category.category_id"
               v-for="category in department.categories"
               :key="category.category_id"
-              class="navbar-header__dropdown_item navbar-header__dropdown_single_item"
-              :class="[{'navbar-header__dropdown_item__active': childActive === category.category_id}]"
+              class="dropdown-component__dropdown_item dropdown-component__dropdown_single_item"
+              :class="[{'dropdown-component__dropdown_item__active': childActive === category.category_id}]"
               aria-role="listitem"
               :nm="category.category_id"
             >
               {{ category.name }}
-              <span class="navbar-header__dropdown_item_hover"></span>
+              <span class="dropdown-component__dropdown_item_hover"></span>
             </b-dropdown-item>
           </div>
         </div>
@@ -57,20 +57,9 @@
   height: 100%;
 }
 
-// Navbar Header
-
-.navbar-header {
+.dropdown-component {
   &__trigger {
     padding: 15px 20px;
-  }
-  // Sign up button
-  &__signup {
-    margin-right: 30px !important;
-  }
-  background-color: $docColorFuchsia;
-  // Logo
-  &__logo {
-    letter-spacing: 9px;
   }
   // Dropdown
   &__dropdown {
@@ -97,12 +86,12 @@
   }
   &__dropdown_item {
     &__active {
-      .navbar-header__dropdown_item_hover {
+      .dropdown-component__dropdown_item_hover {
         width: 100%;
       }
     }
     &:hover {
-      .navbar-header__dropdown_item_hover {
+      .dropdown-component__dropdown_item_hover {
         width: 100%;
       }
     }
@@ -169,34 +158,6 @@
   }
 }
 
-.navbar-start {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  margin-left: 60px;
-}
-
-// Navbar Item
-
-.navbar-item {
-  height: 100%;
-  color: $typeColorWhite;
-  padding: 0px !important;
-  &:hover {
-    color: $typeColorWhite;
-    background-color: $typoColorFuchsia;
-    .dropdown-menu {
-      visibility: visible;
-      opacity: 1;
-      transform: translate(0px, 0px);
-    }
-  }
-  &__active {
-    color: $typoColorFuchsia !important;
-    background-color: $docColorWhite !important;
-  }
-}
-
 .dropdown-menu {
   display: block;
   &:hover {
@@ -206,16 +167,12 @@
   }
 }
 
-.navbar-menu {
-  position: relative;
-  background-color: transparent;
-}
 </style>
 
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  name: 'navbar-dropdown',
+  name: 'dropdown-component',
   computed: {
     ...mapGetters({
       departments: 'department/GET_ALL_DEPARTMENTS'
