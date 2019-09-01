@@ -29,11 +29,11 @@ h6 {
 }
 
 .c-white {
-  color: $typeColorWhite;
+  color: $typeColorWhite !important;
 }
 
 .c-fushia {
-  color: $typoColorFuchsia;
+  color: $typoColorFuchsia !important;
 }
 
 .f-opensans {
@@ -159,4 +159,8 @@ h6 {
     display: flex;
     align-items: center;
   }
+}
+
+.v-facebook-login {
+  cursor: pointer !important;
 }

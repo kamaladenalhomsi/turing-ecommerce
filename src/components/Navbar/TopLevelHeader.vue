@@ -4,121 +4,147 @@
       <div
         class="w-full top-level-header-min-h justify-center lg:justify-start lg:w-1/3 flex flex items-center py-4 lg:py-0"
       >
-        <h4 class="mr-4 f-Montserrat font-bold c-white">Hi!</h4>
-        <auth-temp
-          :active.sync="signup.active"
-          @open="signup.active = true"
-          @close="signup.active = false"
-          title="Sign up"
-          openBtnText="SignUp"
-        >
-          <b-field
-            :message="server_errors.name || errors.first('signup.name')"
-            :type="server_errors.name || errors.first('signup.name') ? 'is-danger' : ''"
+        <template v-if="!loggedin">
+          <h4 class="mr-4 f-Montserrat font-bold c-white">Hi!</h4>
+          <!-- SignUp -->
+          <auth-temp
+            :active.sync="signup.active"
+            @open="signup.active = true"
+            @close="signup.active = false"
+            title="Sign up"
+            openBtnText="SignUp"
           >
-            <b-input
-              v-model="signup.user.name"
-              placeholder="Full Name"
-              data-vv-name="name"
-              data-vv-scope="signup"
-              v-validate="'required'"
-            ></b-input>
-          </b-field>
-          <b-field
-            :message="server_errors.email || errors.first('signup.email')"
-            :type="server_errors.email || errors.first('signup.email') ? 'is-danger' : ''"
+            <b-field
+              :message="server_errors.name || errors.first('signup.name')"
+              :type="server_errors.name || errors.first('signup.name') ? 'is-danger' : ''"
+            >
+              <b-input
+                v-model="signup.user.name"
+                placeholder="Full Name"
+                data-vv-name="name"
+                data-vv-scope="signup"
+                v-validate="'required'"
+              ></b-input>
+            </b-field>
+            <b-field
+              :message="server_errors.email || errors.first('signup.email')"
+              :type="server_errors.email || errors.first('signup.email') ? 'is-danger' : ''"
+            >
+              <b-input
+                v-model="signup.user.email"
+                data-vv-name="email"
+                data-vv-scope="signup"
+                placeholder="Email"
+                v-validate="'required|email'"
+              ></b-input>
+            </b-field>
+            <b-field
+              :message="server_errors.password || errors.first('signup.password')"
+              :type="server_errors.password || errors.first('signup.password') ? 'is-danger' : ''"
+            >
+              <b-input
+                v-model="signup.user.password"
+                ref="password"
+                data-vv-name="password"
+                data-vv-scope="signup"
+                type="password"
+                placeholder="Password"
+                v-validate="'required'"
+              ></b-input>
+            </b-field>
+            <b-field
+              :message="errors.first('signup.password_confirmation')"
+              :type="errors.first('signup.password_confirmation') ? 'is-danger' : ''"
+            >
+              <b-input
+                v-validate="'required|confirmed:password'"
+                data-vv-name="password_confirmation"
+                type="password"
+                placeholder="Re-type password"
+                data-vv-as="password"
+              ></b-input>
+            </b-field>
+            <custom-button
+              class="auth-modal__submit mt-8 mx-auto"
+              size="large"
+              type="filled-fuchsia"
+              @click.native="createUser"
+              :loading.sync="signup.loading"
+            >Sign Up</custom-button>
+            <div class="flex justify-center flex-wrap">
+              <h4 class="mr-4 f-Montserrat font-bold my-4 w-full text-center">OR</h4>
+              <v-facebook-login @login="facebookLogin" app-id="352854622106208">
+                <template #login>Sign Up with facebook</template>
+              </v-facebook-login>
+            </div>
+            <div class="mt-4 flex justify-center f-opensans">
+              Already a member?
+              <a class="ml-3 c-fushia">Sign In</a>
+            </div>
+          </auth-temp>
+          <h4 class="ml-4 mr-4 f-Montserrat font-bold c-white">or</h4>
+          <!-- Login -->
+          <auth-temp
+            @open="login.active = true"
+            @close="login.active = false"
+            :active.sync="login.active"
+            title="Login"
+            openBtnText="Login"
           >
-            <b-input
-              v-model="signup.user.email"
-              data-vv-name="email"
-              data-vv-scope="signup"
-              placeholder="Email"
-              v-validate="'required|email'"
-            ></b-input>
-          </b-field>
-          <b-field
-            :message="server_errors.password || errors.first('signup.password')"
-            :type="server_errors.password || errors.first('signup.password') ? 'is-danger' : ''"
-          >
-            <b-input
-              v-model="signup.user.password"
-              ref="password"
-              data-vv-name="password"
-              data-vv-scope="signup"
-              type="password"
-              placeholder="Password"
-              v-validate="'required'"
-            ></b-input>
-          </b-field>
-          <b-field
-            :message="errors.first('signup.password_confirmation')"
-            :type="errors.first('signup.password_confirmation') ? 'is-danger' : ''"
-          >
-            <b-input
-              v-validate="'required|confirmed:password'"
-              data-vv-name="password_confirmation"
-              type="password"
-              placeholder="Re-type password"
-              data-vv-as="password"
-            ></b-input>
-          </b-field>
+            <b-field
+              :message="server_errors.email || errors.first('login.email')"
+              :type="server_errors.email || errors.first('login.email') ? 'is-danger' : ''"
+            >
+              <b-input
+                v-model="login.user.email"
+                data-vv-name="email"
+                data-vv-scope="login"
+                placeholder="Email"
+                v-validate="'required|email'"
+              ></b-input>
+            </b-field>
+            <b-field
+              :message="server_errors.password || errors.first('login.password')"
+              :type="server_errors.password || errors.first('login.password') ? 'is-danger' : ''"
+            >
+              <b-input
+                v-model="login.user.password"
+                ref="password"
+                data-vv-name="password"
+                data-vv-scope="login"
+                type="password"
+                placeholder="Password"
+                v-validate="'required'"
+              ></b-input>
+            </b-field>
+            <custom-button
+              class="auth-modal__submit mt-8 mx-auto"
+              size="large"
+              type="filled-fuchsia"
+              @click.native="loginUser"
+              :loading.sync="login.loading"
+            >Login</custom-button>
+            <div class="flex justify-center flex-wrap">
+              <h4 class="mr-4 f-Montserrat font-bold my-4 w-full text-center">OR</h4>
+              <v-facebook-login @login="facebookLogin" app-id="352854622106208"></v-facebook-login>
+            </div>
+            <div class="mt-8 flex justify-center f-opensans">
+              Don't have an account?
+              <a class="ml-3 c-fushia">Create one now</a>
+            </div>
+          </auth-temp>
+        </template>
+        <template v-else>
+          <h4 class="mr-4 f-Montserrat font-bold c-white">Hi! {{ customer.name }}</h4>
+          <a href class="ml-2 c-fushia font-bold">Profile</a>
           <custom-button
-            class="auth-modal__submit mt-8 mx-auto"
-            size="large"
-            type="filled-fuchsia"
-            @click.native="createUser"
+            class="ml-4"
+            type="outlined"
+            @click.native="logout"
             :loading.sync="signup.loading"
-          >Sign Up</custom-button>
-          <div class="mt-4 flex justify-center f-opensans">
-            Already a member?
-            <a class="ml-3 c-fushia">Sign In</a>
-          </div>
-        </auth-temp>
-        <h4 class="ml-4 mr-4 f-Montserrat font-bold c-white">or</h4>
-        <auth-temp
-          @open="login.active = true"
-          @close="login.active = false"
-          :active.sync="login.active"
-          title="Login"
-          openBtnText="Login"
-        >
-          <b-field
-            :message="server_errors.email || errors.first('login.email')"
-            :type="server_errors.email || errors.first('login.email') ? 'is-danger' : ''"
-          >
-            <b-input
-              v-model="login.user.email"
-              data-vv-name="email"
-              data-vv-scope="login"
-              placeholder="Email"
-              v-validate="'required|email'"
-            ></b-input>
-          </b-field>
-          <b-field
-            :message="server_errors.password || errors.first('login.password')"
-            :type="server_errors.password || errors.first('login.password') ? 'is-danger' : ''"
-          >
-            <b-input
-              v-model="login.user.password"
-              ref="password"
-              data-vv-name="password"
-              data-vv-scope="login"
-              type="password"
-              placeholder="Password"
-              v-validate="'required'"
-            ></b-input>
-          </b-field>
-          <custom-button
-            class="auth-modal__submit mt-8 mx-auto"
-            size="large"
-            type="filled-fuchsia"
-            @click.native="loginUser"
-          >Login</custom-button>
-          <div class="mt-8 flex justify-center f-opensans">
-            Don't have an account?
-            <a class="ml-3 c-fushia">Create one now</a>
-          </div>
-        </auth-temp>
+          >Logout</custom-button>
+          <!-- <a href class="ml-4 c-fushia font-bold">Logout</a> -->
+        </template>
       </div>
       <ul
         class="w-full top-level-header-min-h justify-center lg:w-1/3 flex items-center py-4 lg:py-0"
@@ -186,9 +212,12 @@
 
 <script>
 import AuthTemp from '@/components/Authentication/AuthTemp.vue'
+import { VFBLogin as VFacebookLogin } from 'vue-facebook-login-component'
+import { mapGetters } from 'vuex'
 export default {
   components: {
-    AuthTemp
+    AuthTemp,
+    VFacebookLogin
   },
   data() {
     return {
@@ -212,7 +241,33 @@ export default {
   $_veeValidate: {
     validator: 'new'
   },
+  computed: {
+    ...mapGetters({
+      loggedin: 'customer/GET_IS_LOGGEDIN',
+      customer: 'customer/GET_CUSTOMER'
+    })
+  },
   methods: {
+    async facebookLogin(response) {
+      // Contected
+      if (response.authResponse) {
+        await this.$_async_mutation({
+          mutation: {
+            method: 'post',
+            path: '/customers/facebook',
+            variables: {
+              access_token: response.authResponse.accessToken
+            }
+          },
+          done: res => {
+            this.$store.commit('customer/SET_TOKEN', res.accessToken)
+            this.$store.commit('customer/SET_CUSTOMER', res.customer)
+            this.$store.commit('customer/SET_TOKEN_EXPIRE', res.expires_in)
+            this.login.active = false
+          }
+        })
+      }
+    },
     async createUser() {
       this.signup.loading = true
       await this.$_async_mutation({
@@ -240,14 +295,27 @@ export default {
           variables: this.login.user
         },
         done: res => {
-          localStorage.setItem('token', res.accessToken)
-          localStorage.setItem('customer', JSON.stringify(res.customer))
-          localStorage.setItem('token_expire', res.expires_in)
+          this.$store.commit('customer/SET_TOKEN', res.accessToken)
+          this.$store.commit('customer/SET_CUSTOMER', res.customer)
+          this.$store.commit('customer/SET_TOKEN_EXPIRE', res.expires_in)
           this.login.active = false
-        },
-        doneNtf: {
-          // message: `Welcome back ${res.customer.name}`
         }
+        // doneNtf: res => ({
+        //   message: `Welcome back ${res.customer.name}`
+        // })
+      })
+      this.login.loading = false
+    },
+    logout() {
+      FB.logout() // eslint-disable-line no-undef
+      this.$store.commit('customer/LOGOUT')
+      this.$buefy.notification.open({
+        message: 'Logouted successfully! we will miss you',
+        type: 'is-success',
+        duration: 5000,
+        position: 'is-bottom-right',
+        hasIcon: true,
+        iconPack: 'fas'
       })
     }
   }

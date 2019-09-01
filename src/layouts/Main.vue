@@ -4,8 +4,8 @@
     <nav class="navbar navbar-header" role="navigation" aria-label="main navigation">
       <div class="container">
         <div class="navbar-brand items-center px-10 md:px-0">
-          <a class="navbar-item" href="https://bulma.io">
-            <h2 class="font-bold navbar-header__logo">SHOPMATE</h2>
+          <a class="navbar-item navbar-header__logo" href="https://bulma.io">
+            <h2 class="font-bold">SHOPMATE</h2>
           </a>
           <a
             @click="toggle"
@@ -63,7 +63,7 @@
   &__logo {
     letter-spacing: 9px;
     &:hover {
-      color: $typeColorWhite;
+      color: $typeColorWhite !important;
     }
   }
 }
