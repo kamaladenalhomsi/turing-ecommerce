@@ -1,33 +1,14 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { shallowMount } from '@vue/test-utils'
 import Home from '@/views/Home.vue'
-import buefy from 'buefy'
-import productStore from '@/store/modules/product'
-import globals from '../../../src/mixins/globals'
-jest.mock('@/plugins/axios', () => {
-  const axios = require('axios')
-  return axios
-})
-jest.mock('axios')
 import axiosInstance from '@/plugins/axios'
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
-localVue.use(buefy)
-
-const store = new Vuex.Store({
-  modules: {
-    product: productStore
-  }
-})
-
+import store from '@/store/index'
+import { localVue } from '../index'
 describe('Home Page', () => {
   let vm
   beforeAll(() => {
     const wrapper = shallowMount(Home, {
       store,
       localVue,
-      mixins: [globals],
       stubs: ['custom-button']
     })
     vm = wrapper.vm

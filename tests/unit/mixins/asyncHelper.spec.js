@@ -1,17 +1,6 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import App from '@/layouts/Main.vue'
-import buefy from 'buefy'
-jest.mock('@/plugins/axios', () => {
-  const axios = require('axios')
-  return axios
-})
-jest.mock('axios')
-
-const localVue = createLocalVue()
-localVue.use(buefy)
-
-import globals from '../../../src/mixins/globals'
-
+import { localVue } from '../index'
 import axiosInstance from '@/plugins/axios'
 
 describe('AsyncHelpers', () => {
@@ -19,7 +8,6 @@ describe('AsyncHelpers', () => {
   beforeAll(() => {
     wrapper = shallowMount(App, {
       localVue,
-      mixins: [globals],
       stubs: ['router-view', 'b-notification']
     })
   })

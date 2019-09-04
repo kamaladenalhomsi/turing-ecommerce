@@ -277,6 +277,9 @@ export default {
           variables: this.signup.user
         },
         done: res => {
+          this.$store.commit('customer/SET_TOKEN', res.accessToken)
+          this.$store.commit('customer/SET_CUSTOMER', res.customer)
+          this.$store.commit('customer/SET_TOKEN_EXPIRE', res.expires_in)
           this.signup.active = false
         },
         doneNtf: {
