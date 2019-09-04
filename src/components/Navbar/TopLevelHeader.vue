@@ -13,6 +13,7 @@
             @close="signup.active = false"
             title="Sign up"
             openBtnText="SignUp"
+            nm="signup"
           >
             <b-field
               :message="server_errors.name || errors.first('signup.name')"
@@ -70,6 +71,7 @@
               type="filled-fuchsia"
               @click.native="createUser"
               :loading.sync="signup.loading"
+              nm="signupButton"
             >Sign Up</custom-button>
             <div class="flex justify-center flex-wrap">
               <h4 class="mr-4 f-Montserrat font-bold my-4 w-full text-center">OR</h4>
@@ -90,6 +92,7 @@
             :active.sync="login.active"
             title="Login"
             openBtnText="Login"
+            nm="login"
           >
             <b-field
               :message="server_errors.email || errors.first('login.email')"
@@ -123,6 +126,7 @@
               type="filled-fuchsia"
               @click.native="loginUser"
               :loading.sync="login.loading"
+              nm="loginButton"
             >Login</custom-button>
             <div class="flex justify-center flex-wrap">
               <h4 class="mr-4 f-Montserrat font-bold my-4 w-full text-center">OR</h4>
@@ -135,13 +139,14 @@
           </auth-temp>
         </template>
         <template v-else>
-          <h4 class="mr-4 f-Montserrat font-bold c-white">Hi! {{ customer.name }}</h4>
+          <h4 class="mr-4 f-Montserrat font-bold c-white" nm="customerName">Hi! {{ customer.name }}</h4>
           <a href class="ml-2 c-fushia font-bold">Profile</a>
           <custom-button
             class="ml-4"
             type="outlined"
             @click.native="logout"
             :loading.sync="signup.loading"
+            nm="logoutButton"
           >Logout</custom-button>
           <!-- <a href class="ml-4 c-fushia font-bold">Logout</a> -->
         </template>
@@ -310,7 +315,7 @@ export default {
       this.login.loading = false
     },
     logout() {
-      FB.logout() // eslint-disable-line no-undef
+      // FB.logout() // eslint-disable-line no-undef
       this.$store.commit('customer/LOGOUT')
       this.$buefy.notification.open({
         message: 'Logouted successfully! we will miss you',

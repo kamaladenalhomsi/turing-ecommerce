@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-modal :active.sync="active">
+    <b-modal ref="modal" :active.sync="active" @close="$emit('close')">
       <div class="auth-modal flex justify-center">
         <div class="auth-modal__wrapper">
           <div class="w-10/12 mx-auto">
@@ -81,6 +81,11 @@ export default {
     active: {
       type: Boolean,
       required: true
+    }
+  },
+  mounted() {
+    this.$refs.modal.close = () => {
+      this.$emit('close')
     }
   }
 }
