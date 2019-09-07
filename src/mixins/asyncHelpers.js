@@ -21,7 +21,7 @@ const constructNotification = (type, defaultMessage, override) => {
   let notification = {
     message: defaultMessage,
     type: type,
-    duration: 500000,
+    duration: 5000,
     position: 'is-bottom-right',
     hasIcon: true,
     iconPack: 'fas'
@@ -45,9 +45,13 @@ export default {
       )
       // if path exist
     } else if (payload.query.path) {
-      response = await axiosInstance.get(payload.query.path, {
-        params: payload.query.params
-      })
+      try {
+        response = await axiosInstance.get(payload.query.path, {
+          params: payload.query.params
+        })
+      } catch (e) {
+        response = e.response
+      }
     }
     // if response does not null or undefiend
     if (response) {
@@ -99,11 +103,15 @@ export default {
     if (response) {
       // Success
       if (response.status === 200) {
+        let doneOverride = null
+        if (typeof payload.doneNtf !== 'undefined') {
+          doneOverride = payload.doneNtf(response.data)
+        }
         this.$buefy.notification.open(
           constructNotification(
             'is-success',
             'Operation has done successfully',
-            payload.doneNtf(response.data)
+            doneOverride
           )
         )
         // the if condition above each callback check if callback exist
@@ -118,15 +126,17 @@ export default {
       }
       // Bad Request
       if (response.status === 400) {
-        if (payload.badRequestNtf) {
-          this.$buefy.notification.open(
-            constructNotification(
-              'is-danger',
-              'Ops! Something went wrong, Check you inputs and try again',
-              payload.badRequestNtf(response)
-            )
-          )
+        let badRequestOverride = null
+        if (typeof payload.badRequestNtf !== 'undefined') {
+          badRequestOverride = payload.badRequestNtf(response)
         }
+        this.$buefy.notification.open(
+          constructNotification(
+            'is-danger',
+            'Ops! Something went wrong, Check you inputs and try again',
+            badRequestOverride
+          )
+        )
         // Inject error returned from server in server_errors
         Vue.set(
           this.$data.server_errors,
@@ -139,11 +149,15 @@ export default {
       }
       // Unauthorized
       if (response.status === 401) {
+        let unauthorizedNtfOverride = null
+        if (typeof payload.unauthorizedNtf !== 'undefined') {
+          unauthorizedNtfOverride = payload.unauthorizedNtf(response)
+        }
         this.$buefy.notification.open(
           constructNotification(
             'is-danger',
             'You do not have permission to perform this operation!',
-            payload.unauthorizedNtf(response)
+            unauthorizedNtfOverride
           )
         )
         if (
