@@ -311,7 +311,6 @@ export default {
         doneNtf: {
           message: 'User Signed up Successfully!'
         },
-        badRequestNtf: {}
       })
       this.signup.loading = false
     },
@@ -330,10 +329,10 @@ export default {
           this.$store.commit('customer/SET_CUSTOMER', res.customer)
           this.$store.commit('customer/SET_TOKEN_EXPIRE', res.expires_in)
           this.login.active = false
-        }
-        // doneNtf: res => ({
-        //   message: `Welcome back ${res.customer.name}`
-        // })
+        },
+        doneNtf: res => ({
+          message: `Welcome back ${res.customer.name}`
+        })
       })
       this.login.loading = false
     },

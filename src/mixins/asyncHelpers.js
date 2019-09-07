@@ -103,7 +103,7 @@ export default {
           constructNotification(
             'is-success',
             'Operation has done successfully',
-            payload.doneNtf
+            payload.doneNtf(response.data)
           )
         )
         // the if condition above each callback check if callback exist
@@ -123,7 +123,7 @@ export default {
             constructNotification(
               'is-danger',
               'Ops! Something went wrong, Check you inputs and try again',
-              payload.badRequestNtf
+              payload.badRequestNtf(response)
             )
           )
         }
@@ -143,7 +143,7 @@ export default {
           constructNotification(
             'is-danger',
             'You do not have permission to perform this operation!',
-            payload.unauthorizedNtf
+            payload.unauthorizedNtf(response)
           )
         )
         if (
