@@ -65,12 +65,7 @@
           </div>
           <div class="w-full my-4 md:my-0 md:w-1/2 flex justify-between items-center">
             <b-field class="mb-0-important w-9/12">
-              <b-input
-                class="newsletter__input"
-                placeholder="Your e-mail here"
-                icon="envelope"
-                rounded
-              ></b-input>
+              <b-input class="rounded-input" placeholder="Your e-mail here" icon="envelope" rounded></b-input>
             </b-field>
             <custom-button class="newsletter__btn" type="filled-white">Subscribe</custom-button>
           </div>
@@ -85,26 +80,6 @@
   opacity: 0;
   transform: scaleY(0);
   transform-origin: center top;
-}
-.newsletter {
-  width: 100%;
-  background-color: $docColorFuchsia;
-  &__wrapper {
-    min-height: 72px;
-  }
-  &__input {
-    input {
-      padding-left: 50px !important;
-    }
-    span {
-      padding-left: 15px;
-    }
-  }
-  &__btn {
-    padding: 0px 20px !important;
-    height: 45px;
-    border-radius: 30px;
-  }
 }
 
 .pagination-previous, .pagination-next {
@@ -128,6 +103,20 @@
 
 .pagination-link {
   font-weight: bold;
+}
+
+.newsletter {
+  width: 100%;
+  background-color: $docColorFuchsia;
+  &__wrapper {
+    min-height: 72px;
+  }
+
+  &__btn {
+    padding: 0px 20px !important;
+    height: 45px;
+    border-radius: 30px;
+  }
 }
 
 .welcome-sction {
@@ -183,7 +172,10 @@ export default {
   watch: {
     'products.pagination.currentPage': {
       handler() {
-        this.fetchProducts()
+        if (this.searchWord.query_string)
+          this.fetchProducts(this.searchWord)
+        else
+          this.fetchProducts()
       }
     },
     choosedCategory: {
@@ -195,6 +187,14 @@ export default {
       handler() {
         this.fetchProducts()
       }
+    },
+    searchWord: {
+      handler(val) {
+        if (val) {
+          this.products.pagination.currentPage = 1
+          this.fetchProducts(val)
+        }
+      }
     }
   },
   created() {
@@ -204,7 +204,8 @@ export default {
   computed: {
     ...mapGetters({
       choosedCategory: 'product/GET_CHOOSED_CATEGROY',
-      choosedDepartment: 'product/GET_CHOOSED_DEPARTMENT'
+      choosedDepartment: 'product/GET_CHOOSED_DEPARTMENT',
+      searchWord: 'product/GET_SEARCH_WORD'
     }),
     fetchUrl() {
       let url = `/products`
@@ -242,12 +243,13 @@ export default {
         }
       })
     },
-    async fetchProducts() {
+    async fetchProducts(searchWord = {}) {
       this.products.rows = []
       await this.$_async_query({
         query: {
-          path: this.fetchUrl,
+          path: searchWord.query_string ? '/products/search' : this.fetchUrl,
           params: {
+            ...searchWord,
             page: this.products.pagination.currentPage,
             limit: this.products.pagination.limit
           }

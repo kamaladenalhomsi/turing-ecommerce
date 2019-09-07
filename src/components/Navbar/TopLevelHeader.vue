@@ -308,9 +308,9 @@ export default {
           this.$store.commit('customer/SET_TOKEN_EXPIRE', res.expires_in)
           this.signup.active = false
         },
-        doneNtf: {
+        doneNtf: res => ({
           message: 'User Signed up Successfully!'
-        },
+        })
       })
       this.signup.loading = false
     },

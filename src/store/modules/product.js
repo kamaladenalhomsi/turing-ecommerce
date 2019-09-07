@@ -1,13 +1,17 @@
 // State
 const state = () => ({
   category: {},
-  department: {}
+  department: {},
+  searchWord: ''
 })
 
 // Getters
 const getters = {
   GET_CHOOSED_CATEGROY: state => state.category,
-  GET_CHOOSED_DEPARTMENT: state => state.department
+  GET_CHOOSED_DEPARTMENT: state => state.department,
+  GET_SEARCH_WORD: state => ({
+    query_string: state.searchWord
+  })
 }
 
 // Mutations
@@ -25,6 +29,9 @@ const mutations = {
   },
   DELETE_CATEGORY(state) {
     state.category = {}
+  },
+  SET_SEARCH_WORD(state, word) {
+    state.searchWord = word
   }
 }
 

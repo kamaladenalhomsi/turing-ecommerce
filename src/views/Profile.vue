@@ -222,7 +222,7 @@ export default {
        */
       let isValid = this.$validator.validateAll(key)
       if (!isValid) return
-      this.forms[groupIndex].loading = true;
+      this.forms[groupIndex].loading = true
       await this.$_async_mutation({
         mutation: {
           method: 'PUT',
@@ -236,7 +236,7 @@ export default {
           message: `Your ${key} has updated successfully`
         })
       })
-      this.forms[groupIndex].loading = false;
+      this.forms[groupIndex].loading = false
     }
   }
 }

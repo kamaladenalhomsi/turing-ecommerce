@@ -26,12 +26,18 @@
             <navbar-dropdown></navbar-dropdown>
           </div>
 
-          <div class="navbar-end py-4 md:py-0 flex justify-center">
-            <div class="buttons">
-              <a class="button m-is-outlined navbar-header__signup">
-                <strong>Sign up</strong>
-              </a>
-            </div>
+          <div class="navbar-end py-4 md:py-0 flex items-center justify-center">
+            <b-field>
+              <b-input
+                class="rounded-input search-input"
+                placeholder="Search..."
+                rounded
+                type="search"
+                icon-pack="fas"
+                icon="search"
+                v-model="searchWord"
+              ></b-input>
+            </b-field>
           </div>
         </div>
       </div>
@@ -62,6 +68,9 @@
   // Logo
   &__logo {
     letter-spacing: 9px;
+    &:focus {
+      color: $typeColorWhite !important;
+    }
     &:hover {
       color: $typeColorWhite !important;
     }
@@ -126,6 +135,12 @@
   }
 }
 
+.search-input {
+  input {
+    background-color: rgba(255, 255, 255, 0.9)
+  }
+}
+
 // Media Query
 @media screen and (min-width: 1000px) {
   .dropdown-component {
@@ -165,6 +180,11 @@ export default {
     AuthTemp,
     TopLevelHeader
   },
+  data() {
+    return {
+      searchWord: ''
+    }
+  },
   methods: {
     toggle() {
       document.querySelector('.navbar-menu').classList.toggle('is-active')
@@ -184,6 +204,11 @@ export default {
         else
           document.querySelector('.navbar-header').style.transform = 'translate(0px, 0px)'
       }
+    }
+  },
+  watch: {
+    searchWord(val) {
+      this.$store.commit('product/SET_SEARCH_WORD', val)
     }
   },
   async created () {

@@ -188,3 +188,12 @@ h6 {
 .w-90 {
   width: 90%;
 }
+
+.rounded-input {
+  input {
+    padding-left: 50px !important;
+  }
+  span {
+    padding-left: 15px;
+  }
+}
