@@ -22,25 +22,6 @@
 </template>
 
 <style lang="scss" scoped>
-::-webkit-input-placeholder {
-   text-align: center;
-   font-weight: bold
-}
-
-:-moz-placeholder { /* Firefox 18- */
-   text-align: center;
-   font-weight: bold
-}
-
-::-moz-placeholder {  /* Firefox 19+ */
-   text-align: center;
-   font-weight: bold
-}
-
-:-ms-input-placeholder {
-   text-align: center;
-   font-weight: bold
-}
 .auth-modal {
   &__wrapper {
     background-color: #ffffff;

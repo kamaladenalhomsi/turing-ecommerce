@@ -16,6 +16,7 @@
             nm="signup"
           >
             <b-field
+              class="custom-input"
               :message="server_errors.name || errors.first('signup.name')"
               :type="server_errors.name || errors.first('signup.name') ? 'is-danger' : ''"
             >
@@ -28,6 +29,7 @@
               ></b-input>
             </b-field>
             <b-field
+              class="custom-input"
               :message="server_errors.email || errors.first('signup.email')"
               :type="server_errors.email || errors.first('signup.email') ? 'is-danger' : ''"
             >
@@ -40,6 +42,7 @@
               ></b-input>
             </b-field>
             <b-field
+              class="custom-input"
               :message="server_errors.password || errors.first('signup.password')"
               :type="server_errors.password || errors.first('signup.password') ? 'is-danger' : ''"
             >
@@ -54,6 +57,7 @@
               ></b-input>
             </b-field>
             <b-field
+              class="custom-input"
               :message="errors.first('signup.password_confirmation')"
               :type="errors.first('signup.password_confirmation') ? 'is-danger' : ''"
             >
@@ -81,7 +85,10 @@
             </div>
             <div class="mt-4 flex justify-center f-opensans">
               Already a member?
-              <a class="ml-3 c-fushia">Sign In</a>
+              <a
+                class="ml-3 c-fushia"
+                @click="login.active = true, signup.active = false"
+              >Sign In</a>
             </div>
           </auth-temp>
           <h4 class="ml-4 mr-4 f-Montserrat font-bold c-white">or</h4>
@@ -95,6 +102,7 @@
             nm="login"
           >
             <b-field
+              class="custom-input"
               :message="server_errors.email || errors.first('login.email')"
               :type="server_errors.email || errors.first('login.email') ? 'is-danger' : ''"
             >
@@ -107,6 +115,7 @@
               ></b-input>
             </b-field>
             <b-field
+              class="custom-input"
               :message="server_errors.password || errors.first('login.password')"
               :type="server_errors.password || errors.first('login.password') ? 'is-danger' : ''"
             >
@@ -134,13 +143,16 @@
             </div>
             <div class="mt-8 flex justify-center f-opensans">
               Don't have an account?
-              <a class="ml-3 c-fushia">Create one now</a>
+              <a
+                class="ml-3 c-fushia"
+                @click="login.active = false, signup.active = true"
+              >Create one now</a>
             </div>
           </auth-temp>
         </template>
         <template v-else>
           <h4 class="mr-4 f-Montserrat font-bold c-white" nm="customerName">Hi! {{ customer.name }}</h4>
-          <a href class="ml-2 c-fushia font-bold">Profile</a>
+          <a class="ml-2 c-fushia font-bold">Profile</a>
           <custom-button
             class="ml-4"
             type="outlined"
@@ -240,6 +252,9 @@ export default {
         user: {},
         active: false,
         loading: false
+      },
+      profile: {
+        active: false
       }
     }
   },
@@ -274,6 +289,8 @@ export default {
       }
     },
     async createUser() {
+      let isVaild = await this.$validator.validateAll('signup')
+      if (!isVaild) return true
       this.signup.loading = true
       await this.$_async_mutation({
         mutation: {
@@ -295,6 +312,8 @@ export default {
       this.signup.loading = false
     },
     async loginUser() {
+      let isVaild = await this.$validator.validateAll('login')
+      if (!isVaild) return true
       this.login.loading = true
       await this.$_async_mutation({
         mutation: {
@@ -315,7 +334,9 @@ export default {
       this.login.loading = false
     },
     logout() {
-      // FB.logout() // eslint-disable-line no-undef
+      if (window.hasOwnProperty('FB')) {
+        FB.logout() // eslint-disable-line no-undef
+      }
       this.$store.commit('customer/LOGOUT')
       this.$buefy.notification.open({
         message: 'Logouted successfully! we will miss you',

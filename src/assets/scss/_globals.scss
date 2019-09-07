@@ -116,20 +116,11 @@ h6 {
   justify-content: center;
 }
 
-.auth-modal {
-  &__submit {
-    display: block !important;
-    width: 175px;
-    height: 55px;
-    border-radius: 40px !important;
-  }
-  .field {
-    position: relative;
-    width: 100%;
-    .input {
-      border: 2px solid #e1e1e1;
-      padding: 25px;
-    }
+.custom-input {
+  position: relative;
+  .input {
+    border: 2px solid #e1e1e1;
+    padding: 25px;
   }
 }
 
@@ -163,4 +154,37 @@ h6 {
 
 .v-facebook-login {
   cursor: pointer !important;
+}
+
+::-webkit-input-placeholder {
+  text-align: center;
+  font-weight: bold;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  text-align: center;
+  font-weight: bold;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  text-align: center;
+  font-weight: bold;
+}
+
+:-ms-input-placeholder {
+  text-align: center;
+  font-weight: bold;
+}
+
+.auth-modal__submit {
+  display: block !important;
+  width: 175px;
+  height: 55px;
+  border-radius: 40px !important;
+}
+
+.w-90 {
+  width: 90%;
 }
