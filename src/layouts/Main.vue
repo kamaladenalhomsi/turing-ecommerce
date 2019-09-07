@@ -4,9 +4,9 @@
     <nav class="navbar navbar-header" role="navigation" aria-label="main navigation">
       <div class="container">
         <div class="navbar-brand items-center px-10 md:px-0">
-          <a class="navbar-item navbar-header__logo" href="https://bulma.io">
+          <router-link class="navbar-item navbar-header__logo" :to="{name: 'home'}">
             <h2 class="font-bold">SHOPMATE</h2>
-          </a>
+          </router-link>
           <a
             @click="toggle"
             role="button"

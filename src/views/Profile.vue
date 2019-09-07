@@ -4,8 +4,9 @@
       <h1 class="font-bold f-montserrat">Edit Profile</h1>
       <div v-for="(group, index) in forms" :key="index" class="mt-8">
         <h3 class="profile-modal__section__title font-bold" v-if="group.head">{{ group.head }}</h3>
-        <div class="w-full flex flex-wrap mt-4">
+        <div class="w-full flex flex-wrap mt-4" nm="profile-warapper">
           <b-field
+            :nm="'field-' + input.key"
             v-for="(input, inputIndex) in group.inputs"
             :key="inputIndex"
             class="custom-input w-full md:w-1/2 pr-4"
@@ -13,13 +14,14 @@
             :type="server_errors[input.key] || errors.has(`${group.key}.${input.key}`) ? 'is-danger' : ''"
           >
             <b-input
-              v-if="profile.customer[group.key][input.key]"
+              v-if="profile.customer[group.key].hasOwnProperty([input.key])"
               v-model="profile.customer[group.key][input.key]"
               :data-vv-name="input.key"
               :type="input.type"
               :placeholder="input.placeHolder"
               v-validate="input.vRules"
               :data-vv-scope="group.key"
+              :nm="'update-' + group.key"
             ></b-input>
             <content-loader
               v-else
@@ -37,9 +39,10 @@
             class="mt-4"
             size="large"
             type="filled-fuchsia"
-            @click.native="update(group.key, group.updatePath)"
-            :nm="'update' + group.key"
+            @click.native="update(group.key, group.updatePath, index)"
+            :nm="'update-' + group.key"
             icon="fas fa-pencil-alt"
+            :loading="group.loading"
           >Update</custom-button>
         </div>
       </div>
@@ -74,6 +77,7 @@ export default {
           head: 'Customer Basic Data',
           key: 'basicData',
           updatePath: '/customer',
+          loading: false,
           inputs: [
             {
               key: 'name',
@@ -108,6 +112,7 @@ export default {
           head: 'Address',
           key: 'address',
           updatePath: '/customers/address',
+          loading: false,
           inputs: [
             {
               key: 'address_1',
@@ -156,6 +161,7 @@ export default {
           head: 'Credit Card',
           key: 'credit',
           updatePath: '/customers/creditCard',
+          loading: false,
           inputs: [
             {
               key: 'credit_card',
@@ -174,7 +180,6 @@ export default {
         path: '/customer'
       },
       done: res => {
-        console.log(res, 'res')
         const { name,
           email,
           day_phone,
@@ -209,9 +214,15 @@ export default {
     })
   },
   methods: {
-    async update(key, updatePath) {
+    async update(key, updatePath, groupIndex) {
+      /**
+       * @params key, updatePath
+       * key is used as validation scope and as a warpper
+       * updatePath is the the update route
+       */
       let isValid = this.$validator.validateAll(key)
       if (!isValid) return
+      this.forms[groupIndex].loading = true;
       await this.$_async_mutation({
         mutation: {
           method: 'PUT',
@@ -219,9 +230,10 @@ export default {
           variables: this.profile.customer[key]
         },
         done: res => {
-          console.log(res, 'res')
+          this.$store.commit('customer/SET_CUSTOMER', res)
         }
       })
+      this.forms[groupIndex].loading = false;
     }
   }
 }

@@ -8,6 +8,7 @@ const state = () => ({
 // Getters
 const getters = {
   GET_CUSTOMER: state => state.info,
+  GET_TOKEN: state => state.token,
   GET_IS_LOGGEDIN: state => (state.token ? true : false)
 }
 
@@ -18,6 +19,7 @@ const mutations = {
   },
   SET_TOKEN(state, token) {
     localStorage.setItem('token', token)
+    this.$axios.defaults.headers['user-key'] = token
     state.token = token
   },
   SET_CUSTOMER(state, customer) {
@@ -35,6 +37,7 @@ const mutations = {
     state.info = {}
     state.token = ''
     state.token_expire = ''
+    this.$axios.defaults.headers['user-key'] = ''
   }
 }
 

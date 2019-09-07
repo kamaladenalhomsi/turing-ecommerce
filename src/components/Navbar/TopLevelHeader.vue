@@ -152,7 +152,11 @@
         </template>
         <template v-else>
           <h4 class="mr-4 f-Montserrat font-bold c-white" nm="customerName">Hi! {{ customer.name }}</h4>
-          <a class="ml-2 c-fushia font-bold">Profile</a>
+          <router-link
+            :to="{name: 'profile'}"
+            nm="profile-link"
+            class="ml-2 c-fushia font-bold"
+          >Profile</router-link>
           <custom-button
             class="ml-4"
             type="outlined"

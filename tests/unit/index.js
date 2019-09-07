@@ -1,5 +1,4 @@
 import { createLocalVue } from '@vue/test-utils'
-import NodeEnvironment from 'jest-environment-node'
 import Vuex from 'vuex'
 import buefy from 'buefy'
 import globals from '@/mixins/globals'
