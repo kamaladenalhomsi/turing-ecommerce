@@ -231,7 +231,10 @@ export default {
         },
         done: res => {
           this.$store.commit('customer/SET_CUSTOMER', res)
-        }
+        },
+        doneNtf: res => ({
+          message: `Your ${key} has updated successfully`
+        })
       })
       this.forms[groupIndex].loading = false;
     }
