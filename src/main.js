@@ -15,6 +15,9 @@ import '@/assets/scss/main.scss'
 // Global Components
 import '@/components/index.js'
 
+// Rest API path
+import restPaths from '@/contants/rest_paths'
+
 // Inject the axios instance in the vue prototype
 
 Vue.mixin({
@@ -22,7 +25,10 @@ Vue.mixin({
 })
 
 Vue.config.productionTip = false
-console.log(store, 'store')
+
+// Inject Paths in the Vue prototype
+Vue.prototype.$rest = restPaths
+
 new Vue({
   router,
   store,

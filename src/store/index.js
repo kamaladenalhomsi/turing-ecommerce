@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axiosInstance from '@/plugins/axios'
+import restPaths from '@/contants/rest_paths'
 // Department Store
 import departmentStore from './modules/department'
 import productStore from './modules/product'
 import customerStore from './modules/customer'
 
 Vuex.Store.prototype.$axios = axiosInstance
+Vuex.Store.prototype.$rest = restPaths
 Vue.use(Vuex)
 
 export default new Vuex.Store({

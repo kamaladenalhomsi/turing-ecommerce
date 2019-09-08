@@ -24,7 +24,7 @@ describe('Update', () => {
       mob_phone: '010236325142'
     }
     axiosInstance.mockImplementation(({ url, method }) => {
-      if (url === '/customer' && method === 'PUT') {
+      if (url === vm.$rest.CUSTOMER.UPDATE() && method === 'PUT') {
         return Promise.resolve({
           status: 200,
           data
@@ -49,7 +49,7 @@ describe('Update', () => {
       shipping_region_id: '1'
     }
     axiosInstance.mockImplementation(({ url, method }) => {
-      if (url === '/customers/address' && method === 'PUT') {
+      if (url === vm.$rest.CUSTOMERS.UPDATE_ADDRESS() && method === 'PUT') {
         return Promise.resolve({
           status: 200,
           data
@@ -57,7 +57,7 @@ describe('Update', () => {
       }
     })
 
-    await vm.update('address', '/customers/address')
+    await vm.update('address', vm.$rest.CUSTOMERS.UPDATE_ADDRESS())
     expect(vm.$store.getters['customer/GET_CUSTOMER']).toEqual(
       expect.objectContaining(data)
     )
@@ -68,7 +68,7 @@ describe('Update', () => {
       credit_card: '4242424242424242'
     }
     axiosInstance.mockImplementation(({ url, method }) => {
-      if (url === '/customers//customers/creditCard' && method === 'PUT') {
+      if (url === vm.$rest.CUSTOMERS.UPDATE_CREDIT() && method === 'PUT') {
         return Promise.resolve({
           status: 200,
           data
@@ -76,7 +76,7 @@ describe('Update', () => {
       }
     })
 
-    await vm.update('credit', '/customers//customers/creditCard')
+    await vm.update('credit', vm.$rest.CUSTOMERS.UPDATE_CREDIT())
     expect(vm.$store.getters['customer/GET_CUSTOMER']).toEqual(
       expect.objectContaining(data)
     )

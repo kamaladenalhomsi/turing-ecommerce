@@ -61,7 +61,7 @@ export default {
   $_veeValidate: {
     validator: 'new'
   },
-  data() {
+  data(vm) {
     return {
       profile: {
         customer: {
@@ -76,7 +76,7 @@ export default {
         {
           head: 'Customer Basic Data',
           key: 'basicData',
-          updatePath: '/customer',
+          updatePath: vm.$rest.CUSTOMERS.UPDATE(),
           loading: false,
           inputs: [
             {
@@ -111,7 +111,7 @@ export default {
         {
           head: 'Address',
           key: 'address',
-          updatePath: '/customers/address',
+          updatePath: vm.$rest.CUSTOMERS.UPDATE_ADDRESS(),
           loading: false,
           inputs: [
             {
@@ -160,7 +160,7 @@ export default {
         {
           head: 'Credit Card',
           key: 'credit',
-          updatePath: '/customers/creditCard',
+          updatePath: vm.$rest.CUSTOMERS.UPDATE_CREDIT(),
           loading: false,
           inputs: [
             {
@@ -177,7 +177,7 @@ export default {
   async created() {
     await this.$_async_query({
       query: {
-        path: '/customer'
+        path: this.$rest.CUSTOMERS.SINGLE()
       },
       done: res => {
         const { name,

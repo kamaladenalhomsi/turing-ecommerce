@@ -24,7 +24,8 @@ describe('Authentication', () => {
         name: 'John doe'
       }
       axiosInstance.mockImplementation(({ url, method }) => {
-        if (url === '/customers' && method === 'post') {
+        console.log(url, method, 'METHOD')
+        if (url === vm.$rest.CUSTOMERS.ADD() && method === 'post') {
           return Promise.resolve({
             status: 200,
             data: {
@@ -35,6 +36,11 @@ describe('Authentication', () => {
           })
         }
       })
+      vm.signup.user = {
+        name: 'test',
+        email: 'test@test.com',
+        password: '123456'
+      }
       await vm.createUser()
       expect(vm.customer).toEqual(customer)
     })
@@ -48,10 +54,10 @@ describe('Authentication', () => {
     test('user could log in', async () => {
       const customer = {
         customer_id: 1,
-        name: 'John Dor'
+        name: 'John doe'
       }
       axiosInstance.mockImplementation(({ url, method }) => {
-        if (url === '/customers/login' && method === 'post') {
+        if (url === vm.$rest.CUSTOMERS.LOGIN() && method === 'post') {
           return Promise.resolve({
             status: 200,
             data: {
@@ -62,12 +68,16 @@ describe('Authentication', () => {
           })
         }
       })
+      vm.login.use = {
+        email: 'test@test.com',
+        password: '1223456'
+      }
       await vm.loginUser()
       expect(vm.customer).toEqual(customer)
     })
   })
 
-  test.only('logout', () => {
+  test('logout', () => {
     vm.logout()
     expect(vm.customer).toEqual({})
   })

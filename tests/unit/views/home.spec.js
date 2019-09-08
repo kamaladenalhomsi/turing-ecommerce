@@ -62,7 +62,7 @@ describe('Home Page', () => {
         department_id: 1
       })
 
-      expect(vm.fetchUrl).toEqual('/products/inDepartment/1')
+      expect(vm.fetchUrl).toEqual(vm.$rest.PRODUCTS.IN_DEPARTMENT(1))
     })
 
     it('should return category products url when choosedCategory contain data', () => {
@@ -70,7 +70,7 @@ describe('Home Page', () => {
         category_id: 1
       })
 
-      expect(vm.fetchUrl).toEqual('/products/inCategory/1')
+      expect(vm.fetchUrl).toEqual(vm.$rest.PRODUCTS.IN_CATEGORY(1))
     })
 
     it('should return department products over category products url if both exist', () => {
@@ -82,14 +82,14 @@ describe('Home Page', () => {
         department_id: 1
       })
 
-      expect(vm.fetchUrl).toEqual('/products/inDepartment/1')
+      expect(vm.fetchUrl).toEqual(vm.$rest.PRODUCTS.IN_DEPARTMENT(1))
     })
   })
 
   describe('fetch products', () => {
     it('should fetch department products', async () => {
       axiosInstance.get.mockImplementation(url => {
-        if (url === '/products/inDepartment/1') {
+        if (url === vm.$rest.PRODUCTS.IN_DEPARTMENT(1)) {
           return Promise.resolve({
             status: 200,
             data: {
@@ -112,7 +112,7 @@ describe('Home Page', () => {
 
     it('should fetch category products', async () => {
       axiosInstance.get.mockImplementation(url => {
-        if (url === '/products/inCategory/1') {
+        if (url === vm.$rest.PRODUCTS.IN_CATEGORY(1)) {
           return Promise.resolve({
             status: 200,
             data: {
@@ -136,7 +136,7 @@ describe('Home Page', () => {
 
   it('should fetch department products over category products if both contain data', async () => {
     axiosInstance.get.mockImplementation(url => {
-      if (url === '/products/inDepartment/1') {
+      if (url === vm.$rest.PRODUCTS.IN_DEPARTMENT(1)) {
         return Promise.resolve({
           status: 200,
           data: {
@@ -171,13 +171,13 @@ describe('Home Page', () => {
         value: 'S'
       }
       axiosInstance.get.mockImplementation(url => {
-        if (url === '/attributes') {
+        if (url === vm.$rest.ATTRIBUTES.ALL()) {
           return Promise.resolve({
             status: 200,
             data: [resObj]
           })
         }
-        if (url === '/attributes/values/1') {
+        if (url === vm.$rest.ATTRIBUTES.VALUES(1)) {
           return Promise.resolve({
             status: 200,
             data: [attrValueRes]
@@ -198,7 +198,7 @@ describe('Home Page', () => {
         }
       ]
       axiosInstance.get.mockImplementation(url => {
-        if (url === '/products/search') {
+        if (url === vm.$rest.PRODUCTS.SEARCH()) {
           return Promise.resolve({
             status: 200,
             data: {
@@ -208,7 +208,6 @@ describe('Home Page', () => {
           })
         }
       })
-
       await vm.fetchProducts({
         query_string: 'search'
       })

@@ -34,7 +34,7 @@ const mutations = {
 const actions = {
   async getAllDepartments({ commit }) {
     try {
-      const departments = await this.$axios.get('/departments')
+      const departments = await this.$axios.get(this.$rest.DEPARTMENTS.ALL())
       if (departments) {
         commit('SET_DEPARTMENTS', departments.data)
         return departments
@@ -46,7 +46,7 @@ const actions = {
   async getDepartmentCategories({ commit }, { params }) {
     try {
       const categories = await this.$axios.get(
-        `/categories/inDepartment/${params.id}`
+        this.$rest.DEPARTMENTS.SINGLE(params.id)
       )
       if (categories) {
         commit('SET_DEPARTMENT_CATEGORIES', {

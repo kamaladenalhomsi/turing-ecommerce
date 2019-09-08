@@ -278,7 +278,7 @@ export default {
         await this.$_async_mutation({
           mutation: {
             method: 'post',
-            path: '/customers/facebook',
+            path: this.$rest.CUSTOMERS.F_LOGIN(),
             variables: {
               access_token: response.authResponse.accessToken
             }
@@ -298,7 +298,7 @@ export default {
       this.signup.loading = true
       await this.$_async_mutation({
         mutation: {
-          path: '/customers',
+          path: this.$rest.CUSTOMERS.ADD(),
           method: 'post',
           variables: this.signup.user
         },
@@ -320,7 +320,7 @@ export default {
       this.login.loading = true
       await this.$_async_mutation({
         mutation: {
-          path: '/customers/login',
+          path: this.$rest.CUSTOMERS.LOGIN(),
           method: 'post',
           variables: this.login.user
         },

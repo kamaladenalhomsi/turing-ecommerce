@@ -228,9 +228,9 @@ export default {
       let url = `/products`
       const { choosedCategory, choosedDepartment } = this
       if (Object.keys(choosedCategory).length > 0)
-        url = `/products/inCategory/${choosedCategory.category_id}`
+        url = this.$rest.PRODUCTS.IN_CATEGORY(choosedCategory.category_id)
       if (Object.keys(choosedDepartment).length > 0)
-        url = `/products/inDepartment/${choosedDepartment.department_id}`
+        url = this.$rest.PRODUCTS.IN_DEPARTMENT(choosedDepartment.department_id)
       return url
     }
   },
@@ -242,7 +242,7 @@ export default {
     async getAllAttributes() {
       await this.$_async_query({
         query: {
-          path: '/attributes'
+          path: this.$rest.ATTRIBUTES.ALL()
         },
         done: res => {
           this.$set(this, 'attributes', res)
@@ -250,7 +250,7 @@ export default {
           this.attributes.forEach(async attr => {
             await this.$_async_query({
               query: {
-                path: `/attributes/values/${attr.attribute_id}`
+                path: this.$rest.ATTRIBUTES.VALUES(attr.attribute_id)
               },
               done: res => {
                 this.$set(attr, 'items', res)
@@ -264,7 +264,7 @@ export default {
       this.products.rows = []
       await this.$_async_query({
         query: {
-          path: searchWord.query_string ? '/products/search' : this.fetchUrl,
+          path: searchWord.query_string ? this.$rest.PRODUCTS.SEARCH() : this.fetchUrl,
           params: {
             ...searchWord,
             page: this.products.pagination.currentPage,
@@ -277,7 +277,7 @@ export default {
           this.$set(this.products, 'total', res.count)
         },
         nullResult: res => {
-          if(this.searchWord.query_string)
+          if (this.searchWord.query_string)
             this.nullSearch = true
         }
       })
