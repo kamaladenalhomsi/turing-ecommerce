@@ -61,7 +61,7 @@ export default {
         if (payload.done && typeof payload.done !== 'undefined') {
           payload.done(response.data)
         }
-        if (response.data && response.data.length === 0) {
+        if (response.data && response.data.count === 0) {
           if (payload.nullResult && typeof payload.nullResult !== 'undefined') {
             payload.nullResult(response)
           }

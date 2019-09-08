@@ -13,7 +13,7 @@
           <attrs-sidebar :attributes="attributes"></attrs-sidebar>
         </div>
         <!-- Cards -->
-        <div class="w-full mt-8 md:mt-0 md:w-3/4" nm="cardsWrapper">
+        <div v-if="!nullSearch" class="w-full mt-8 md:mt-0 md:w-3/4" nm="cardsWrapper">
           <div class="flex flex-wrap">
             <template v-if="products.rows.length > 0">
               <div
@@ -44,6 +44,10 @@
             </template>
           </div>
         </div>
+        <h2 class="null-search items-center flex justify-center w-full md:w-3/4" v-if="nullSearch">
+          Your search
+          <span class="mx-4">"{{ searchWord.query_string }}"</span> does not match any product
+        </h2>
       </div>
       <!-- Arrival Block -->
       <div class="mt-10">
@@ -139,6 +143,13 @@
   margin-bottom: 0px !important;
 }
 
+.null-search {
+  color: $docColorYellow;
+  span {
+    color: $typoColorBlack;
+  }
+}
+
 </style>
 
 <script>
@@ -170,7 +181,8 @@ export default {
       shopCardData: {
         name: 'Pull & Bear Jumper In Textured Knit In Blue',
         price: '£14.99'
-      }
+      },
+      nullSearch: false
     }
   },
   watch: {
@@ -195,6 +207,7 @@ export default {
     searchWord: {
       handler(val) {
         if (val) {
+          this.nullSearch = false
           this.$refs.paginationBar.pagination.current = 1
           this.fetchProducts(val)
         }
@@ -259,8 +272,13 @@ export default {
           }
         },
         done: res => {
+          this.nullSearch = false
           this.$set(this.products, 'rows', res.rows)
           this.$set(this.products, 'total', res.count)
+        },
+        nullResult: res => {
+          if(this.searchWord.query_string)
+            this.nullSearch = true
         }
       })
     }
