@@ -46,8 +46,9 @@ const actions = {
   async getDepartmentCategories({ commit }, { params }) {
     try {
       const categories = await this.$axios.get(
-        this.$rest.DEPARTMENTS.SINGLE(params.id)
+        this.$rest.CATEGORIES.IN_DEPARTMENT(params.id)
       )
+      console.log(categories, 'categories')
       if (categories) {
         commit('SET_DEPARTMENT_CATEGORIES', {
           categories: categories.data,
