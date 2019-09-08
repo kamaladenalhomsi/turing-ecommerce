@@ -2,7 +2,11 @@
   <div class="home">
     <div class="container">
       <!-- Pagination -->
-      <pagination-bar :total="products.total" v-model="products.pagination.currentPage"></pagination-bar>
+      <pagination-bar
+        ref="paginationBar"
+        :total="products.total"
+        v-model="products.pagination.currentPage"
+      ></pagination-bar>
       <div class="flex flex-wrap md:flex-no-wrap mt-10">
         <!-- Attrubites Sidebar -->
         <div class="w-full md:w-1/3">
@@ -191,7 +195,7 @@ export default {
     searchWord: {
       handler(val) {
         if (val) {
-          this.products.pagination.currentPage = 1
+          this.$refs.paginationBar.pagination.current = 1
           this.fetchProducts(val)
         }
       }

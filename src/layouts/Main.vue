@@ -209,6 +209,11 @@ export default {
   watch: {
     searchWord(val) {
       this.$store.commit('product/SET_SEARCH_WORD', val)
+      // redirect to home if vistior is not there
+      if (this.$route.name !== 'home')
+        this.$router.push({
+          name: 'home'
+        })
     }
   },
   async created () {

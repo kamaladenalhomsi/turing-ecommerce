@@ -187,9 +187,19 @@ export default {
   methods: {
     chooseCategory(category) {
       this.$store.commit('product/PUSH_CATEGORY', category)
+      // redirect to home if vistior is not there
+      if (this.$route.name !== 'home')
+        this.$router.push({
+          name: 'home'
+        })
     },
     chooseDepartment(department) {
       this.$store.commit('product/PUSH_DEPARTMENT', department)
+      // redirect to home if vistior is not there
+      if (this.$route.name !== 'home')
+        this.$router.push({
+          name: 'home'
+        })
     }
   }
 }
