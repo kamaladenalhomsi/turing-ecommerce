@@ -190,5 +190,29 @@ describe('Home Page', () => {
         expect.objectContaining(attrValueRes)
       )
     })
+
+    test('search', async () => {
+      let res = [
+        {
+          name: 'test porduct'
+        }
+      ]
+      axiosInstance.get.mockImplementation(url => {
+        if (url === '/products/search') {
+          return Promise.resolve({
+            status: 200,
+            data: {
+              count: 1,
+              rows: res
+            }
+          })
+        }
+      })
+
+      await vm.fetchProducts({
+        query_string: 'search'
+      })
+      expect(vm.products.rows).toEqual(res)
+    })
   })
 })
