@@ -1,5 +1,5 @@
 /**
- * Global Setup for e2e testing
+ * Global Setup for unit testing
  * here you can do whatever global thing you want
  * eg: mock a global module
  */
