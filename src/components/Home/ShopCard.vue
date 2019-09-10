@@ -25,7 +25,9 @@
     </div>
     <div class="shopCard__hover flex-wrap flex justify-center">
       <i class="far fa-heart w-full text-center text-3xl c-fushia"></i>
-      <custom-button class="shopCard__hover_btn" type="filled-fuchsia" size="large">Quick View</custom-button>
+      <custom-button class="shopCard__hover_btn" type="filled-fuchsia" size="large">
+        <router-link :to="{name: 'singleProduct', params: {id: item.product_id}}">Quick View</router-link>
+      </custom-button>
     </div>
   </div>
 </template>

@@ -141,11 +141,15 @@
       border: 0px;
       width: auto
     }
-    &__placeholder:nth-child(3n+1), &:nth-child(3n+1) {
-      margin-left: 0px
-    }
-    &__placeholder:nth-child(-n+3), &:nth-child(-n+3) {
-      margin-top: 0px
+  }
+  .limited-width {
+    .radio-button {
+      &__placeholder:nth-child(3n+1), &:nth-child(3n+1) {
+        margin-left: 0px
+      }
+      &__placeholder:nth-child(-n+3), &:nth-child(-n+3) {
+        margin-top: 0px
+      }
     }
   }
 }

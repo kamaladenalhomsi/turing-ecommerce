@@ -32,6 +32,10 @@ h6 {
   color: $typeColorWhite !important;
 }
 
+.c-black {
+  color: $typoColorBlack;
+}
+
 .c-fushia {
   color: $typoColorFuchsia !important;
 }
@@ -50,7 +54,7 @@ h6 {
 
 .btn-size-large {
   height: 45px;
-  border-radius: 30px;
+  border-radius: 50px;
 }
 
 .button.is-primary:hover,
