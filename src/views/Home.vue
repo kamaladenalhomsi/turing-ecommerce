@@ -215,6 +215,12 @@ export default {
     }
   },
   created() {
+    const { query } = this.$route;
+    if(query) {
+      if(query.dep || query.cat) {
+        this.fetchUrl = query
+      }
+    }
     this.getAllAttributes()
     this.fetchProducts()
   },
@@ -224,14 +230,26 @@ export default {
       choosedDepartment: 'product/GET_CHOOSED_DEPARTMENT',
       searchWord: 'product/GET_SEARCH_WORD'
     }),
-    fetchUrl() {
-      let url = `/products`
-      const { choosedCategory, choosedDepartment } = this
-      if (Object.keys(choosedCategory).length > 0)
-        url = this.$rest.PRODUCTS.IN_CATEGORY(choosedCategory.category_id)
-      if (Object.keys(choosedDepartment).length > 0)
-        url = this.$rest.PRODUCTS.IN_DEPARTMENT(choosedDepartment.department_id)
-      return url
+    fetchUrl: {
+      get() {
+        let url = `/products`
+        const { choosedCategory, choosedDepartment } = this
+        if (Object.keys(choosedCategory).length > 0)
+          url = this.$rest.PRODUCTS.IN_CATEGORY(choosedCategory.category_id)
+        if (Object.keys(choosedDepartment).length > 0)
+          url = this.$rest.PRODUCTS.IN_DEPARTMENT(choosedDepartment.department_id)
+        return url
+      },
+      set(value) {
+        if(value.dep) {
+          let parsed = JSON.parse(value.dep)
+          this.$store.commit('product/PUSH_DEPARTMENT', parsed)
+        }
+        if(value.cat) {
+          let parsed = JSON.parse(value.cat)
+          this.$store.commit('product/PUSH_CATEGORY', parsed)
+        }
+      }
     }
   },
   methods: {

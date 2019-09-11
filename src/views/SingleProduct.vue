@@ -5,49 +5,98 @@
         <div class="w-1/2 single-product__gallery">
           <swiper :options="swiperOptionTop" class="gallery-top" ref="swiperTop">
             <swiper-slide class="flex justify-center items-center">
-              <img :src="$_compose_img_url(product.image)" alt />
+              <div class="single-product__gallery__img">
+                <lazyload-image v-if="product.image" :src="$_compose_img_url(product.image)" />
+              </div>
             </swiper-slide>
             <swiper-slide class="flex justify-center items-center">
-              <img :src="$_compose_img_url(product.image_2)" alt />
+              <div class="single-product__gallery__img">
+                <lazyload-image v-if="product.image_2" :src="$_compose_img_url(product.image_2)" />
+              </div>
             </swiper-slide>
             <swiper-slide class="flex justify-center items-center">
-              <img :src="$_compose_img_url(product.thumbnail)" alt />
+              <div class="single-product__gallery__img">
+                <lazyload-image
+                  v-if="product.thumbnail"
+                  :src="$_compose_img_url(product.thumbnail)"
+                />
+              </div>
             </swiper-slide>
-            <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
-            <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
           </swiper>
           <!-- swiper2 Thumbs -->
           <swiper :options="swiperOptionThumbs" class="gallery-thumbs" ref="swiperThumbs">
             <swiper-slide class="flex justify-center items-center">
-              <img :src="$_compose_img_url(product.image)" alt />
+              <div class="single-product__gallery__img">
+                <lazyload-image v-if="product.image" :src="$_compose_img_url(product.image)" />
+              </div>
             </swiper-slide>
             <swiper-slide class="flex justify-center items-center">
-              <img :src="$_compose_img_url(product.image_2)" alt />
+              <div class="single-product__gallery__img">
+                <lazyload-image v-if="product.image_2" :src="$_compose_img_url(product.image_2)" />
+              </div>
             </swiper-slide>
             <swiper-slide class="flex justify-center items-center">
-              <img :src="$_compose_img_url(product.thumbnail)" alt />
+              <div class="single-product__gallery__img">
+                <lazyload-image
+                  v-if="product.thumbnail"
+                  :src="$_compose_img_url(product.thumbnail)"
+                />
+              </div>
             </swiper-slide>
           </swiper>
         </div>
         <div class="w-1/2 pl-10">
           <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
             <ul>
-              <li>
-                <a href="#">Bulma</a>
+              <li class="breadcrumb__item">
+                <router-link
+                  v-if="Object.keys(productLocation).length > 0"
+                  :to="{name: 'home',
+                        query: {dep: JSON.stringify(
+                        {
+                          department_id: productLocation.department_id,
+                          name: productLocation.department_name
+                        }
+                      ),
+                  }}"
+                >{{ productLocation.department_name }}</router-link>
               </li>
               <li>
-                <a href="#">Documentation</a>
-              </li>
-              <li>
-                <a href="#">Components</a>
-              </li>
-              <li class="is-active">
-                <a href="#" aria-current="page">Breadcrumb</a>
+                <router-link
+                  :to="{name: 'home',
+                        query: {cat: JSON.stringify(
+                        {
+                          category_id: productLocation.category_id,
+                          name: productLocation.category_name
+                        }
+                      )
+                  }}"
+                >{{ productLocation.category_name }}</router-link>
               </li>
             </ul>
           </nav>
-          <h1 class="single-product__name f-montserrat font-bold mb-4">{{ product.name }}</h1>
-          <h2 class="font-bold c-fushia f-montserrat">£13.99</h2>
+          <h1
+            class="single-product__name f-montserrat font-bold mb-4"
+            v-if="product.name"
+          >{{ product.name }}</h1>
+          <div class="w-40" v-else>
+            <content-loader
+              :height="30"
+              :width="200"
+              :speed="2"
+              primaryColor="#f3f3f3"
+              secondaryColor="#ecebeb"
+            >
+              <rect x="1.69" y="1.67" rx="0" ry="0" width="199" height="29" />
+            </content-loader>
+          </div>
+          <div class="flex">
+            <h2
+              class="font-bold f-montserrat"
+              :class="{'line-through c-grey': product.discounted_price, 'c-fushia': !product.discounted_price}"
+            >£{{ product.price }}</h2>
+            <h2 class="ml-4 font-bold c-fushia f-montserrat">£{{ product.discounted_price }}</h2>
+          </div>
           <color-attributes
             class="mt-8"
             :title="attributes[0] ? attributes[0].name: ''"
@@ -78,10 +127,6 @@
       </div>
       <div class="reviews">
         <div class="container reviews__container">
-          <h1 class="font-bold f-montserrat c-black">Product reviews</h1>
-          <div class="reviews_wrapper">
-            <review></review>
-          </div>
           <div class="reviews-add mt-10">
             <h1 class="font-bold f-montserrat c-black">Add a Review</h1>
             <div class="flex mt-10">
@@ -90,7 +135,12 @@
               </div>
               <div class="w-3/4">
                 <b-field>
-                  <b-input class="reviews-add__input" maxlength="200" type="textarea"></b-input>
+                  <b-input
+                    v-model="newReview.review"
+                    class="reviews-add__input"
+                    maxlength="200"
+                    type="textarea"
+                  ></b-input>
                 </b-field>
               </div>
             </div>
@@ -101,14 +151,25 @@
               <div class="w-3/4">
                 <star-rating
                   :star-size="30"
-                  :rating="5"
+                  :rating="0"
+                  v-model="newReview.rating"
+                  :max-rating="5"
                   inactive-color="#EEE"
                   active-color="#FFC94F"
                   :show-rating="false"
                 ></star-rating>
               </div>
             </div>
-            <custom-button class="mt-8" type="filled-fuchsia" size="large">Submit</custom-button>
+            <custom-button
+              @click.native="submitReview"
+              class="mt-8"
+              type="filled-fuchsia"
+              size="large"
+            >Submit</custom-button>
+          </div>
+          <h1 class="font-bold f-montserrat c-black mt-20">Product reviews</h1>
+          <div class="reviews_wrapper">
+            <review v-for="(review, index) in reviews" :review="review" :key="index"></review>
           </div>
         </div>
       </div>
@@ -125,6 +186,10 @@
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.20);
   &__gallery {
     height: 600px;
+    &__img {
+      width: 300px;
+      height: 300px
+    }
     &__main_slide {
       background-repeat: no-repeat
     }
@@ -166,6 +231,15 @@
   }
 }
 
+.breadcrumb {
+  &__item {
+    min-width: 73px
+    svg {
+      width: 100%
+    }
+  }
+}
+
 @import 'swiper/dist/css/swiper.css';
 
 .gallery-top {
@@ -195,6 +269,7 @@ import Review from '@/components/SingleProduct/Review.vue'
 import StarRating from 'vue-star-rating'
 export default {
   name: 'single-product',
+  props: ['id'],
   components: {
     swiper,
     swiperSlide,
@@ -206,6 +281,8 @@ export default {
   created() {
     this.getSingle()
     this.getAttributes()
+    this.getLocation()
+    this.getReviews()
   },
   mounted() {
     this.$nextTick(() => {
@@ -218,6 +295,11 @@ export default {
   data() {
     return {
       product: {},
+      reviews: [{}, {}, {}, {}, {}],
+      newReview: {
+        rating: 0
+      },
+      productLocation: {},
       attributes: [],
       swiperOptionTop: {
         spaceBetween: 10,
@@ -239,17 +321,37 @@ export default {
     async getSingle() {
       await this.$_async_query({
         query: {
-          path: this.$rest.PRODUCTS.SINGLE(this.$route.params.id)
+          path: this.$rest.PRODUCTS.SINGLE(this.id)
         },
         done: res => {
           this.product = res
         }
       })
     },
+    async getLocation() {
+      await this.$_async_query({
+        query: {
+          path: this.$rest.PRODUCTS.LOCATIONS(this.id)
+        },
+        done: res => {
+          this.productLocation = res[0]
+        }
+      })
+    },
+    async getReviews() {
+      await this.$_async_query({
+        query: {
+          path: this.$rest.PRODUCTS.REVIEWS.ALL(this.id)
+        },
+        done: res => {
+          this.reviews = res
+        }
+      })
+    },
     async getAttributes() {
       await this.$_async_query({
         query: {
-          path: this.$rest.ATTRIBUTES.IN_PRODUCT(this.$route.params.id)
+          path: this.$rest.ATTRIBUTES.IN_PRODUCT(this.id)
         },
         done: res => {
           console.log(res, 'res')
@@ -293,6 +395,24 @@ export default {
             }
           })
           this.attributes = classfictedAttrs
+        }
+      })
+    },
+    async submitReview() {
+      const { rating, review } = this.newReview
+      await this.$_async_mutation({
+        mutation: {
+          path: this.$rest.PRODUCTS.REVIEWS.ADD(this.id),
+          method: 'post',
+          variables: {
+            rating,
+            review
+          }
+        },
+        done: res => {
+          this.newReview.created_on = new Date(Date.now())
+          this.newReview.name = this.$store.getters['customer/GET_CUSTOMER'].name
+          this.reviews.unshift(this.newReview)
         }
       })
     }

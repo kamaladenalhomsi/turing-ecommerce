@@ -2,21 +2,7 @@
   <div class="shopCard flex items-center">
     <div class="shopCard__container text-center">
       <div class="shopCard__img">
-        {{ item.loaded }}
-        <img
-          class="mx-auto"
-          @load="$emit('imgLoaded')"
-          :src="$_compose_img_url(item.thumbnail)"
-        />
-        <ContentLoader
-          v-if="!item.loaded"
-          primaryColor="#f3f3f3"
-          secondaryColor="#ecebeb"
-          :width="120"
-          :height="109"
-        >
-          <rect x="0.69" y="2.67" rx="0" ry="0" width="120" height="109" />
-        </ContentLoader>
+        <lazyload-image :src="$_compose_img_url(item.thumbnail)" />
       </div>
       <div class="shopCard__meta mt-5">
         <h4 class="f-montserrat font-bold">{{ item.name }}</h4>
@@ -31,6 +17,19 @@
     </div>
   </div>
 </template>
+
+<style lang="scss">
+.shopCard {
+  &__img {
+    max-width: 180px;
+    height: 180px;
+    margin: 0 auto;
+    img {
+      margin: 0 auto;
+    }
+  }
+}
+</style>
 
 <style lang="scss" scoped>
 .shopCard {
@@ -79,13 +78,6 @@ export default {
     item: {
       type: Object,
       required: true
-    }
-  },
-  watch: {
-    item: {
-      handler() {
-        this.$forceUpdate()
-      }
     }
   }
 }

@@ -37,7 +37,8 @@ let router = new Router({
         {
           path: '/single/:id',
           name: 'singleProduct',
-          component: () => import('./views/SingleProduct.vue')
+          component: () => import('./views/SingleProduct.vue'),
+          props: true
         }
       ]
     }
