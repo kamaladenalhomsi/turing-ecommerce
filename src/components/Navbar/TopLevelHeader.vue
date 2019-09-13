@@ -234,6 +234,7 @@
 <script>
 import AuthTemp from '@/components/Authentication/AuthTemp.vue'
 import { VFBLogin as VFacebookLogin } from 'vue-facebook-login-component'
+import EventBus from '@/eventBus'
 import { mapGetters } from 'vuex'
 export default {
   components: {
@@ -269,6 +270,11 @@ export default {
     ...mapGetters({
       loggedin: 'customer/GET_IS_LOGGEDIN',
       customer: 'customer/GET_CUSTOMER'
+    })
+  },
+  mounted() {
+    EventBus.$on('openLogin', () => {
+      this.login.active = true
     })
   },
   methods: {

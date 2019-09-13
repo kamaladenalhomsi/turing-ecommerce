@@ -267,6 +267,9 @@ import SizeAttributes from '@/components/Home/Sidebar/SizeAttributes'
 import ColorAttributes from '@/components/Home/Sidebar/ColorAttributes'
 import Review from '@/components/SingleProduct/Review.vue'
 import StarRating from 'vue-star-rating'
+import EventBus from '@/eventBus'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'single-product',
   props: ['id'],
@@ -317,6 +320,11 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters({
+      is_loggedin: 'customer/GET_IS_LOGGEDIN'
+    })
+  },
   methods: {
     async getSingle() {
       await this.$_async_query({
@@ -354,7 +362,6 @@ export default {
           path: this.$rest.ATTRIBUTES.IN_PRODUCT(this.id)
         },
         done: res => {
-          console.log(res, 'res')
           let classfictedAttrs = []
           /**
            * Loop over the returend items to orgnaize them to match
@@ -399,6 +406,10 @@ export default {
       })
     },
     async submitReview() {
+      if (!this.is_loggedin) {
+        EventBus.$emit('openLogin')
+        return
+      }
       const { rating, review } = this.newReview
       await this.$_async_mutation({
         mutation: {
