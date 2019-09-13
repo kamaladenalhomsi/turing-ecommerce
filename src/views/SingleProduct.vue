@@ -1,7 +1,7 @@
 <template>
   <div class="container py-10">
     <div class="single-product">
-      <div class="w-full flex product-wrapper">
+      <div class="w-full flex product-wrapper" nm="product-wrapper">
         <div class="w-1/2 single-product__gallery">
           <swiper :options="swiperOptionTop" class="gallery-top" ref="swiperTop">
             <swiper-slide class="flex justify-center items-center">
@@ -140,6 +140,7 @@
                     class="reviews-add__input"
                     maxlength="200"
                     type="textarea"
+                    nm="reviewText"
                   ></b-input>
                 </b-field>
               </div>
@@ -157,6 +158,7 @@
                   inactive-color="#EEE"
                   active-color="#FFC94F"
                   :show-rating="false"
+                  nm="reviewRate"
                 ></star-rating>
               </div>
             </div>
@@ -165,6 +167,7 @@
               class="mt-8"
               type="filled-fuchsia"
               size="large"
+              nm="reviewSubmitButton"
             >Submit</custom-button>
           </div>
           <h1 class="font-bold f-montserrat c-black mt-20">Product reviews</h1>

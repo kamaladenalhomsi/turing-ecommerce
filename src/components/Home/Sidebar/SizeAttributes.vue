@@ -10,6 +10,7 @@
       <b-field v-if="items && title === 'Size'" class="flex-wrap">
         <b-radio-button
           v-for="size in items"
+          nm="sizeAttr"
           :key="size.attribute_value_id"
           class="radio-button md:ml-2 mt-2 w-full md:w-auto"
           v-model="radioButton"
