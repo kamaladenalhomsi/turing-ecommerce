@@ -107,7 +107,7 @@ export default {
         if (typeof payload.doneNtf !== 'undefined') {
           doneOverride = payload.doneNtf(response.data)
         }
-        if (payload.disableNtf) {
+        if (!payload.disableNtf) {
           this.$buefy.notification.open(
             constructNotification(
               'is-success',

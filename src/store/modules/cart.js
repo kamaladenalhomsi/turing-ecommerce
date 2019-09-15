@@ -45,8 +45,8 @@ const mutations = {
   SET_TOTAL_AMOUNT(state, total) {
     state.total_amount = total
   },
-  REMOVE_ALL_SAVED() {
-    state.saved_items = {}
+  REMOVE_ALL_SAVED(state) {
+    state.saved_items = []
   }
 }
 
