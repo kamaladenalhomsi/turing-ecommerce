@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for turing-ecommerce/src/mixins/asyncHelpers.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\index.html">All files</a> / <a href="index.html">turing-ecommerce/src/mixins</a> asyncHelpers.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">78.95% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>45/57</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">67.11% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>51/76</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/1</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">78.95% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>45/57</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * @module AsyncHelper
+ * this module is responsible for all asynchronous operations, it has only two functions
+ * @function $_async_query is a wrapper for queries (Get) @params
+ * - payload
+ * -- inside payload, there is four callbacks:
+ * --- @nullResult if response data length === 0
+ * @function $_async_mutation is a wrapper for post, put, delete operations
+ * - payload
+ * -- inside payload, there is four callbacks:
+ * --- @badRequest when there is validation errors or input error (User mistake)
+ * - in case there is errors returned from server, it will automatically injected in server_errors
+ * both function have:
+ * -- @done when request handled successfully
+ * -- @unauthorized if user has not permission
+ * callbacks inisde there payload
+ */
+import axiosInstance from '@/plugins/axios'
+import Vue from 'vue'
+const constructNotification = (type, defaultMessage, override) =&gt; {
+  let notification = {
+    message: defaultMessage,
+    type: type,
+    duration: 5000,
+    position: 'is-bottom-right',
+    hasIcon: true,
+    iconPack: 'fas'
+  }
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (override) {
+<span class="cstat-no" title="statement not covered" >    for (let key in override) {</span>
+<span class="cstat-no" title="statement not covered" >      notification[key] = override[key]</span>
+    }
+  }
+  return notification
+}
+&nbsp;
+export default {
+  async $_async_query(payload) {
+    let response
+    // if action exist, dispatch
+    if (payload.query.action) {
+      response = await this.$store.dispatch(
+        payload.query.action, // action to dispatch
+        payload.query.variables ? payload.query.variables : {} // variables (optional)
+      )
+      // if path exist
+    } else <span class="missing-if-branch" title="else path not taken" >E</span>if (payload.query.path) {
+      try {
+        response = await axiosInstance.get(payload.query.path, {
+          params: payload.query.params
+        })
+      } catch (e) {
+<span class="cstat-no" title="statement not covered" >        response = e.response</span>
+      }
+    }
+    // if response does not null or undefiend
+    if (response) {
+      // Success
+      if (response.status === 200 || response.status === 201) {
+        // the if condition above each callback check if callback exist
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (payload.done &amp;&amp; typeof payload.done !== 'undefined') {
+          payload.done(response.data)
+        }
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (response.data &amp;&amp; response.data.count === 0) {
+<span class="cstat-no" title="statement not covered" >          if (payload.nullResult &amp;&amp; typeof payload.nullResult !== 'undefined') {</span>
+<span class="cstat-no" title="statement not covered" >            payload.nullResult(response)</span>
+          }
+        }
+      }
+      // Unauthorized
+      if (response.status === 401) {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (
+          payload.unauthorized &amp;&amp;
+          typeof payload.unauthorized !== 'undefined'
+        ) {
+          payload.unauthorized(response)
+        }
+      }
+      return response
+    }
+  },
+  async $_async_mutation(payload) {
+    let response
+    // if action exist, dispatch
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (payload.mutation.action) {
+<span class="cstat-no" title="statement not covered" >      response = await this.$store.dispatch(</span>
+        payload.mutation.action, // action to dispatch
+        payload.mutation.variables ? payload.mutation.variables : {} // variables (optional)
+      )
+      // if path exist
+    } else <span class="missing-if-branch" title="else path not taken" >E</span>if (payload.mutation.path) {
+      try {
+        response = await axiosInstance({
+          method: payload.mutation.method,
+          url: payload.mutation.path,
+          data: payload.mutation.variables
+        })
+      } catch (e) {
+<span class="cstat-no" title="statement not covered" >        response = e.response</span>
+      }
+    }
+    // if response does not null or undefiend
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (response) {
+      // Success
+      if (response.status === 200 || !response.status) {
+        let doneOverride = null
+        if (typeof payload.doneNtf !== 'undefined') {
+          doneOverride = payload.doneNtf(response.data)
+        }
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (payload.disableNtf) {
+<span class="cstat-no" title="statement not covered" >          this.$buefy.notification.open(</span>
+            constructNotification(
+              'is-success',
+              'Operation has done successfully',
+              doneOverride
+            )
+          )
+        }
+        // the if condition above each callback check if callback exist
+        if (payload.done &amp;&amp; typeof payload.done !== 'undefined') {
+          payload.done(response.data)
+        }
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (response.data &amp;&amp; response.data.length === 0) {
+<span class="cstat-no" title="statement not covered" >          if (payload.nullResult &amp;&amp; typeof payload.nullResult !== 'undefined') {</span>
+<span class="cstat-no" title="statement not covered" >            payload.nullResult(response)</span>
+          }
+        }
+      }
+      // Bad Request
+      if (response.status === 400) {
+        let badRequestOverride = null
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof payload.badRequestNtf !== 'undefined') {
+<span class="cstat-no" title="statement not covered" >          badRequestOverride = payload.badRequestNtf(response)</span>
+        }
+        this.$buefy.notification.open(
+          constructNotification(
+            'is-danger',
+            'Ops! Something went wrong, Check you inputs and try again',
+            badRequestOverride
+          )
+        )
+        // Inject error returned from server in server_errors
+        Vue.set(
+          this.$data.server_errors,
+          response.data.error.field,
+          response.data.error.message
+        )
+        if (payload.badRequest &amp;&amp; typeof payload.badRequest !== 'undefined') {
+          payload.badRequest(response)
+        }
+      }
+      // Unauthorized
+      if (response.status === 401) {
+        let unauthorizedNtfOverride = null
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof payload.unauthorizedNtf !== 'undefined') {
+<span class="cstat-no" title="statement not covered" >          unauthorizedNtfOverride = payload.unauthorizedNtf(response)</span>
+        }
+        this.$buefy.notification.open(
+          constructNotification(
+            'is-danger',
+            'You do not have permission to perform this operation!',
+            unauthorizedNtfOverride
+          )
+        )
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (
+          payload.unauthorized &amp;&amp;
+          typeof payload.unauthorized !== 'undefined'
+        ) {
+          payload.unauthorized(response)
+        }
+      }
+      return response
+    }
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Sep 15 2019 11:46:48 GMT+0200 (Eastern European Standard Time)
+</div>
+</div>
+<script src="..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\sorter.js"></script>
+</body>
+</html>

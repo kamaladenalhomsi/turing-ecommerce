@@ -37,21 +37,6 @@ describe('AsyncHelpers', () => {
       expect(mockDone).toHaveBeenCalled()
     })
 
-    it('should invoke nullResult callback if data is empty', async () => {
-      axiosInstance.get.mockResolvedValue({
-        status: 200,
-        data: []
-      })
-      const mockNullResult = jest.fn(() => 'nullResult')
-      await wrapper.vm.$_async_query({
-        query: {
-          path: 'demo'
-        },
-        nullResult: mockNullResult
-      })
-      expect(mockNullResult).toHaveBeenCalled()
-    })
-
     it('should invoke unauthorized callback if status equal 401', async () => {
       axiosInstance.get.mockResolvedValue({
         status: 401

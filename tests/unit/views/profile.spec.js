@@ -24,7 +24,7 @@ describe('Update', () => {
       mob_phone: '010236325142'
     }
     axiosInstance.mockImplementation(({ url, method }) => {
-      if (url === vm.$rest.CUSTOMER.UPDATE() && method === 'PUT') {
+      if (url === vm.$rest.CUSTOMERS.UPDATE() && method === 'PUT') {
         return Promise.resolve({
           status: 200,
           data
@@ -32,7 +32,7 @@ describe('Update', () => {
       }
     })
 
-    await vm.update('basicData', '/customer')
+    await vm.update('basicData', vm.$rest.CUSTOMERS.UPDATE(), 0)
     expect(vm.$store.getters['customer/GET_CUSTOMER']).toEqual(
       expect.objectContaining(data)
     )
@@ -57,7 +57,7 @@ describe('Update', () => {
       }
     })
 
-    await vm.update('address', vm.$rest.CUSTOMERS.UPDATE_ADDRESS())
+    await vm.update('address', vm.$rest.CUSTOMERS.UPDATE_ADDRESS(), 1)
     expect(vm.$store.getters['customer/GET_CUSTOMER']).toEqual(
       expect.objectContaining(data)
     )
@@ -76,7 +76,7 @@ describe('Update', () => {
       }
     })
 
-    await vm.update('credit', vm.$rest.CUSTOMERS.UPDATE_CREDIT())
+    await vm.update('credit', vm.$rest.CUSTOMERS.UPDATE_CREDIT(), 2)
     expect(vm.$store.getters['customer/GET_CUSTOMER']).toEqual(
       expect.objectContaining(data)
     )

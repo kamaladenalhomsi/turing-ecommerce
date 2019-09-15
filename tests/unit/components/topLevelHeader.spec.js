@@ -24,7 +24,6 @@ describe('Authentication', () => {
         name: 'John doe'
       }
       axiosInstance.mockImplementation(({ url, method }) => {
-        console.log(url, method, 'METHOD')
         if (url === vm.$rest.CUSTOMERS.ADD() && method === 'post') {
           return Promise.resolve({
             status: 200,

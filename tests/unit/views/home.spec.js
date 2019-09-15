@@ -3,12 +3,15 @@ import Home from '@/views/Home.vue'
 import axiosInstance from '@/plugins/axios'
 import store from '@/store/index'
 import { localVue } from '../index'
+import router from '@/router.js'
+
 describe('Home Page', () => {
   let vm
   beforeAll(() => {
     const wrapper = shallowMount(Home, {
       store,
       localVue,
+      router,
       stubs: ['custom-button']
     })
     vm = wrapper.vm

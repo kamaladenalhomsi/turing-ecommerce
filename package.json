@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit -c jest.config.unit.js",
+    "test:unit": "vue-cli-service test:unit -c jest.config.unit.js --coverage",
     "test:e2e": "vue-cli-service test:unit -c jest.config.e2e.js --detectOpenHandles"
   },
   "dependencies": {
