@@ -1,6 +1,6 @@
 import nightmare from '../index'
 
-describe('home', () => {
+describe('Single Product', () => {
   let instance = nightmare.getInstance()
   beforeAll(async () => {
     await instance

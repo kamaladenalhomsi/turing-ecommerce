@@ -186,7 +186,7 @@
           <img :src="require('@/assets/images/gbr.png')" alt srcset />
           <h4 class="ml-4 f-Montserrat font-bold c-white">£GBR</h4>
         </div>
-        <div class="top-level-header__bag cursor-pointer" @click="openCart">
+        <div nm="openCart" class="top-level-header__bag cursor-pointer" @click="openCart">
           <span
             class="top-level-header__bag__badge inline-flex justify-center items-center text-xs font-bold"
           >{{ cart_count }}</span>
@@ -376,7 +376,7 @@ export default {
           path: this.$rest.SHOPPING_CART.GENERATE_UNIQUE_ID()
         },
         done: res => {
-          localStorage.setItem('cart_id', res.cart_id)
+          this.$store.commit('cart/SET_CART_ID', res.cart_id)
         }
       })
     }

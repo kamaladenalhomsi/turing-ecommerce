@@ -19,6 +19,7 @@ const getters = {
 // Mutations
 const mutations = {
   SET_CART_ID(state, id) {
+    localStorage.setItem('cart_id', id)
     state.cart_id = id
   },
   SET_CART_ITEMS(state, items) {

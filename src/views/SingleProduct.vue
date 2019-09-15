@@ -120,6 +120,7 @@
               class="single-product__button"
               @click.native="addToCart"
               type="filled-fuchsia"
+              nm="addToCart"
             >Add to cart</custom-button>
           </div>
         </div>

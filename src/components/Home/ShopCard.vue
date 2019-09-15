@@ -5,7 +5,7 @@
         <lazyload-image :src="$_compose_img_url(item.thumbnail)" />
       </div>
       <div class="shopCard__meta mt-5">
-        <h4 class="f-montserrat font-bold">{{ item.name }}</h4>
+        <h4 class="f-montserrat font-bold" nm="productName">{{ item.name }}</h4>
         <h4 class="f-montserrat font-bold c-fushia mt-4">£{{ item.price }}</h4>
       </div>
     </div>

@@ -36,10 +36,12 @@
             </div>
             <div class="w-1/2 flex justify-end" v-if="cart_count > 0 && activeTab === 0">
               <confirm
+                nm="deleteAllCart"
                 title="Delete Cart"
                 message="Are you sure you want to delete all items in your cart ?"
                 cancelText="Cancel"
                 confirmText="Yes, Delete"
+                type="is-danger"
                 @accept="removeAllCart"
               >
                 <custom-button size="large" type="outlined-fuchsia">Delete All</custom-button>

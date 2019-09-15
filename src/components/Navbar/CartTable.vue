@@ -8,10 +8,14 @@
               <lazyload-image :src="$_compose_img_url(props.row.image)"></lazyload-image>
             </div>
             <div class="cart-table__item__details mt-2 ml-4">
-              <h4 class="c-black f-playFair font-bold">{{ props.row.name }}</h4>
+              <h4
+                class="c-black f-playFair font-bold"
+                :nm="'cartProductName-' + props.index"
+              >{{ props.row.name }}</h4>
               <h4 class="c-grey mt-1">{{ props.row.attributes }}</h4>
               <confirm
                 v-if="model === 'cart'"
+                nm="cartRemoveItem"
                 title="Deleting Item"
                 message="Are you sure you want to delete this item ?"
                 type="is-danger"

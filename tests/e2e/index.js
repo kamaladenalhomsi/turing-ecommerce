@@ -7,7 +7,7 @@ const Nightmare = require('nightmare')
 let nightmare = (function() {
   let instance
   function init(path) {
-    return Nightmare({ show: true })
+    return Nightmare()
       .viewport(1440, 768)
       .goto(`http://localhost:5000/${path}`)
       .wait('body')
