@@ -44,6 +44,9 @@ const mutations = {
   },
   SET_TOTAL_AMOUNT(state, total) {
     state.total_amount = total
+  },
+  REMOVE_ALL_SAVED() {
+    state.saved_items = {}
   }
 }
 
@@ -57,6 +60,30 @@ const actions = {
       if (total.status === 200) {
         commit('SET_TOTAL_AMOUNT', total.data.total_amount)
         return total
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  },
+  async getCartItems({ commit }, cart_id) {
+    try {
+      const res = await this.$axios.get(this.$rest.SHOPPING_CART.GET(cart_id))
+      if (res.status === 200) {
+        commit('SET_CART_ITEMS', res.data)
+        return res
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  },
+  async getSavedItems({ commit }, cart_id) {
+    try {
+      const res = await this.$axios.get(
+        this.$rest.SHOPPING_CART.GET_SAVED(cart_id)
+      )
+      if (res.status === 200) {
+        commit('SET_SAVED_ITEMS', res.data)
+        return res
       }
     } catch (e) {
       console.log(e)

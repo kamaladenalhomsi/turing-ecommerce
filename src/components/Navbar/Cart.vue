@@ -20,7 +20,11 @@
                 ></cart-table>
               </b-tab-item>
               <b-tab-item label="Saved">
-                <cart-table :items="cart_saved" @update="getCartItems" model="save"></cart-table>
+                <cart-table
+                  :items="cart_saved"
+                  @update="$store.dispatch('cart/getCartItems', cart_id)"
+                  model="save"
+                ></cart-table>
               </b-tab-item>
             </b-tabs>
           </section>
@@ -117,10 +121,13 @@ export default {
     }
   },
   created() {
-    // Fetch Cart Items
-    this.getCartItems()
-    // Fetch Saved Items
-    this.getSavedItems()
+    // If logged 
+    if (this.is_loggedin) {
+      // Fetch Cart Items
+      this.$store.dispatch('cart/getCartItems', this.cart_id)
+      // Fetch Saved Items
+      this.$store.dispatch('cart/getSavedItems', this.cart_id)
+    }
   },
   mounted() {
     /**
@@ -134,26 +141,6 @@ export default {
     setActiveTab() {
       if (this.activeTab === 1) this.activeTab = 0
       else this.activeTab = 1
-    },
-    async getCartItems() {
-      await this.$_async_query({
-        query: {
-          path: this.$rest.SHOPPING_CART.GET(this.cart_id)
-        },
-        done: res => {
-          this.$store.commit('cart/SET_CART_ITEMS', res)
-        }
-      })
-    },
-    async getSavedItems() {
-      await this.$_async_query({
-        query: {
-          path: this.$rest.SHOPPING_CART.GET_SAVED(this.cart_id)
-        },
-        done: res => {
-          this.$store.commit('cart/SET_SAVED_ITEMS', res)
-        }
-      })
     },
     async removeCartItem(id, index) {
       this.$store.commit('cart/DELETE_CART_ITEM', index)
@@ -212,7 +199,8 @@ export default {
       cartItems: 'cart/GET_CART_ITEMS',
       cart_count: 'cart/GET_CART_COUNT',
       cart_saved: 'cart/GET_CART_SAVED',
-      saved_count: 'cart/GET_SAVED_COUNT'
+      saved_count: 'cart/GET_SAVED_COUNT',
+      is_loggedin: 'customer/GET_IS_LOGGEDIN'
     })
   }
 }

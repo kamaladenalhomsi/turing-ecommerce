@@ -325,7 +325,8 @@ export default {
           this.$store.commit('customer/SET_CUSTOMER', res.customer)
           this.$store.commit('customer/SET_TOKEN_EXPIRE', res.expires_in)
           this.signup.active = false
-          this.generateUniqueCartId()
+          this.$store.dispatch('cart/getSavedItems', this.cart_id)
+          this.$store.dispatch('cart/getCartItems', this.cart_id)
         },
         doneNtf: res => ({
           message: 'User Signed up Successfully!'
@@ -348,7 +349,8 @@ export default {
           this.$store.commit('customer/SET_CUSTOMER', res.customer)
           this.$store.commit('customer/SET_TOKEN_EXPIRE', res.expires_in)
           this.login.active = false
-          this.generateUniqueCartId()
+          this.$store.dispatch('cart/getSavedItems', this.cart_id)
+          this.$store.dispatch('cart/getCartItems', this.cart_id)
         },
         doneNtf: res => ({
           message: `Welcome back ${res.customer.name}`
@@ -361,6 +363,8 @@ export default {
         FB.logout() // eslint-disable-line no-undef
       }
       this.$store.commit('customer/LOGOUT')
+      this.$store.commit('cart/REMOVE_ALL_SAVED')
+      this.$store.commit('cart/REMOVE_ALL')
       this.$buefy.notification.open({
         message: 'Logouted successfully! we will miss you',
         type: 'is-success',
@@ -370,16 +374,6 @@ export default {
         iconPack: 'fas'
       })
     },
-    async generateUniqueCartId() {
-      await this.$_async_query({
-        query: {
-          path: this.$rest.SHOPPING_CART.GENERATE_UNIQUE_ID()
-        },
-        done: res => {
-          this.$store.commit('cart/SET_CART_ID', res.cart_id)
-        }
-      })
-    }
   }
 }
 </script>
