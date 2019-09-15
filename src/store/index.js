@@ -6,6 +6,7 @@ import restPaths from '@/contants/rest_paths'
 import departmentStore from './modules/department'
 import productStore from './modules/product'
 import customerStore from './modules/customer'
+import cartStore from './modules/cart'
 
 Vuex.Store.prototype.$axios = axiosInstance
 Vuex.Store.prototype.$rest = restPaths
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     // Modules
     department: departmentStore,
     product: productStore,
-    customer: customerStore
+    customer: customerStore,
+    cart: cartStore
   }
 })

@@ -44,16 +44,16 @@ export default {
     SHORT_DETAIL: id => `/orders/shortDetail/${id}`
   },
   SHOPPING_CART: {
-    GENERATE_UNIQUE_ID: () => '/shoppingCard/generateUniqueId',
+    GENERATE_UNIQUE_ID: () => '/shoppingCart/generateUniqueId',
     ADD: () => '/shoppingcart/add',
-    GET: id => `/shoppingcar/${id}`,
+    GET: id => `/shoppingcart/${id}`,
     UPDATE_ITEM: item_id => `/shoppingcart/update/${item_id}`,
     EMPTY_CART: id => `/shoppingcart/empty/${id}`,
     MOVE_TO_CART: item_id => `/shoppingcart/moveToCart/${item_id}`,
     TOTAL_AMOUNT: id => `/shoppingcart/totalAmount/${id}`,
     SAVE_FOR_LATER: item_id => `/shoppingcart/saveForLater/${item_id}`,
     GET_SAVED: id => `/shoppingcart/getSaved/${id}`,
-    DELETE_PRODUCT: item_id => `/shoppintcart/removeProduct/${item_id}`
+    DELETE_PRODUCT: item_id => `/shoppingcart/removeProduct/${item_id}`
   },
   TAX: {
     ALL: () => '/tax',

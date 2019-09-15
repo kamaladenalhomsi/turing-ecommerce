@@ -112,16 +112,15 @@
           <h4 class="f-montserrat font-bold attrs-sidebar__attrs__section__title mt-8">Quantity</h4>
           <div class="w-40 mt-6">
             <b-field>
-              <b-numberinput class="single-product__quantity" controls-rounded></b-numberinput>
+              <b-numberinput v-model="addedQuantity" class="quantity-input" controls-rounded></b-numberinput>
             </b-field>
           </div>
           <div class="mt-10">
-            <custom-button class="single-product__button" type="filled-fuchsia">Add to cart</custom-button>
             <custom-button
-              class="single-product__button ml-4"
-              type="filled-white"
-              icon="far fa-heart"
-            >Add to wish list</custom-button>
+              class="single-product__button"
+              @click.native="addToCart"
+              type="filled-fuchsia"
+            >Add to cart</custom-button>
           </div>
         </div>
       </div>
@@ -199,17 +198,6 @@
   }
   &__name {
     color: $typoColorBlack
-  }
-  &__quantity {
-    .icon {
-      i {
-        font-size: 14px
-      }
-    }
-    input {
-      border-radius: 20px;
-      border: 2px solid #E1E1E1;
-    }
   }
   &__button {
     height: 60px;
@@ -320,12 +308,14 @@ export default {
         slidesPerView: 'auto',
         touchRatio: 0.2,
         slideToClickedSlide: true
-      }
+      },
+      addedQuantity: 1
     }
   },
   computed: {
     ...mapGetters({
-      is_loggedin: 'customer/GET_IS_LOGGEDIN'
+      is_loggedin: 'customer/GET_IS_LOGGEDIN',
+      cart_id: 'cart/GET_CART_ID'
     })
   },
   methods: {
@@ -427,6 +417,38 @@ export default {
           this.newReview.created_on = new Date(Date.now())
           this.newReview.name = this.$store.getters['customer/GET_CUSTOMER'].name
           this.reviews.unshift(this.newReview)
+        }
+      })
+    },
+    async addToCart() {
+      const { cart_id, product, addedQuantity } = this
+      await this.$_async_mutation({
+        mutation: {
+          path: this.$rest.SHOPPING_CART.ADD(),
+          method: 'post',
+          variables: {
+            cart_id,
+            product_id: product.product_id,
+            attributes: `color: ${product.color}, size: ${product.size}`
+          }
+        },
+        done: async res => {
+          let item = res[res.length - 1]
+          await this.$_async_mutation({
+            mutation: {
+              method: 'put',
+              path: this.$rest.SHOPPING_CART.UPDATE_ITEM(item.item_id),
+              variables: {
+                item_id: item.item_id,
+                quantity: addedQuantity
+              }
+            },
+            done: updateRes => {
+              item.quantity = addedQuantity
+              this.$store.commit('cart/SET_CART_ITEMS', res)
+            },
+            disableNtf: false
+          })
         }
       })
     }

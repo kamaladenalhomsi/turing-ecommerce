@@ -56,6 +56,10 @@ h6 {
   font-family: $playFair;
 }
 
+.align-middle {
+  vertical-align: middle !important;
+}
+
 .btn-size-large {
   height: 45px;
   border-radius: 50px;
@@ -220,4 +224,20 @@ h6 {
 
 .line-through {
   text-decoration: line-through;
+}
+
+.quantity-input {
+  .icon {
+    i {
+      font-size: 14px;
+    }
+  }
+  input {
+    border-radius: 20px;
+    border: 2px solid #e1e1e1;
+  }
+}
+
+.table td {
+  border-width: 0px !important;
 }

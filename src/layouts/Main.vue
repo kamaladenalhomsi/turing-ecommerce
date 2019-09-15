@@ -42,6 +42,7 @@
         </div>
       </div>
     </nav>
+    <cart @close="cart.active = false" :active.sync="cart.active"></cart>
     <div class="wrapper">
       <transition name="fade" mode="out-in">
         <router-view />
@@ -172,6 +173,8 @@ import NavbarDropdown from '@/components/Navbar/NavbarDropdown.vue'
 import Footer from '@/components/Footer/Footer.vue'
 import AuthTemp from '@/components/Authentication/AuthTemp.vue'
 import TopLevelHeader from '@/components/Navbar/TopLevelHeader.vue'
+import Cart from '@/components/Navbar/Cart.vue'
+import EventBus from '@/eventBus.js'
 
 export default {
   name: 'main-layout',
@@ -180,11 +183,15 @@ export default {
     NavbarDropdown,
     Footer,
     AuthTemp,
-    TopLevelHeader
+    TopLevelHeader,
+    Cart
   },
   data() {
     return {
-      searchWord: ''
+      searchWord: '',
+      cart: {
+        active: false
+      }
     }
   },
   methods: {
@@ -193,6 +200,9 @@ export default {
     }
   },
   mounted() {
+    EventBus.$on('openCart', () => {
+      this.cart.active = true
+    })
     window.onscroll = () => {
       let mq = window.matchMedia('(max-width: 1025px)')
       if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {

@@ -37,6 +37,7 @@ body {
 
 // Buttons Types Style
 .m-is-outlined,
+.m-is-outlined-fuchsia,
 .m-is-filled-white,
 .m-is-filled-fuchsia {
   border-radius: 20px;
@@ -80,15 +81,29 @@ body {
   }
 }
 
-.m-is-outlined {
+.m-is-outlined,
+.m-is-outlined-fuchsia {
   background-color: transparent;
-  border: 2px solid $typeColorWhite;
-  color: $typeColorWhite;
   transition: 0.3s;
+}
+
+.m-is-outlined {
+  color: $typeColorWhite;
+  border: 2px solid $typeColorWhite;
   &:hover {
     background-color: $typeColorWhite !important;
     color: $typoColorFuchsia;
     border-color: $typeColorWhite;
+  }
+}
+
+.m-is-outlined-fuchsia {
+  color: $typoColorFuchsia;
+  border: 2px solid $typoColorFuchsia;
+  &:hover {
+    background-color: $typoColorFuchsia !important;
+    color: $typeColorWhite;
+    border-color: $typoColorFuchsia;
   }
 }
 

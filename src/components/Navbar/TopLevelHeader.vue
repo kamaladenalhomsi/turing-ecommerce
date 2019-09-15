@@ -186,13 +186,13 @@
           <img :src="require('@/assets/images/gbr.png')" alt srcset />
           <h4 class="ml-4 f-Montserrat font-bold c-white">£GBR</h4>
         </div>
-        <div class="top-level-header__bag">
+        <div class="top-level-header__bag cursor-pointer" @click="openCart">
           <span
             class="top-level-header__bag__badge inline-flex justify-center items-center text-xs font-bold"
-          >2</span>
+          >{{ cart_count }}</span>
           <img :src="require('@/assets/images/icons-bag.png')" alt srcset />
         </div>
-        <h4 class="ml-4 f-Montserrat font-bold c-white">Your Bag: $14.99</h4>
+        <h4 class="ml-4 f-Montserrat font-bold c-white">Your Bag: £{{ cart_total_amount || 0 }}</h4>
       </div>
     </div>
   </div>
@@ -270,7 +270,15 @@ export default {
   computed: {
     ...mapGetters({
       loggedin: 'customer/GET_IS_LOGGEDIN',
-      customer: 'customer/GET_CUSTOMER'
+      customer: 'customer/GET_CUSTOMER',
+      cart_count: 'cart/GET_CART_COUNT',
+      cart_id: 'cart/GET_CART_ID',
+      cart_total_amount: 'cart/GET_CART_TOTAL_AMOUNT'
+    })
+  },
+  created() {
+    this.$store.dispatch('cart/getTotalAmount', {
+      cart_id: this.cart_id
     })
   },
   mounted() {
@@ -279,6 +287,9 @@ export default {
     })
   },
   methods: {
+    openCart() {
+      EventBus.$emit('openCart')
+    },
     async facebookLogin(response) {
       // Contected
       if (response.authResponse) {
@@ -314,6 +325,7 @@ export default {
           this.$store.commit('customer/SET_CUSTOMER', res.customer)
           this.$store.commit('customer/SET_TOKEN_EXPIRE', res.expires_in)
           this.signup.active = false
+          this.generateUniqueCartId()
         },
         doneNtf: res => ({
           message: 'User Signed up Successfully!'
@@ -336,6 +348,7 @@ export default {
           this.$store.commit('customer/SET_CUSTOMER', res.customer)
           this.$store.commit('customer/SET_TOKEN_EXPIRE', res.expires_in)
           this.login.active = false
+          this.generateUniqueCartId()
         },
         doneNtf: res => ({
           message: `Welcome back ${res.customer.name}`
@@ -355,6 +368,16 @@ export default {
         position: 'is-bottom-right',
         hasIcon: true,
         iconPack: 'fas'
+      })
+    },
+    async generateUniqueCartId() {
+      await this.$_async_query({
+        query: {
+          path: this.$rest.SHOPPING_CART.GENERATE_UNIQUE_ID()
+        },
+        done: res => {
+          localStorage.setItem('cart_id', res.cart_id)
+        }
       })
     }
   }

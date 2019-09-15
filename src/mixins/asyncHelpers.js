@@ -102,18 +102,20 @@ export default {
     // if response does not null or undefiend
     if (response) {
       // Success
-      if (response.status === 200) {
+      if (response.status === 200 || !response.status) {
         let doneOverride = null
         if (typeof payload.doneNtf !== 'undefined') {
           doneOverride = payload.doneNtf(response.data)
         }
-        this.$buefy.notification.open(
-          constructNotification(
-            'is-success',
-            'Operation has done successfully',
-            doneOverride
+        if (payload.disableNtf) {
+          this.$buefy.notification.open(
+            constructNotification(
+              'is-success',
+              'Operation has done successfully',
+              doneOverride
+            )
           )
-        )
+        }
         // the if condition above each callback check if callback exist
         if (payload.done && typeof payload.done !== 'undefined') {
           payload.done(response.data)
