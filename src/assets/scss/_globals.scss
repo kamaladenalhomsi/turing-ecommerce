@@ -136,6 +136,14 @@ h6 {
   }
 }
 
+.custom-select {
+  select {
+    width: 623px !important;
+    border: 2px solid #e1e1e1;
+    height: 50px;
+  }
+}
+
 .modal-close {
   display: none;
 }

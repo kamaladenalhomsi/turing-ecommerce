@@ -165,7 +165,7 @@ export default {
     ShopCard,
     AttrsSidebar,
     PaginationBar,
-    ContentLoader
+    ContentLoader,
   },
   data() {
     return {

@@ -13,16 +13,30 @@
             :message="server_errors[input.key] || errors.first(`${group.key}.${input.key}`)"
             :type="server_errors[input.key] || errors.has(`${group.key}.${input.key}`) ? 'is-danger' : ''"
           >
-            <b-input
-              v-if="profile.customer[group.key].hasOwnProperty([input.key])"
-              v-model="profile.customer[group.key][input.key]"
-              :data-vv-name="input.key"
-              :type="input.type"
-              :placeholder="input.placeHolder"
-              v-validate="input.vRules"
-              :data-vv-scope="group.key"
-              :nm="'update-' + group.key"
-            ></b-input>
+            <template v-if="profile.customer[group.key].hasOwnProperty([input.key])">
+              <b-input
+                v-if="input.type !== 'select'"
+                v-model="profile.customer[group.key][input.key]"
+                :data-vv-name="input.key"
+                :type="input.type"
+                :placeholder="input.placeHolder"
+                v-validate="input.vRules"
+                :data-vv-scope="group.key"
+                :nm="'update-' + group.key"
+              ></b-input>
+              <b-select
+                v-model="profile.customer[group.key][input.key]"
+                class="custom-select"
+                v-else
+                placeholder="Select a name"
+              >
+                <option
+                  v-for="option in sources[input.source]"
+                  :value="option.shipping_region_id"
+                  :key="option.shipping_region_id"
+                >{{ option.shipping_region }}</option>
+              </b-select>
+            </template>
             <content-loader
               v-else
               class="my-2"
@@ -151,7 +165,8 @@ export default {
             },
             {
               key: 'shipping_region_id',
-              type: 'text',
+              type: 'select',
+              source: 'regions',
               placeHolder: 'Shipping Region',
               vRules: 'required'
             }
@@ -175,6 +190,7 @@ export default {
     }
   },
   async created() {
+    this.$store.dispatch('customer/getAllRegions')
     await this.$_async_query({
       query: {
         path: this.$rest.CUSTOMERS.SINGLE()
@@ -212,6 +228,13 @@ export default {
         this.profile.customer.credit.credit_card = credit_card
       }
     })
+  },
+  computed: {
+    sources() {
+      return {
+        regions: this.$store.getters['customer/GET_ALL_REGIONS']
+      }
+    }
   },
   methods: {
     async update(key, updatePath, groupIndex) {

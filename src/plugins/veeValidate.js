@@ -2,6 +2,11 @@ import VeeValidate from 'vee-validate'
 import Vue from 'vue'
 const dictionary = {
   en: {
+    custom: {
+      shipping: {
+        required: 'Please choose shipping region!'
+      }
+    },
     attributes: {
       address_1: 'Address 1',
       address_2: 'Address 2',
@@ -11,6 +16,7 @@ const dictionary = {
     }
   }
 }
+
 Vue.use(VeeValidate, {
   dictionary
 })

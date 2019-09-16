@@ -13,7 +13,7 @@ const getters = {
   GET_CART_COUNT: state => state.cart_items.length,
   GET_SAVED_COUNT: state => state.saved_items.length,
   GET_CART_SAVED: state => state.saved_items,
-  GET_CART_TOTAL_AMOUNT: state => state.total_amount
+  GET_CART_TOTAL_AMOUNT: state => Number(state.total_amount)
 }
 
 // Mutations

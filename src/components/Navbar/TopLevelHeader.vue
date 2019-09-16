@@ -9,6 +9,7 @@
           <h4 class="mr-4 f-Montserrat font-bold c-white">Hi!</h4>
           <!-- SignUp -->
           <auth-temp
+            class="signup-modal"
             :active.sync="signup.active"
             @open="signup.active = true"
             @close="signup.active = false"
@@ -95,6 +96,7 @@
           <h4 class="ml-4 mr-4 f-Montserrat font-bold c-white">or</h4>
           <!-- Login -->
           <auth-temp
+            class="login-modal"
             @open="login.active = true"
             @close="login.active = false"
             :active.sync="login.active"
@@ -184,7 +186,7 @@
       >
         <div class="gbr flex mr-8">
           <img :src="require('@/assets/images/gbr.png')" alt srcset />
-          <h4 class="ml-4 f-Montserrat font-bold c-white">£GBR</h4>
+          <h4 class="ml-4 f-Montserrat font-bold c-white">£GB</h4>
         </div>
         <div nm="openCart" class="top-level-header__bag cursor-pointer" @click="openCart">
           <span
@@ -197,6 +199,14 @@
     </div>
   </div>
 </template>
+
+<style lang="scss">
+.login-modal, .signup-modal {
+  .modal {
+    z-index: 999999999;
+  }
+}
+</style>
 
 <style lang="scss" scoped>
 
@@ -280,6 +290,8 @@ export default {
     this.$store.dispatch('cart/getTotalAmount', {
       cart_id: this.cart_id
     })
+    this.$store.dispatch('cart/getSavedItems', this.cart_id)
+    this.$store.dispatch('cart/getCartItems', this.cart_id)
   },
   mounted() {
     EventBus.$on('openLogin', () => {
@@ -325,8 +337,6 @@ export default {
           this.$store.commit('customer/SET_CUSTOMER', res.customer)
           this.$store.commit('customer/SET_TOKEN_EXPIRE', res.expires_in)
           this.signup.active = false
-          this.$store.dispatch('cart/getSavedItems', this.cart_id)
-          this.$store.dispatch('cart/getCartItems', this.cart_id)
         },
         doneNtf: res => ({
           message: 'User Signed up Successfully!'
@@ -349,8 +359,6 @@ export default {
           this.$store.commit('customer/SET_CUSTOMER', res.customer)
           this.$store.commit('customer/SET_TOKEN_EXPIRE', res.expires_in)
           this.login.active = false
-          this.$store.dispatch('cart/getSavedItems', this.cart_id)
-          this.$store.dispatch('cart/getCartItems', this.cart_id)
         },
         doneNtf: res => ({
           message: `Welcome back ${res.customer.name}`
@@ -373,7 +381,7 @@ export default {
         hasIcon: true,
         iconPack: 'fas'
       })
-    },
+    }
   }
 }
 </script>

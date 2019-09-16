@@ -2,14 +2,16 @@
 const state = () => ({
   info: JSON.parse(localStorage.getItem('customer')),
   token: localStorage.getItem('token'),
-  token_expire: localStorage.getItem('expire_token')
+  token_expire: localStorage.getItem('expire_token'),
+  regions: []
 })
 
 // Getters
 const getters = {
   GET_CUSTOMER: state => state.info,
   GET_TOKEN: state => state.token,
-  GET_IS_LOGGEDIN: state => (state.token ? true : false)
+  GET_IS_LOGGEDIN: state => (state.token ? true : false),
+  GET_ALL_REGIONS: state => state.regions
 }
 
 // Mutations
@@ -38,11 +40,26 @@ const mutations = {
     state.token = ''
     state.token_expire = ''
     this.$axios.defaults.headers['user-key'] = ''
+  },
+  SET_REGIONS(state, regions) {
+    state.regions = regions
   }
 }
 
 // Actions
-const actions = {}
+const actions = {
+  async getAllRegions({ commit }) {
+    try {
+      const regions = await this.$axios.get(this.$rest.SHIPPING.REGIONS())
+      if (regions.status === 200) {
+        commit('SET_REGIONS', regions.data)
+        return regions
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
 
 export default {
   namespaced: true,

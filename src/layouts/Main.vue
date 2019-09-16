@@ -173,7 +173,7 @@ import NavbarDropdown from '@/components/Navbar/NavbarDropdown.vue'
 import Footer from '@/components/Footer/Footer.vue'
 import AuthTemp from '@/components/Authentication/AuthTemp.vue'
 import TopLevelHeader from '@/components/Navbar/TopLevelHeader.vue'
-import Cart from '@/components/Navbar/Cart.vue'
+import Cart from '@/components/Cart/Cart.vue'
 import EventBus from '@/eventBus.js'
 
 export default {

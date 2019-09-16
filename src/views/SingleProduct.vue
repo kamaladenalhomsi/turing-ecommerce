@@ -448,7 +448,7 @@ export default {
               item.quantity = addedQuantity
               this.$store.commit('cart/SET_CART_ITEMS', res)
             },
-            disableNtf: false
+            disableNtf: true
           })
         }
       })

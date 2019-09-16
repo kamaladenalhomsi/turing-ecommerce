@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import CartTable from '@/components/Navbar/CartTable.vue'
+import CartTable from '@/components/Cart/CartTable.vue'
 import store from '@/store/index'
 import { localVue } from '../index'
 import axiosInstance from '@/plugins/axios'
