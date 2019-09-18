@@ -431,7 +431,7 @@ export default {
           variables: {
             cart_id,
             product_id: product.product_id,
-            attributes: `color: ${product.color}, size: ${product.size}`
+            attributes: `color: ${product.color || ''}, size: ${product.size || ''}`
           }
         },
         done: async res => {
@@ -451,7 +451,10 @@ export default {
             },
             disableNtf: true
           })
-        }
+        },
+        doneNtf: res => ({
+          message: 'Item has been added to cart successfully!'
+        })
       })
     }
   }

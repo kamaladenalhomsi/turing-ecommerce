@@ -175,7 +175,7 @@ import AuthTemp from '@/components/Authentication/AuthTemp.vue'
 import TopLevelHeader from '@/components/Navbar/TopLevelHeader.vue'
 import Cart from '@/components/Cart/Cart.vue'
 import EventBus from '@/eventBus.js'
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'main-layout',
@@ -200,7 +200,7 @@ export default {
       document.querySelector('.navbar-menu').classList.toggle('is-active')
     },
     async generateUniqueCartId() {
-      if(!this.cart_id) {
+      if (!this.cart_id) {
         await this.$_async_query({
           query: {
             path: this.$rest.SHOPPING_CART.GENERATE_UNIQUE_ID()
@@ -223,7 +223,7 @@ export default {
     })
     window.onscroll = () => {
       let mq = window.matchMedia('(max-width: 1025px)')
-      if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+      if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
         if (mq.matches)
           document.querySelector('.navbar-header').style.transform = 'translate(0px, -50px)'
         else
