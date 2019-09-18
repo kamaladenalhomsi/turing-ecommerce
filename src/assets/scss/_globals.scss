@@ -1,4 +1,61 @@
-// Globals
+/***********************
+
+* Globals
+* Heading
+* Colors
+* Font Families
+* Helpers Classes
+* Animations
+
+***********************/
+
+/*********************
+
+# Globals
+
+*********************/
+
+::-webkit-input-placeholder {
+  text-align: center;
+  font-weight: bold;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  text-align: center;
+  font-weight: bold;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  text-align: center;
+  font-weight: bold;
+}
+
+:-ms-input-placeholder {
+  text-align: center;
+  font-weight: bold;
+}
+
+body {
+  outline: none !important;
+  position: relative;
+  background-color: $docColorLightGray;
+}
+
+:focus {
+  outline: none;
+}
+
+.table td {
+  border-width: 0px !important;
+}
+
+/*********************
+
+# Heading
+
+*********************/
 
 h1 {
   font-size: 2em;
@@ -19,14 +76,11 @@ h6 {
   font-size: 0.75em;
 }
 
-:focus {
-  outline: none;
-}
+/*********************
 
-.container-90 {
-  width: 90% !important;
-  max-width: 100%;
-}
+# Colors
+
+*********************/
 
 .c-white {
   color: $typeColorWhite !important;
@@ -43,6 +97,12 @@ h6 {
 .c-fushia {
   color: $typoColorFuchsia !important;
 }
+
+/*********************
+
+# Font Families
+
+*********************/
 
 .f-opensans {
   font-family: $openSans;
@@ -63,6 +123,24 @@ h6 {
 .btn-size-large {
   height: 45px;
   border-radius: 50px;
+}
+
+/*********************
+
+# Bulma Override
+
+*********************/
+
+.modal-close {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+}
+
+.modal .modal-content {
+  padding: 50px 0px;
 }
 
 .button.is-primary:hover,
@@ -128,42 +206,13 @@ h6 {
   justify-content: center;
 }
 
-.custom-input {
-  position: relative;
-  .input {
-    border: 2px solid #e1e1e1;
-    padding: 25px;
-  }
-}
-
-.custom-select {
-  select {
-    width: 623px !important;
-    border: 2px solid #e1e1e1;
-    height: 50px;
-  }
-}
-
-.modal-close {
-  display: none;
-}
-
-.navbar-burger {
-  color: $typeColorWhite;
-  span {
-    height: 2px;
-  }
-}
-
-.is-danger.input {
-  border-color: #ff3860 !important;
-}
-
 .control.has-icons-right {
   .icon {
     display: none;
   }
 }
+
+/*** Responsive **/
 
 .notification {
   .media {
@@ -172,37 +221,39 @@ h6 {
   }
 }
 
-.v-facebook-login {
-  cursor: pointer !important;
+/*********************
+
+# Helpers Classes
+
+*********************/
+
+.is-danger.input {
+  border-color: #ff3860 !important;
 }
 
-::-webkit-input-placeholder {
-  text-align: center;
-  font-weight: bold;
+.container-90 {
+  width: 90% !important;
+  max-width: 100%;
 }
 
-:-moz-placeholder {
-  /* Firefox 18- */
-  text-align: center;
-  font-weight: bold;
+/*** Input Style ***/
+
+.custom-input {
+  position: relative;
+  .input {
+    border: 2px solid #e1e1e1;
+    padding: 25px;
+  }
 }
 
-::-moz-placeholder {
-  /* Firefox 19+ */
-  text-align: center;
-  font-weight: bold;
-}
+/*** Select Style ***/
 
-:-ms-input-placeholder {
-  text-align: center;
-  font-weight: bold;
-}
-
-.auth-modal__submit {
-  display: block !important;
-  width: 175px;
-  height: 55px;
-  border-radius: 40px !important;
+.custom-select {
+  select {
+    width: 623px !important;
+    border: 2px solid #e1e1e1;
+    height: 50px;
+  }
 }
 
 .w-90 {
@@ -218,21 +269,7 @@ h6 {
   }
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition-duration: 0.3s;
-  transition-property: opacity;
-  transition-timing-function: ease;
-}
-
-.fade-enter,
-.fade-leave-active {
-  opacity: 0;
-}
-
-.line-through {
-  text-decoration: line-through;
-}
+/*** Number Input Style ***/
 
 .quantity-input {
   .icon {
@@ -246,6 +283,24 @@ h6 {
   }
 }
 
-.table td {
-  border-width: 0px !important;
+.line-through {
+  text-decoration: line-through;
+}
+
+/*********************
+
+# Animations
+
+*********************/
+
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }

@@ -67,7 +67,7 @@
     .dropdown-menu {
       visibility: hidden;
       opacity: 0;
-      transition: 0.3s;
+      @extend .transition;
       transform: translate(0px, 10px);
       min-height: 250px;
       padding-top: 0px;
@@ -100,7 +100,7 @@
       width: 10px;
       height: 2px;
       background-color: $docColorFuchsia;
-      transition: 0.3s;
+      @extend .transition;
     }
     display: inline-block;
     padding: 30px 0px 0px 0px;

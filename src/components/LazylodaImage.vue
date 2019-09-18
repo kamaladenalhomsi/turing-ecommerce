@@ -44,7 +44,7 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  transition: 500ms;
+  @extend .transition;
   transform-origin: left;
 }
 .lazyImage-img {

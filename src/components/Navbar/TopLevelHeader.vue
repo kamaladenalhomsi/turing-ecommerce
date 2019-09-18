@@ -206,10 +206,20 @@
     z-index: 999999999;
   }
 }
+
+.v-facebook-login {
+  cursor: pointer !important;
+}
+
 </style>
 
 <style lang="scss" scoped>
-
+.auth-modal__submit {
+  display: block !important;
+  width: 175px;
+  height: 55px;
+  border-radius: 40px !important;
+}
 .top-level-header-min-h {
   min-height: 50px;
 }
@@ -219,7 +229,7 @@
   background-color: $docColorBlack;
   &__item a {
     color: $typeColorWhite;
-    transition: 0.3s;
+    @extend .transition;
     &:hover {
       color: $typoColorFuchsia;
     }

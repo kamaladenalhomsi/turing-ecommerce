@@ -101,7 +101,7 @@
     background-color: $paginationNavColor;
     border-radius: 50%;
     display: flex;
-    transition: 0.3s;
+    @extend .transition;
     &:hover {
       background-color: $docColorFuchsia;
       color: $typeColorWhite
@@ -165,7 +165,7 @@ export default {
     ShopCard,
     AttrsSidebar,
     PaginationBar,
-    ContentLoader,
+    ContentLoader
   },
   data() {
     return {
@@ -215,9 +215,9 @@ export default {
     }
   },
   created() {
-    const { query } = this.$route;
-    if(query) {
-      if(query.dep || query.cat) {
+    const { query } = this.$route
+    if (query) {
+      if (query.dep || query.cat) {
         this.fetchUrl = query
       }
     }
@@ -241,11 +241,11 @@ export default {
         return url
       },
       set(value) {
-        if(value.dep) {
+        if (value.dep) {
           let parsed = JSON.parse(value.dep)
           this.$store.commit('product/PUSH_DEPARTMENT', parsed)
         }
-        if(value.cat) {
+        if (value.cat) {
           let parsed = JSON.parse(value.cat)
           this.$store.commit('product/PUSH_CATEGORY', parsed)
         }

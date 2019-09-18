@@ -1,0 +1,7 @@
+.dropdown-component__dropdown .dropdown-menu {
+  width: 90% !important;
+}
+.dropdown-component__dropdown .dropdown-menu .dropdown-content {
+  background-position-y: -40px !important;
+  background-size: cover !important;
+}

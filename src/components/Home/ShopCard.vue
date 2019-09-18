@@ -41,7 +41,7 @@
   background-color: $docColorWhite;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.20);
   padding: 40px 0px;
-  transition: 0.3s;
+  @extend .transition;
   overflow: hidden;
   &__container {
     width: 80%;
@@ -57,7 +57,7 @@
   }
   &__hover {
     position: absolute;
-    transition: 0.5s;
+    @extend .transition;
     top: 0;
     width: 100%;
     height: 100%;

@@ -65,9 +65,9 @@
   position: fixed;
   left: 0;
   right: 0;
-  top: 50px !important;
+  top: 50px;
   background-color: $docColorFuchsia;
-  transition: 0.3s;
+  @extend .transition;
   // Logo
   &__logo {
     letter-spacing: 9px;
@@ -129,7 +129,7 @@
     li {
       margin-top: 5px;
       a {
-      transition: 0.3s;
+      @extend .transition;
         &:hover {
           color: $typoColorFuchsia;
         }
@@ -141,27 +141,6 @@
 .search-input {
   input {
     background-color: rgba(255, 255, 255, 0.9)
-  }
-}
-
-// Media Query
-@media screen and (min-width: 1000px) {
-  .dropdown-component {
-    &__dropdown {
-      .dropdown-menu {
-        width: 90%;
-        .dropdown-content {
-          background-position-y: -40px;
-          background-size: cover;
-        }
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 1025) {
-  .navbar-header {
-    top: 243px !important;
   }
 }
 
@@ -225,12 +204,12 @@ export default {
       let mq = window.matchMedia('(max-width: 1025px)')
       if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
         if (mq.matches)
-          document.querySelector('.navbar-header').style.transform = 'translate(0px, -50px)'
+          document.querySelector('.navbar-header').style.transform = 'translate(0px, -243px)'
         else
           document.querySelector('.navbar-header').style.transform = 'translate(0px, -50px)'
       } else {
         if (mq.matches)
-          document.querySelector('.navbar-header').style.transform = 'translate(0px, 193px)'
+          document.querySelector('.navbar-header').style.transform = 'translate(0px, 0px)'
         else
           document.querySelector('.navbar-header').style.transform = 'translate(0px, 0px)'
       }

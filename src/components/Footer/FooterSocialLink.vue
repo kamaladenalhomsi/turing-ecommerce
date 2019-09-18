@@ -27,7 +27,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 0.3s;
+  @extend .transition;
   &:hover {
     background-color: $typoColorFuchsia;
     color: $typeColorWhite;

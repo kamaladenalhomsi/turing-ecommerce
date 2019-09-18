@@ -132,28 +132,6 @@
   color: $typoColorFuchsia !important;
 }
 
-// Media Query
-@media screen and (min-width: 500px) {
-  .radio-button {
-    label {
-      padding: 6px 40px;
-      background-color: #EFEFEF;
-      border: 0px;
-      width: auto
-    }
-  }
-  .limited-width {
-    .radio-button {
-      &__placeholder:nth-child(3n+1), &:nth-child(3n+1) {
-        margin-left: 0px
-      }
-      &__placeholder:nth-child(-n+3), &:nth-child(-n+3) {
-        margin-top: 0px
-      }
-    }
-  }
-}
-
 </style>
 
 <script>

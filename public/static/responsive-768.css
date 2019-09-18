@@ -1,0 +1,15 @@
+.radio-button label {
+  padding: 6px 40px;
+  background-color: #efefef;
+  border: 0px;
+  width: auto;
+}
+
+.limited-width .radio-button__placeholder:nth-child(3n + 1),
+.limited-width .radio-button__placeholder:nth-child(3n + 1) {
+  margin-left: 0px;
+}
+.limited-width .radio-button__placeholder:nth-child(-n + 3),
+.limited-width .radio-button__placeholder:nth-child(-n + 3) {
+  margin-top: 0px;
+}
