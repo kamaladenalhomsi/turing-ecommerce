@@ -87,7 +87,7 @@
             >
               <div class="w-full">{{ region.shipping_region }}</div>
               <ul v-if="region.types">
-                <li v-for="(type, index) in region.types" :key="type.shipping_id">
+                <li v-for="type in region.types" :key="type.shipping_id">
                   <b-radio
                     class="mt-2"
                     type="is-danger"
@@ -291,14 +291,14 @@ export default {
         tax: '',
         loading: false
       },
-      addressLoading: false,
+      addressLoading: false
     }
   },
   computed: {
     ...mapGetters({
       cart_items: 'cart/GET_CART_ITEMS',
       cart_id: 'cart/GET_CART_ID',
-      cart_total_amount: 'cart/GET_CART_TOTAL_AMOUNT',
+      cart_total_amount: 'cart/GET_CART_TOTAL_AMOUNT'
     }),
     customer() {
       return JSON.parse(JSON.stringify(this.$store.getters['customer/GET_CUSTOMER']))
@@ -324,7 +324,7 @@ export default {
         },
         disableNtf: true
       })
-    }, 
+    },
     async pay() {
       let res = await this.createOrder()
       let { token } = await createToken()
@@ -335,9 +335,9 @@ export default {
           variables: {
             stripeToken: token.id,
             order_id: res.data.orderId,
-            description: "Order",
+            description: 'Order',
             currency: 'gbp',
-            amount: Math.round(this.cart_total_amount * 100),
+            amount: Math.round(this.cart_total_amount * 100)
           }
         },
         done: res => {

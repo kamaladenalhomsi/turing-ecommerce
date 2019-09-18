@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { Card, createToken } from 'vue-stripe-elements-plus'
+import { Card } from 'vue-stripe-elements-plus'
 
 export default {
   props: {
@@ -41,7 +41,7 @@ export default {
     }
   },
 
-  components: { Card },
+  components: { Card }
 
 }
 </script>
@@ -64,7 +64,6 @@ export default {
   transition: box-shadow 150ms ease;
 }
 
-
 .StripeElement--focus {
   border: 2px solid $typoColorFuchsia;
 }
@@ -72,7 +71,6 @@ export default {
 .StripeElement--invalid {
   border-color: #fa755a;
 }
-
 
 .StripeElement--webkit-autofill {
   background-color: #fefde5 !important;
