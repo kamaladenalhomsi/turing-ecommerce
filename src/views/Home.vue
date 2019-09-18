@@ -128,7 +128,7 @@
 }
 
 .welcome-sction {
-  background-image: url('../assets/images/images-art.png');
+  background-image: url('../assets/images/images-art.jpeg');
   min-height: 300px;
   background-repeat: no-repeat;
   width: 100%;

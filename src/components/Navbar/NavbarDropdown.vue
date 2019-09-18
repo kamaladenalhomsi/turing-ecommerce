@@ -123,17 +123,17 @@
   }
   &__dropdown__Regional {
     .dropdown-content {
-      background-image: url('../../assets/images/images-promo1.png');
+      background-image: url('../../assets/images/images-promo1.jpeg');
     }
   }
   &__dropdown__Nature {
     .dropdown-content {
-      background-image: url('../../assets/images/nature2.jpg');
+      background-image: url('../../assets/images/nature2.jpeg');
     }
   }
   &__dropdown__Seasonal {
     .dropdown-content {
-      background-image: url('../../assets/images/images-shoe1.png');
+      background-image: url('../../assets/images/images-shoe1.jpeg');
       background-position: 0px -65px;
     }
   }
