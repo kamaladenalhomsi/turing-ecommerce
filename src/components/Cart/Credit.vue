@@ -36,7 +36,6 @@ export default {
             fontFamily: 'Montserrat'
           }
         }
-        // see https://stripe.com/docs/stripe.js#element-options for details
       }
     }
   },
@@ -47,10 +46,6 @@ export default {
 </script>
 
 <style lang="scss">
-/**
- * The CSS shown here will not be introduced in the Quickstart guide, but shows
- * how you can use CSS to style your Element's container.
- */
 .StripeElement {
   box-sizing: border-box;
 

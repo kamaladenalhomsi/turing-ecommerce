@@ -204,11 +204,13 @@ export default {
       let mq = window.matchMedia('(max-width: 1025px)')
       if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
         if (mq.matches)
+          // Media query matched
           document.querySelector('.navbar-header').style.transform = 'translate(0px, -243px)'
         else
           document.querySelector('.navbar-header').style.transform = 'translate(0px, -50px)'
       } else {
         if (mq.matches)
+          // Media query matched
           document.querySelector('.navbar-header').style.transform = 'translate(0px, 0px)'
         else
           document.querySelector('.navbar-header').style.transform = 'translate(0px, 0px)'
@@ -244,6 +246,7 @@ export default {
               }
             },
             done: res => {
+              // Force DOM to update
               this.$forceUpdate()
             }
           })

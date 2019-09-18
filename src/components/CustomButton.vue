@@ -20,7 +20,6 @@
   }
 }
 
-
 .m-is-outlined,
 .m-is-outlined-fuchsia,
 .m-is-filled-white,

@@ -7,6 +7,7 @@ import asyncHelpers from './asyncHelpers'
 export default {
   data() {
     return {
+      // All errors comming from server will be injected automatcily
       server_errors: {}
     }
   },

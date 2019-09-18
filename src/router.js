@@ -18,14 +18,6 @@ let router = new Router({
           component: Home
         },
         {
-          path: '/about',
-          name: 'about',
-          // route level code-splitting
-          // this generates a separate chunk (about.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
-          component: () => import('./views/About.vue')
-        },
-        {
           path: '/profile',
           name: 'profile',
           meta: { auth: true },
@@ -48,6 +40,7 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
   let token = localStorage.getItem('token')
   if (to.matched.some(record => record.meta.auth)) {
+    // if vistior has not token redirect him to  home
     if (!token) {
       return next({
         name: 'home',

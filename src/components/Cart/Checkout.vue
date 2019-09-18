@@ -301,11 +301,13 @@ export default {
       cart_total_amount: 'cart/GET_CART_TOTAL_AMOUNT'
     }),
     customer() {
+      // Clone customer data
       return JSON.parse(JSON.stringify(this.$store.getters['customer/GET_CUSTOMER']))
     }
   },
   methods: {
     async validateAll() {
+      // Check for validation
       let vaild = await this.$validator.validateAll('order')
       return vaild
     },
