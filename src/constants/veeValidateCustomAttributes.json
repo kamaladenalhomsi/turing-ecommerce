@@ -1,0 +1,9 @@
+{
+  "attributes": {
+    "address_1": "Address 1",
+    "address_2": "Address 2",
+    "postal_code": "Postal Code",
+    "shipping_region_id": "Shipping Region",
+    "credit_card": "Credit Card"
+  }
+}

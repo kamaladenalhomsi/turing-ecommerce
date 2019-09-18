@@ -1,0 +1,5 @@
+{
+  "shipping": {
+    "required": "Please choose shipping region!"
+  }
+}
