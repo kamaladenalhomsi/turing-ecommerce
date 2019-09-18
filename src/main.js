@@ -18,7 +18,8 @@ import '@/components/index.js'
 // Rest API path
 import restPaths from '@/contants/rest_paths'
 
-// Inject the axios instance in the vue prototype
+// Install Service Workers
+import './registerServiceWorker'
 
 Vue.mixin({
   ...globalMixin

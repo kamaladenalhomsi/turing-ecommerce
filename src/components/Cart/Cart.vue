@@ -188,9 +188,9 @@ export default {
     })
   },
   watch: {
-    "checkout.active": {
+    'checkout.active': {
       handler(val) {
-        if(val) {
+        if (val) {
           this.$emit('fetchCheckoutData')
         }
       }
@@ -201,20 +201,20 @@ export default {
       const { is_loggedin, checkout } = this
       if (is_loggedin) {
         checkout.active = true
-      }else {
+      } else {
         EventBus.$emit('openLogin')
       }
     },
     async nextButton() {
-      const { checkout } = this 
+      const { checkout } = this
       let vaild = await this.$refs.checkout.validateAll()
-      if(vaild) {
+      if (vaild) {
         checkout.tab++
       }
     },
     backButton() {
       const { checkout } = this
-      if(checkout.tab === 0) checkout.active = false
+      if (checkout.tab === 0) checkout.active = false
       else checkout.tab--
     },
     setTab(tab) {
@@ -303,7 +303,7 @@ export default {
           this.taxes = res
         }
       })
-    },
+    }
   },
   computed: {
     ...mapGetters({
@@ -319,10 +319,10 @@ export default {
       if (!checkout.active) {
         if (activeTab === 0) {
           return `${cart_count} Items In Your Cart`
-        }else {
+        } else {
           return `${saved_count} Items In Your Saved list`
         }
-      }else {
+      } else {
         return 'Checkout'
       }
     }
