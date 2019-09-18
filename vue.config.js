@@ -1,4 +1,16 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const PreloadWebpackPlugin = require('preload-webpack-plugin')
+
 module.exports = {
+  configureWebpack: {
+    plugins: [
+      new HtmlWebpackPlugin(),
+      new PreloadWebpackPlugin({
+        rel: 'preload',
+        as: 'script'
+      })
+    ]
+  },
   pwa: {
     // configure the workbox plugin
     workboxPluginMode: 'InjectManifest',
