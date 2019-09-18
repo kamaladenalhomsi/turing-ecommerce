@@ -14,11 +14,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="apple-mobile-web-app-title" content="Turing Ecommerce" />
-    <link rel="apple-touch-icon" href="img/icons/icon-152x152.png" />
     <link
-      href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans|Playfair+Display:400,700&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="<%= BASE_URL %>static/fontawesome/all.min.css"
+      as="style"
+      onload="this.rel='stylesheet'"
     />
+    <link rel="apple-touch-icon" href="img/icons/icon-152x152.png" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <link
       rel="stylesheet"

@@ -1,0 +1,26 @@
+/*********************
+
+# Fonts
+
+*********************/
+
+// Montserrat
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-Regular.ttf') format('ttf');
+  font-display: swap;
+}
+
+// PlayFair
+@font-face {
+  font-family: 'PlayFair';
+  src: url('../fonts/PlayfairDisplay-Regular.ttf') format('ttf');
+  font-display: swap;
+}
+
+// Open sans
+@font-face {
+  font-family: 'OpenSans';
+  src: url('../fonts/OpenSans-Regular.ttf') format('ttf');
+  font-display: swap;
+}

@@ -1,8 +1,3 @@
-// Fontawesome
-@import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
-@import '@fortawesome/fontawesome-free/scss/regular.scss';
-@import '@fortawesome/fontawesome-free/scss/solid.scss';
-@import '@fortawesome/fontawesome-free/scss/brands.scss';
 // Buefy and Bulma Sass
 @import 'bulma/bulma.sass';
 @import 'buefy/src/scss/buefy.scss';
@@ -13,6 +8,7 @@
 
 @tailwind utilities;
 
+@import 'fonts';
 @import 'variables';
 @import 'extends';
 @import 'globals';
