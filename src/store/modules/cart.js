@@ -57,9 +57,11 @@ const actions = {
       const total = await this.$axios.get(
         this.$rest.SHOPPING_CART.TOTAL_AMOUNT(cart_id)
       )
-      if (total.status === 200) {
-        commit('SET_TOTAL_AMOUNT', total.data.total_amount)
-        return total
+      if (total) {
+        if (total.status === 200) {
+          commit('SET_TOTAL_AMOUNT', total.data.total_amount)
+          return total
+        }
       }
     } catch (e) {
       console.log(e)
@@ -68,9 +70,11 @@ const actions = {
   async getCartItems({ commit }, cart_id) {
     try {
       const res = await this.$axios.get(this.$rest.SHOPPING_CART.GET(cart_id))
-      if (res.status === 200) {
-        commit('SET_CART_ITEMS', res.data)
-        return res
+      if (res) {
+        if (res.status === 200) {
+          commit('SET_CART_ITEMS', res.data)
+          return res
+        }
       }
     } catch (e) {
       console.log(e)
@@ -81,9 +85,11 @@ const actions = {
       const res = await this.$axios.get(
         this.$rest.SHOPPING_CART.GET_SAVED(cart_id)
       )
-      if (res.status === 200) {
-        commit('SET_SAVED_ITEMS', res.data)
-        return res
+      if (res) {
+        if (res.status === 200) {
+          commit('SET_SAVED_ITEMS', res.data)
+          return res
+        }
       }
     } catch (e) {
       console.log(e)

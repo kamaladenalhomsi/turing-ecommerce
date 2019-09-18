@@ -175,6 +175,7 @@ import AuthTemp from '@/components/Authentication/AuthTemp.vue'
 import TopLevelHeader from '@/components/Navbar/TopLevelHeader.vue'
 import Cart from '@/components/Cart/Cart.vue'
 import EventBus from '@/eventBus.js'
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'main-layout',
@@ -197,7 +198,24 @@ export default {
   methods: {
     toggle() {
       document.querySelector('.navbar-menu').classList.toggle('is-active')
+    },
+    async generateUniqueCartId() {
+      if(!this.cart_id) {
+        await this.$_async_query({
+          query: {
+            path: this.$rest.SHOPPING_CART.GENERATE_UNIQUE_ID()
+          },
+          done: res => {
+            this.$store.commit('cart/SET_CART_ID', res.cart_id)
+          }
+        })
+      }
     }
+  },
+  computed: {
+    ...mapGetters({
+      cart_id: 'cart/GET_CART_ID'
+    })
   },
   mounted() {
     EventBus.$on('openCart', () => {
@@ -229,6 +247,7 @@ export default {
     }
   },
   async created () {
+    this.generateUniqueCartId()
     // Fetch All departments
     this.$_async_query({
       query: {

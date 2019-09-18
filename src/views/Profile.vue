@@ -182,7 +182,7 @@ export default {
               key: 'credit_card',
               type: 'tel',
               placeHolder: 'Credit Card',
-              vRules: 'required|credit_card'
+              vRules: 'required'
             }
           ]
         }

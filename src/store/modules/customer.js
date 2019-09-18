@@ -51,9 +51,11 @@ const actions = {
   async getAllRegions({ commit }) {
     try {
       const regions = await this.$axios.get(this.$rest.SHIPPING.REGIONS())
-      if (regions.status === 200) {
-        commit('SET_REGIONS', regions.data)
-        return regions
+      if (regions) {
+        if (regions.status === 200) {
+          commit('SET_REGIONS', regions.data)
+          return regions
+        }
       }
     } catch (e) {
       console.log(e)

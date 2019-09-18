@@ -318,8 +318,12 @@ export default {
             this.$store.commit('customer/SET_CUSTOMER', res.customer)
             this.$store.commit('customer/SET_TOKEN_EXPIRE', res.expires_in)
             this.login.active = false
-          }
+          },
+          doneNtf: res => ({
+            message: `Welcome back ${res.customer.name}`
+          })
         })
+        this.login.loading = false
       }
     },
     async createUser() {

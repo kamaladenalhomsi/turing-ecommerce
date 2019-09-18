@@ -20,7 +20,6 @@ describe('profile', () => {
       .evaluate(() => {
         return document.querySelectorAll('div[nm^="field-"]').length
       })
-      .end()
     expect(res).toEqual(13)
   })
 
@@ -32,7 +31,6 @@ describe('profile', () => {
       .evaluate(() => {
         return document.getElementsByClassName('notification is-success').length
       })
-      .end()
 
     expect(res).toBeGreaterThan(0)
   })
@@ -45,7 +43,6 @@ describe('profile', () => {
       .evaluate(() => {
         return document.getElementsByClassName('notification is-success').length
       })
-      .end()
 
     expect(res).toBeGreaterThan(0)
   })

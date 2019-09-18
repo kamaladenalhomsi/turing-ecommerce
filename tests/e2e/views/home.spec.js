@@ -8,12 +8,9 @@ describe('home', () => {
   })
 
   test('make sure there is nine card', async () => {
-    let res = await instance
-      .wait(3000)
-      .evaluate(() => {
-        return document.querySelectorAll('.shopCard').length
-      })
-      .end()
+    let res = await instance.wait(3000).evaluate(() => {
+      return document.querySelectorAll('.shopCard').length
+    })
     expect(res).toEqual(9)
   })
 

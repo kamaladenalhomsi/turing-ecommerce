@@ -12,14 +12,12 @@ describe('Cart', () => {
       localVue,
       stubs: ['custom-button', 'confirm'],
       propsData: {
-        model: 'cart',
-        items: []
+        active: true
       }
     })
     vm = wrapper.vm
     vm.$store.commit('cart/SET_CART_ID', 1)
   })
-
   test('it fetch cart items', async () => {
     let res = [
       {
@@ -34,9 +32,10 @@ describe('Cart', () => {
         })
       }
     })
-    await vm.getCartItems()
+    await vm.$store.dispatch('cart/getCartItems', 1)
     expect(vm.$store.getters['cart/GET_CART_COUNT']).toEqual(1)
   })
+
   test('it fetch saved items', async () => {
     let res = [
       {
@@ -51,7 +50,7 @@ describe('Cart', () => {
         })
       }
     })
-    await vm.getSavedItems()
+    await vm.$store.dispatch('cart/getSavedItems', 1)
     expect(vm.$store.getters['cart/GET_SAVED_COUNT']).toEqual(1)
   })
 
@@ -71,7 +70,6 @@ describe('Cart', () => {
         })
       }
     })
-
     await vm.removeCartItem(1, 0)
     expect(vm.$store.getters['cart/GET_CART_COUNT']).toEqual(0)
   })

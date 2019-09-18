@@ -14,12 +14,9 @@ describe('Single Product', () => {
   })
 
   test('make sure it fetch size attibutes', async () => {
-    let res = await instance
-      .wait('div[nm="sizeAttr"]')
-      .evaluate(() => {
-        return document.querySelectorAll('div[nm="sizeAttr"]').length
-      })
-      .end()
+    let res = await instance.wait('div[nm="sizeAttr"]').evaluate(() => {
+      return document.querySelectorAll('div[nm="sizeAttr"]').length
+    })
     expect(res).toBeGreaterThan(0)
   })
 

@@ -38,14 +38,14 @@
           </b-field>
           <b-field
             class="custom-input w-full md:w-1/2 pr-4"
-            :message="server_errors['country'] || errors.first(`address.country`)"
-            :type="server_errors['country'] || errors.has(`address.country`) ? 'is-danger' : ''"
+            :message="server_errors['address_2'] || errors.first(`address.address_2`)"
+            :type="server_errors['address_2'] || errors.has(`address.address_2`) ? 'is-danger' : ''"
           >
             <b-input
               data-vv-scope="address"
-              v-model="customer.country"
-              data-vv-name="country"
-              placeholder="Country"
+              v-model="customer.address_2"
+              data-vv-name="address_2"
+              placeholder="Address 2"
               v-validate="'required'"
             ></b-input>
           </b-field>
@@ -68,6 +68,7 @@
             </b-select>
           </b-field>
           <custom-button
+            nm="updateAddressCheckout"
             class="mt-4"
             size="large"
             type="filled-fuchsia"
@@ -86,7 +87,7 @@
             >
               <div class="w-full">{{ region.shipping_region }}</div>
               <ul v-if="region.types">
-                <li v-for="type in region.types" :key="type.shipping_id">
+                <li v-for="(type, index) in region.types" :key="type.shipping_id">
                   <b-radio
                     class="mt-2"
                     type="is-danger"
@@ -96,6 +97,7 @@
                     data-vv-name="shipping"
                     v-validate="'required'"
                     data-vv-scope="order"
+                    :nm="'shipping-' + type.shipping_id"
                   >
                     <span class="c-grey text-sm">{{ type.shipping_type }}</span>
                   </b-radio>
@@ -134,7 +136,11 @@
         <h2 class="font-bold f-montserrat c-black pt-4">Taxes</h2>
         <div class="w-full flex mt-4">
           <template v-if="taxes.length > 0">
-            <div v-for="tax in taxes" :key="tax.tax_id" class="w-1/2 flex justify-start flex-wrap">
+            <div
+              v-for="(tax, index) in taxes"
+              :key="tax.tax_id"
+              class="w-1/2 flex justify-start flex-wrap"
+            >
               <b-radio
                 class="mt-2"
                 type="is-danger"
@@ -144,6 +150,7 @@
                 data-vv-name="tax"
                 v-validate="'required'"
                 data-vv-scope="order"
+                :nm="'tax-' + index"
               >
                 <span class="c-grey text-sm">{{ tax.tax_type }}</span>
               </b-radio>
@@ -184,7 +191,7 @@
             <h5 class="f-montserrat font-bold c-grey mt-4">Address</h5>
             <p class="mt-4">{{ customer.address_1 }}</p>
             <h5 class="f-montserrat font-bold c-grey mt-4">Delivery options</h5>
-            <p class="mt-4">{{ checkout.shipping.shipping_type }}</p>
+            <p class="mt-4" nm="confirmShipping">{{ checkout.shipping.shipping_type }}</p>
           </div>
         </div>
         <div class="flex mt-4">
@@ -268,8 +275,7 @@ export default {
       required: true
     },
     regions: {
-      type: Array,
-      default: () => []
+      type: Array
     },
     taxes: {
       type: Array

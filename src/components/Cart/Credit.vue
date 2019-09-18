@@ -13,6 +13,7 @@
       size="large"
       type="filled-fuchsia"
       :loading="btnLoading"
+      nm="payWithCredit"
     >Pay with credit card</custom-button>
   </div>
 </template>

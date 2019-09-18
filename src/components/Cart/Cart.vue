@@ -63,6 +63,7 @@
                   <custom-button size="large" type="outlined-fuchsia">Delete All</custom-button>
                 </confirm>
                 <custom-button
+                  nm="openCheckout"
                   size="large"
                   type="filled-fuchsia"
                   class="ml-4"
@@ -81,6 +82,7 @@
                   type="filled-fuchsia"
                   class="ml-4"
                   @click.native="nextButton"
+                  nm="checkoutNext"
                 >Next</custom-button>
               </div>
             </template>
@@ -196,7 +198,8 @@ export default {
   },
   methods: {
     openCheckout() {
-      if (this.is_loggedin) {
+      const { is_loggedin, checkout } = this
+      if (is_loggedin) {
         checkout.active = true
       }else {
         EventBus.$emit('openLogin')

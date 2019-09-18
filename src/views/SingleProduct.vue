@@ -76,6 +76,7 @@
             </ul>
           </nav>
           <h1
+            nm="singleProductName"
             class="single-product__name f-montserrat font-bold mb-4"
             v-if="product.name"
           >{{ product.name }}</h1>

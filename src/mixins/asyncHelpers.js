@@ -21,7 +21,7 @@ const constructNotification = (type, defaultMessage, override) => {
   let notification = {
     message: defaultMessage,
     type: type,
-    duration: 5000,
+    duration: 50000,
     position: 'is-bottom-right',
     hasIcon: true,
     iconPack: 'fas'
