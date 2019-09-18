@@ -7,7 +7,12 @@ module.exports = {
       new HtmlWebpackPlugin(),
       new PreloadWebpackPlugin({
         rel: 'preload',
-        as: 'script'
+        as(entry) {
+          if (/\.css$/.test(entry)) return 'style'
+          if (/\.woff$/.test(entry)) return 'font'
+          if (/\.png$/.test(entry)) return 'image'
+          return 'script'
+        }
       })
     ]
   },
