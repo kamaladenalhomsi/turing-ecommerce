@@ -1,6 +1,6 @@
 // Buefy and Bulma Sass
-@import 'bulma/bulma.sass';
-@import 'buefy/src/scss/buefy.scss';
+@import "./bulma/table.sass";
+@import "buefy/src/scss/buefy.scss";
 // Tailwindcss
 @tailwind base;
 
@@ -8,7 +8,7 @@
 
 @tailwind utilities;
 
-@import 'fonts';
-@import 'variables';
-@import 'extends';
-@import 'globals';
+@import "fonts";
+@import "variables";
+@import "extends";
+@import "globals";

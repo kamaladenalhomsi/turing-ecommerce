@@ -1,20 +1,10 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const PreloadWebpackPlugin = require('preload-webpack-plugin')
+const PreloadWebpackPlugin = require('@vue/preload-webpack-plugin')
 
 module.exports = {
-  configureWebpack: {
-    plugins: [
-      new HtmlWebpackPlugin(),
-      new PreloadWebpackPlugin({
-        rel: 'preload',
-        as(entry) {
-          if (/\.css$/.test(entry)) return 'style'
-          if (/\.woff$/.test(entry)) return 'font'
-          if (/\.png$/.test(entry)) return 'image'
-          return 'script'
-        }
-      })
-    ]
+  chainWebpack: config => {
+    config.plugin('preload').tap(options => {
+      options[0].rel = 'preload'
+    })
   },
   pwa: {
     // configure the workbox plugin

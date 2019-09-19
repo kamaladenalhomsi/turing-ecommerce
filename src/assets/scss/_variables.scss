@@ -1,4 +1,4 @@
-@import 'bulma/sass/utilities/_all.sass';
+@import "bulma/sass/utilities/_all.sass";
 // Typography Colors
 $typoColorBlack: #2e2e2e;
 $typeColorGray: #6c6c6c;
@@ -17,10 +17,10 @@ $docColorLemon: #effc90;
 $docColorWhite: #ffffff;
 $paginationNavColor: #efefef;
 // Fonts
-$playFair: 'Playfair Display', serif;
-$montserrat: 'Montserrat', sans-serif;
-$openSans: 'Open Sans', sans-serif;
-$fa-font-path: '../fonts/webfonts';
+$playFair: "Playfair Display", serif;
+$montserrat: "Montserrat", sans-serif;
+$openSans: "Open Sans", sans-serif;
+$fa-font-path: "../fonts/webfonts";
 
 // Footer
 $footerIconRatio: 40px;
@@ -32,6 +32,7 @@ $purple: #673ab7;
 
 // Ovveride Bulma
 $dropdown-item-hover-background-color: transparent;
+$dropdown-item-hover-color: intial;
 $button-hover-border-color: inital;
 $button-text-hover-color: inital;
 $button-focus-color: inital;
@@ -51,56 +52,58 @@ $dropdown-content-arrow: $docColorFuchsia;
 $link: $docColorFuchsia;
 $input-border-color: #707070;
 $custom-colors: (
-  'Yellow': $warning,
-  'White': #f7f7f7,
-  'Black': $black,
-  'Red': $danger,
-  'Orange': $orange,
-  'Green': $green,
-  'Blue': $info,
-  'Indigo': $indigo,
-  'Purple': $purple
+  "Yellow": $warning,
+  "White": #f7f7f7,
+  "Black": $black,
+  "Red": $danger,
+  "Orange": $orange,
+  "Green": $green,
+  "Blue": $info,
+  "Indigo": $indigo,
+  "Purple": $purple
 );
+$input-radius: $radius;
+$body-color: $text;
 
 $colors: mergeColorMaps(
   (
-    'white': (
+    "white": (
       $white,
       $black
     ),
-    'black': (
+    "black": (
       $black,
       $white
     ),
-    'light': (
+    "light": (
       $light,
       $light-invert
     ),
-    'dark': (
+    "dark": (
       $dark,
       $dark-invert
     ),
-    'primary': (
+    "primary": (
       $primary,
       $primary-invert
     ),
-    'link': (
+    "link": (
       $link,
       $link-invert
     ),
-    'info': (
+    "info": (
       $info,
       $info-invert
     ),
-    'success': (
+    "success": (
       $success,
       $success-invert
     ),
-    'warning': (
+    "warning": (
       $warning,
       $warning-invert
     ),
-    'danger': (
+    "danger": (
       $danger,
       $danger-invert
     )
