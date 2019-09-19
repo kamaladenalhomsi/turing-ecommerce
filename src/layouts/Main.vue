@@ -150,11 +150,11 @@
 import { ContentLoader } from 'vue-content-loader'
 import NavbarDropdown from '@/components/Navbar/NavbarDropdown.vue'
 import Footer from '@/components/Footer/Footer.vue'
-import AuthTemp from '@/components/Authentication/AuthTemp.vue'
 import TopLevelHeader from '@/components/Navbar/TopLevelHeader.vue'
-import Cart from '@/components/Cart/Cart.vue'
 import EventBus from '@/eventBus.js'
 import { mapGetters } from 'vuex'
+const Cart = () => import(/* webpackPrefetch: true */'@/components/Cart/Cart.vue')
+const AuthTemp = () => import(/* webpackPrefetch: true */'@/components/Authentication/AuthTemp.vue')
 
 export default {
   name: 'main-layout',

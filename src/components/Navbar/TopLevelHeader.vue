@@ -253,10 +253,11 @@
 </style>
 
 <script>
-import AuthTemp from '@/components/Authentication/AuthTemp.vue'
 import { VFBLogin as VFacebookLogin } from 'vue-facebook-login-component'
 import EventBus from '@/eventBus'
 import { mapGetters } from 'vuex'
+const AuthTemp = () => import(/* webpackPrefetch: true */'@/components/Authentication/AuthTemp.vue')
+
 export default {
   components: {
     AuthTemp,

@@ -138,8 +138,9 @@
 <script>
 import { mapGetters } from 'vuex'
 import CartTable from './CartTable.vue'
-import Checkout from './Checkout.vue'
 import EventBus from '@/eventBus'
+const Checkout = () => import(/* webpackPrefetch: true */'./Checkout.vue')
+
 export default {
   name: 'cart',
   components: {

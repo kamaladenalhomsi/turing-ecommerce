@@ -261,8 +261,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Credit from '@/components/Cart/Credit.vue'
 import { createToken } from 'vue-stripe-elements-plus'
+const Credit = () => import(/* webpackPrefetch: true */'@/components/Cart/Credit.vue')
 
 export default {
   name: 'checkout',
