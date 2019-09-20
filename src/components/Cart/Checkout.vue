@@ -69,6 +69,32 @@
               >{{ option.shipping_region }}</option>
             </b-select>
           </b-field>
+          <b-field
+            class="custom-input w-full md:w-1/2 pr-4"
+            :message="server_errors['city'] || errors.first(`${addressScope}.city`)"
+            :type="server_errors['city'] || errors.has(`${addressScope}.city`) ? 'is-danger' : ''"
+          >
+            <b-input
+              :data-vv-scope="addressScope"
+              v-model="customer.city"
+              data-vv-name="city"
+              placeholder="City"
+              v-validate="'required'"
+            ></b-input>
+          </b-field>
+          <b-field
+            class="custom-input w-full md:w-1/2 pr-4"
+            :message="server_errors['postal_code'] || errors.first(`${addressScope}.postal_code`)"
+            :type="server_errors['postal_code'] || errors.has(`${addressScope}.postal_code`) ? 'is-danger' : ''"
+          >
+            <b-input
+              :data-vv-scope="addressScope"
+              v-model="customer.postal_code"
+              data-vv-name="postal_code"
+              placeholder="Postal Code"
+              v-validate="'required'"
+            ></b-input>
+          </b-field>
           <custom-button
             nm="updateAddressCheckout"
             class="mt-4"
@@ -327,7 +353,10 @@ export default {
     async validateAll() {
       // Check for validation
       let vaild = await this.$validator.validateAll('order')
-      return vaild
+      return {
+        vaild,
+        address: this.addressScope === 'order' ? true : false
+      }
     },
     async createOrder() {
       this.checkout.loading = true

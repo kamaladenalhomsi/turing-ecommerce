@@ -43,7 +43,7 @@
         <div class="cart-modal__footer mt-8">
           <div
             v-if="!checkout.active"
-            class="w-10/12 h-full mx-auto flex-col-reverse flex-wrap md:flex-no-wrap flex items-center"
+            class="w-10/12 h-full mx-auto md:flex-row flex-col-reverse flex-wrap md:flex-no-wrap flex items-center"
           >
             <div class="w-full py-4 md:w-1/2 flex justify-center md:justify-start">
               <custom-button
@@ -215,9 +215,9 @@ export default {
     },
     async nextButton() {
       const { checkout } = this
-      let vaild = await this.$refs.checkout.validateAll()
+      let { vaild, address } = await this.$refs.checkout.validateAll()
       if (vaild) {
-        this.$refs.checkout.update()
+        if (address) this.$refs.checkout.update()
         checkout.tab++
       }
     },

@@ -55,12 +55,10 @@
 </template>
 
 <style lang="scss">
-
 // Wrapper
 .wrapper {
   padding-top: 80px
 }
-
 .navbar-header {
   position: fixed;
   left: 0;
@@ -79,12 +77,10 @@
     }
   }
 }
-
 .navbar-menu {
   position: relative;
   background-color: transparent;
 }
-
 // Navbar Item
 .navbar-item {
   height: 100%;
@@ -104,15 +100,12 @@
     background-color: $docColorWhite !important;
   }
 }
-
 .navbar-start {
   display: flex;
   height: 100%;
   align-items: center;
 }
-
 // Main Footer
-
 .main-footer {
   background-color: $docColorBlack;
   width: 100%;
@@ -137,13 +130,11 @@
     }
   }
 }
-
 .search-input {
   input {
     background-color: rgba(255, 255, 255, 0.9)
   }
 }
-
 </style>
 
 <script>
@@ -155,7 +146,6 @@ import EventBus from '@/eventBus.js'
 import { mapGetters } from 'vuex'
 const Cart = () => import(/* webpackPrefetch: true */'@/components/Cart/Cart.vue')
 const AuthTemp = () => import(/* webpackPrefetch: true */'@/components/Authentication/AuthTemp.vue')
-
 export default {
   name: 'main-layout',
   components: {
@@ -211,9 +201,9 @@ export default {
       } else {
         if (mq.matches)
           // Media query matched
-          document.querySelector('.navbar-header').style.transform = 'translate(0px, 0px)'
-        else
           document.querySelector('.navbar-header').style.transform = 'translate(0px, -32px)'
+        else
+          document.querySelector('.navbar-header').style.transform = 'translate(0px, -0px)'
       }
     }
   },
