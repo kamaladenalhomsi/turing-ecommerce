@@ -213,7 +213,7 @@ export default {
           // Media query matched
           document.querySelector('.navbar-header').style.transform = 'translate(0px, 0px)'
         else
-          document.querySelector('.navbar-header').style.transform = 'translate(0px, 0px)'
+          document.querySelector('.navbar-header').style.transform = 'translate(0px, -32px)'
       }
     }
   },
