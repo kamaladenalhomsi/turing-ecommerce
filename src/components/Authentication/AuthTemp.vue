@@ -14,6 +14,7 @@
       </div>
     </b-modal>
     <custom-button
+      :class="{'mr-4': small_screen}"
       @click.native="$emit('open')"
       type="filled-fuchsia"
       :size="openBtnSize"
@@ -45,6 +46,7 @@
 </style>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   props: {
     title: {
@@ -63,6 +65,11 @@ export default {
       type: Boolean,
       required: true
     }
+  },
+  computed: {
+    ...mapGetters({
+      small_screen: 'GET_SMALL_SCREEN'
+    })
   },
   mounted() {
     this.$refs.modal.close = () => {

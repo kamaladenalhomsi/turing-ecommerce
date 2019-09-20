@@ -1,11 +1,10 @@
-const PreloadWebpackPlugin = require('@vue/preload-webpack-plugin')
-
 module.exports = {
   chainWebpack: config => {
     config.plugin('preload').tap(options => {
       options[0].rel = 'preload'
     })
   },
+  productionSourceMap: false,
   pwa: {
     // configure the workbox plugin
     workboxPluginMode: 'InjectManifest',

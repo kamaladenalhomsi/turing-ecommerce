@@ -1,12 +1,12 @@
 <template>
-  <div class="top-level-header py-8 lg:py-0 top-level-header-min-h">
+  <div class="top-level-header py-4 md:py-8 lg:py-0 top-level-header-min-h">
     <div class="container flex flex-wrap top-level-header-min-h">
       <div
         nm="topLevelHeader"
-        class="w-full top-level-header-min-h justify-center lg:justify-start lg:w-1/3 flex flex items-center py-4 lg:py-0"
+        class="w-full md:flex-no-wrap flex-wrap top-level-header-min-h justify-center lg:justify-start lg:w-1/3 flex flex items-center py-4 lg:py-0"
       >
         <template v-if="!loggedin">
-          <h4 class="mr-4 f-Montserrat font-bold c-white">Hi!</h4>
+          <h4 class="mr-4 f-Montserrat font-bold c-white" v-if="!small_screen">Hi!</h4>
           <!-- SignUp -->
           <auth-temp
             class="signup-modal"
@@ -51,7 +51,7 @@
               <b-input
                 v-model="signup.user.password"
                 ref="password"
-                data-vv-name="password"
+                name="password"
                 data-vv-scope="signup"
                 type="password"
                 placeholder="Password"
@@ -64,9 +64,10 @@
               :type="errors.first('signup.password_confirmation') ? 'is-danger' : ''"
             >
               <b-input
-                v-validate="'required|confirmed:password'"
-                data-vv-name="password_confirmation"
+                v-validate="'confirmed:password'"
+                name="password_confirmation"
                 type="password"
+                data-vv-scope="signup"
                 placeholder="Re-type password"
                 data-vv-as="password"
               ></b-input>
@@ -93,7 +94,7 @@
               >Sign In</a>
             </div>
           </auth-temp>
-          <h4 class="ml-4 mr-4 f-Montserrat font-bold c-white">or</h4>
+          <h4 class="ml-4 mr-4 f-Montserrat font-bold c-white" v-if="!small_screen">or</h4>
           <!-- Login -->
           <auth-temp
             class="login-modal"
@@ -154,7 +155,10 @@
           </auth-temp>
         </template>
         <template v-else>
-          <h4 class="mr-4 f-Montserrat font-bold c-white" nm="customerName">Hi! {{ customer.name }}</h4>
+          <h4
+            class="mr-4 text-center md:mb-0 mb-4 f-Montserrat font-bold c-white w-full md:w-auto"
+            nm="customerName"
+          >Hi! {{ customer.name }}</h4>
           <router-link
             :to="{name: 'profile'}"
             nm="profile-link"
@@ -294,10 +298,12 @@ export default {
       customer: 'customer/GET_CUSTOMER',
       cart_count: 'cart/GET_CART_COUNT',
       cart_id: 'cart/GET_CART_ID',
-      cart_total_amount: 'cart/GET_CART_TOTAL_AMOUNT'
+      cart_total_amount: 'cart/GET_CART_TOTAL_AMOUNT',
+      small_screen: 'GET_SMALL_SCREEN'
     })
   },
   created() {
+    console.log(this.small_screen, 'small_screen')
     this.$store.dispatch('cart/getTotalAmount', {
       cart_id: this.cart_id
     })

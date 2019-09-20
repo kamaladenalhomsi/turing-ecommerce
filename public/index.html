@@ -8,14 +8,14 @@
       content="height=device-height, 
     width=device-width, initial-scale=1.0, 
     minimum-scale=1.0, maximum-scale=1.0, 
-    user-scalable=no, target-densitydpi=device-dpi"
+    user-scalable=no"
     />
     <link rel="manifest" href="manifest.json" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="apple-mobile-web-app-title" content="Turing Ecommerce" />
     <link
-      rel="preload"
+      rel="prefetch"
       href="<%= BASE_URL %>static/fontawesome/all.min.css"
       as="style"
       onload="this.rel='stylesheet'"
@@ -27,6 +27,12 @@
       type="text/css"
       media="screen and (max-width: 1024px)"
       href="<%= BASE_URL %>static/responsive-1024.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen and (max-width: 425px)"
+      href="<%= BASE_URL %>static/responsive-425.css"
     />
     <link
       rel="stylesheet"

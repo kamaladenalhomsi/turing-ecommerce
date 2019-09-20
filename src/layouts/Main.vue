@@ -67,7 +67,7 @@
   right: 0;
   top: 50px;
   background-color: $docColorFuchsia;
-  @extend .transition;
+  transition: .2s;
   // Logo
   &__logo {
     letter-spacing: 9px;
@@ -228,6 +228,11 @@ export default {
     }
   },
   async created () {
+    // Detect if window resized
+    window.onresize = () => {
+      this.$store.commit('UPDATE_SCREEN')
+    }
+    // Generate cart id
     this.generateUniqueCartId()
     // Fetch All departments
     this.$_async_query({

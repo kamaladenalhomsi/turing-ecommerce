@@ -1,0 +1,43 @@
+.dropdown-component__dropdown .dropdown-menu .dropdown-content {
+  background-position-y: 0px !important;
+}
+
+.dropdown-component__dropdown .dropdown-menu {
+  width: 100% !important;
+}
+
+.navbar-item {
+  border-radius: 40px !important;
+}
+
+.attrs-sidebar__attrs__section {
+  width: 90%;
+}
+
+.cart-modal .modal-content {
+  max-width: 400px !important;
+}
+
+.cart-modal__wrapper {
+  min-width: 300px !important;
+  width: 100% !important;
+  min-height: 600px !important;
+}
+
+.cart-modal__footer {
+  bottom: -25px !important;
+}
+
+.checkout-steper .step-items .step-item:last-child::before {
+  display: none !important;
+}
+
+.checkout-steper .step-items .step-item:last-child {
+  margin-top: 20px !important;
+}
+
+.null-search {
+  font-size: 16px;
+  margin: 0px auto 50px auto;
+  width: 80% !important;
+}

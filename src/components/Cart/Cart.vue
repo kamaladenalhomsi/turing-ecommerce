@@ -40,52 +40,56 @@
             v-else
           ></checkout>
         </div>
-        <div class="cart-modal__footer mt-8" v-if="checkout.tab !== 3">
-          <div class="w-10/12 h-full mx-auto flex items-center">
-            <template v-if="!checkout.active">
-              <div class="w-1/2 flex justify-start">
-                <custom-button
-                  size="large"
-                  type="filled-white"
-                  @click.native="$emit('close')"
-                >Back to shop</custom-button>
-              </div>
-              <div class="w-1/2 flex justify-end" v-if="cart_count > 0 && activeTab === 0">
-                <confirm
-                  nm="deleteAllCart"
-                  title="Delete Cart"
-                  message="Are you sure you want to delete all items in your cart ?"
-                  cancelText="Cancel"
-                  confirmText="Yes, Delete"
-                  type="is-danger"
-                  @accept="removeAllCart"
-                >
-                  <custom-button size="large" type="outlined-fuchsia">Delete All</custom-button>
-                </confirm>
-                <custom-button
-                  nm="openCheckout"
-                  size="large"
-                  type="filled-fuchsia"
-                  class="ml-4"
-                  @click.native="openCheckout"
-                >Checkout</custom-button>
-              </div>
-            </template>
-            <template v-else>
-              <div class="w-1/2 flex justify-start">
-                <custom-button size="large" type="filled-white" @click.native="backButton">Back</custom-button>
-              </div>
-              <div class="w-1/2 flex justify-end" v-if="cart_count > 0 && activeTab === 0">
-                <custom-button
-                  v-if="checkout.tab < 2"
-                  size="large"
-                  type="filled-fuchsia"
-                  class="ml-4"
-                  @click.native="nextButton"
-                  nm="checkoutNext"
-                >Next</custom-button>
-              </div>
-            </template>
+        <div class="cart-modal__footer mt-8">
+          <div
+            v-if="!checkout.active"
+            class="w-10/12 h-full mx-auto flex-col-reverse flex-wrap md:flex-no-wrap flex items-center"
+          >
+            <div class="w-full py-4 md:w-1/2 flex justify-center md:justify-start">
+              <custom-button
+                size="large"
+                type="filled-white"
+                @click.native="$emit('close')"
+              >Back to shop</custom-button>
+            </div>
+            <div
+              class="w-full md:w-1/2 flex pt-4 justify-center md:justify-end"
+              v-if="cart_count > 0 && activeTab === 0"
+            >
+              <confirm
+                nm="deleteAllCart"
+                title="Delete Cart"
+                message="Are you sure you want to delete all items in your cart ?"
+                cancelText="Cancel"
+                confirmText="Yes, Delete"
+                type="is-danger"
+                @accept="removeAllCart"
+              >
+                <custom-button size="large" type="outlined-fuchsia">Delete All</custom-button>
+              </confirm>
+              <custom-button
+                nm="openCheckout"
+                size="large"
+                type="filled-fuchsia"
+                class="ml-4"
+                @click.native="openCheckout"
+              >Checkout</custom-button>
+            </div>
+          </div>
+          <div v-else class="w-10/12 cart-modal__next_back h-full mx-auto flex items-center">
+            <div class="w-full md:w-1/2 flex justify-start" v-if="checkout.tab !== 3">
+              <custom-button size="large" type="filled-white" @click.native="backButton">Back</custom-button>
+            </div>
+            <div class="w-full md:w-1/2 flex justify-end" v-if="cart_count > 0 && activeTab === 0">
+              <custom-button
+                v-if="checkout.tab < 2"
+                size="large"
+                type="filled-fuchsia"
+                class="ml-0 md:ml-4"
+                @click.native="nextButton"
+                nm="checkoutNext"
+              >Next</custom-button>
+            </div>
           </div>
         </div>
       </div>
@@ -107,6 +111,9 @@
 
 <style lang="scss" scoped>
 .cart-modal {
+  &__next_back {
+    min-height: 90px
+  }
   &__wrapper {
     position: relative;
     background-color: #ffffff;
@@ -126,7 +133,7 @@
   }
   &__footer {
     width: 100%;
-    height: 90px;
+    min-height: 90px;
     background-color: #EFEFEF;
     position: absolute;
     bottom: 0;
@@ -210,6 +217,7 @@ export default {
       const { checkout } = this
       let vaild = await this.$refs.checkout.validateAll()
       if (vaild) {
+        this.$refs.checkout.update()
         checkout.tab++
       }
     },

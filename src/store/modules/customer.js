@@ -25,6 +25,9 @@ const mutations = {
     state.token = token
   },
   SET_CUSTOMER(state, customer) {
+    if (!customer.country) {
+      customer.country = ''
+    }
     localStorage.setItem('customer', JSON.stringify(customer))
     state.info = customer
   },

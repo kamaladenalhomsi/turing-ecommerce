@@ -75,6 +75,7 @@
         min-height: 250px;
         padding-bottom: 20px;
         background-repeat: no-repeat;
+        background-size: cover;
       }
     }
   }

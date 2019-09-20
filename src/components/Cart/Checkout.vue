@@ -12,12 +12,12 @@
         <div class="w-full flex flex-wrap mt-4">
           <b-field
             class="custom-input w-full md:w-1/2 pr-4"
-            :message="server_errors['address_1'] || errors.first(`address.address_1`)"
-            :type="server_errors['address_1'] || errors.has(`address.address_1`) ? 'is-danger' : ''"
+            :message="server_errors['address_1'] || errors.first(`${addressScope}.address_1`)"
+            :type="server_errors['address_1'] || errors.has(`${addressScope}.address_1`) ? 'is-danger' : ''"
           >
             <b-input
               v-model="customer.address_1"
-              data-vv-scope="address"
+              :data-vv-scope="addressScope"
               data-vv-name="address_1"
               placeholder="Address 1"
               v-validate="'required'"
@@ -25,11 +25,11 @@
           </b-field>
           <b-field
             class="custom-input w-full md:w-1/2 pr-4"
-            :message="server_errors['region'] || errors.first(`address.region`)"
-            :type="server_errors['region'] || errors.has(`address.region`) ? 'is-danger' : ''"
+            :message="server_errors['region'] || errors.first(`${addressScope}.region`)"
+            :type="server_errors['region'] || errors.has(`${addressScope}.region`) ? 'is-danger' : ''"
           >
             <b-input
-              data-vv-scope="address"
+              :data-vv-scope="addressScope"
               v-model="customer.region"
               data-vv-name="region"
               placeholder="Region"
@@ -38,24 +38,26 @@
           </b-field>
           <b-field
             class="custom-input w-full md:w-1/2 pr-4"
-            :message="server_errors['address_2'] || errors.first(`address.address_2`)"
-            :type="server_errors['address_2'] || errors.has(`address.address_2`) ? 'is-danger' : ''"
+            :message="server_errors['country'] || errors.first(`${addressScope}.country`)"
+            :type="server_errors['country'] || errors.has(`${addressScope}.country`) ? 'is-danger' : ''"
           >
             <b-input
-              data-vv-scope="address"
-              v-model="customer.address_2"
-              data-vv-name="address_2"
-              placeholder="Address 2"
+              :data-vv-scope="addressScope"
+              v-model="customer.country"
+              data-vv-name="country"
+              placeholder="Country"
               v-validate="'required'"
             ></b-input>
           </b-field>
           <b-field
-            class="custom-input w-full md:w-1/2 pr-4"
-            :message="server_errors['shipping_region'] || errors.first(`address.shipping_region`)"
-            :type="server_errors['shipping_region'] || errors.has(`address.shipping_region`) ? 'is-danger' : ''"
+            class="custom-input w-full md:w-1/2 pr-4 select-error"
+            :message="server_errors['shipping_region'] || errors.first(`${addressScope}.shipping_region_id`)"
+            :type="server_errors['shipping_region'] || errors.has(`${addressScope}.shipping_region_id`) ? 'is-danger' : ''"
           >
             <b-select
-              data-vv-scope="address"
+              :data-vv-scope="addressScope"
+              v-validate="'required|not_default_option'"
+              name="shipping_region_id"
               v-model="customer.shipping_region_id"
               class="custom-select"
               placeholder="Select a name"
@@ -78,12 +80,12 @@
           >Update</custom-button>
         </div>
         <h2 class="font-bold f-montserrat c-black mt-8">Shipping</h2>
-        <div class="w-full flex mt-4 checkout-steper__block pb-4">
+        <div class="w-full flex-wrap md:flex-no-wrap flex mt-4 checkout-steper__block pb-4">
           <template v-if="regions.length > 0">
             <div
               v-for="region in regions"
               :key="region.shipping_region_id"
-              class="w-1/2 flex justify-start flex-wrap"
+              class="w-1/2 md:mt-0 mt-4 flex justify-start flex-wrap"
             >
               <div class="w-full">{{ region.shipping_region }}</div>
               <ul v-if="region.types">
@@ -231,6 +233,13 @@
 </template>
 
 <style lang="scss">
+
+.select-error {
+  p {
+    margin-top: 15px;
+  }
+}
+
 .checkout-steper {
   .step-marker {
     i {
@@ -303,6 +312,15 @@ export default {
     customer() {
       // Clone customer data
       return JSON.parse(JSON.stringify(this.$store.getters['customer/GET_CUSTOMER']))
+    },
+    addressScope() {
+      if (this.customer.address_1 === null &&
+      this.customer.region === null &&
+      this.customer.country === '' &&
+      this.customer.shipping_region_id === 1) {
+        return 'order'
+      }
+      return 'address'
     }
   },
   methods: {
@@ -350,7 +368,7 @@ export default {
       })
     },
     async update() {
-      let isValid = await this.$validator.validateAll('address')
+      let isValid = await this.$validator.validateAll(this.addressScope)
       if (!isValid) return
       this.addressLoading = true
       await this.$_async_mutation({

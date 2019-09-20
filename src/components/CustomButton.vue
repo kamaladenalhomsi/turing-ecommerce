@@ -52,9 +52,7 @@
   background-color: $typoColorFuchsia;
   &:hover {
     background-color: transparent;
-    span {
-      color: $typoColorFuchsia;
-    }
+    color: $typoColorFuchsia !important;
   }
 }
 

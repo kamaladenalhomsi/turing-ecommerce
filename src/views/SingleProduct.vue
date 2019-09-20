@@ -1,8 +1,8 @@
 <template>
   <div class="container py-10">
     <div class="single-product">
-      <div class="w-full flex product-wrapper" nm="product-wrapper">
-        <div class="w-1/2 single-product__gallery">
+      <div class="w-full flex-wrap flex product-wrapper" nm="product-wrapper">
+        <div class="w-full md:w-1/2 single-product__gallery">
           <swiper :options="swiperOptionTop" class="gallery-top" ref="swiperTop">
             <swiper-slide class="flex justify-center items-center">
               <div class="single-product__gallery__img">
@@ -45,7 +45,7 @@
             </swiper-slide>
           </swiper>
         </div>
-        <div class="w-1/2 pl-10">
+        <div class="w-full md-0 mt-10 md:w-1/2 pl-10">
           <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
             <ul>
               <li class="breadcrumb__item">
@@ -134,7 +134,7 @@
               <div class="w-1/3">
                 <h3>Your Review</h3>
               </div>
-              <div class="w-3/4">
+              <div class="ml-4 w-3/4">
                 <b-field>
                   <b-input
                     v-model="newReview.review"
@@ -150,7 +150,7 @@
               <div class="w-1/3">
                 <h3>Over Rating</h3>
               </div>
-              <div class="w-3/4">
+              <div class="ml-4 w-3/4">
                 <star-rating
                   :star-size="30"
                   :rating="0"
@@ -203,7 +203,7 @@
   }
   &__button {
     height: 60px;
-    border-radius: 40px;
+    border-radius: 40px !important;
     padding-left: 50px !important;
     padding-right: 50px !important;
   }
@@ -419,7 +419,10 @@ export default {
           this.newReview.created_on = new Date(Date.now())
           this.newReview.name = this.$store.getters['customer/GET_CUSTOMER'].name
           this.reviews.unshift(this.newReview)
-        }
+        },
+        doneNtf: res => ({
+          message: 'Review has added successfully!'
+        })
       })
     },
     async addToCart() {

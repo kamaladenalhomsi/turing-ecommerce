@@ -16,7 +16,7 @@
           <h5 class="f-opensans review__time">{{ formatDistanceToNow(new Date(review.created_on)) }}</h5>
         </div>
       </div>
-      <div class="w-2/3 f-opensans flex items-center">{{ review.review }}</div>
+      <div class="w-2/3 f-opensans flex items-center md:mt-0 mt-10 md:ml-4 ml-4">{{ review.review }}</div>
     </div>
     <content-loader
       v-else

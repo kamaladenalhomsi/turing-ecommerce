@@ -13,9 +13,17 @@ Vuex.Store.prototype.$rest = restPaths
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: () => ({}),
-  getters: {},
-  mutations: {},
+  state: () => ({
+    smallScreen: window.matchMedia('(max-width: 768px)').matches
+  }),
+  getters: {
+    GET_SMALL_SCREEN: state => state.smallScreen
+  },
+  mutations: {
+    UPDATE_SCREEN(state) {
+      state.smallScreen = window.matchMedia('(max-width: 768px)').matches
+    }
+  },
   actions: {},
   modules: {
     // Modules

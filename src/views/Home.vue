@@ -7,7 +7,7 @@
         :total="products.total"
         v-model="products.pagination.currentPage"
       ></pagination-bar>
-      <div class="flex flex-wrap md:flex-no-wrap mt-10">
+      <div class="flex md:flex-row flex-col-reverse flex-wrap md:flex-no-wrap mt-10">
         <!-- Attrubites Sidebar -->
         <div class="w-full md:w-1/3">
           <attrs-sidebar :attributes="attributes"></attrs-sidebar>
@@ -75,7 +75,7 @@
             <b-field class="mb-0-important w-9/12">
               <b-input class="rounded-input" placeholder="Your e-mail here" icon="envelope" rounded></b-input>
             </b-field>
-            <custom-button class="newsletter__btn" type="filled-white">Subscribe</custom-button>
+            <custom-button class="newsletter__btn ml-2" type="filled-white">Subscribe</custom-button>
           </div>
         </div>
       </div>

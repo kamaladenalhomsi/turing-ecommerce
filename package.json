@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --report-json",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit -c jest.config.unit.js",
     "test:e2e": "vue-cli-service test:unit -c jest.config.e2e.js --detectOpenHandles"
@@ -45,6 +45,7 @@
     "preload-webpack-plugin": "^3.0.0-beta.4",
     "sass-loader": "^7.1.0",
     "tailwindcss": "^1.1.2",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "webpack-bundle-analyzer": "^3.5.0"
   }
 }

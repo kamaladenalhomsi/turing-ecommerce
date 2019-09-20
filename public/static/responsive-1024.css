@@ -3,5 +3,12 @@
 }
 .dropdown-component__dropdown .dropdown-menu .dropdown-content {
   background-position-y: -40px !important;
-  background-size: cover !important;
+}
+
+.container {
+  max-width: 900px !important;
+}
+
+.wrapper {
+  padding-top: 40px !important;
 }
